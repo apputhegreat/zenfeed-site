@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Zenfeed default mark: meditating figure, no background -->
+  <!-- head -->
+  <circle cx="64" cy="23" r="17" fill="#0a66c2"/>
+  <!-- upper body (arms) -->
+  <ellipse cx="64" cy="54" rx="38" ry="10" transform="rotate(-4 64 54)" fill="#4cbb17"/>
+  <!-- mid body (lap) -->
+  <ellipse cx="64" cy="79" rx="43" ry="11" transform="rotate(0 64 79)" fill="#ffce3a"/>
+  <!-- lower body (crossed legs) -->
+  <ellipse cx="64" cy="106" rx="48" ry="12" transform="rotate(4 64 106)" fill="#f97316"/>
+</svg>

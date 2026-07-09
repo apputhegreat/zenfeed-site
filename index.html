@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenfeed — Clean LinkedIn and X without quitting them</title>
+  <meta name="description" content="Zenfeed is a Chrome extension for cleaner professional feeds: local LinkedIn and X controls for promoted posts, suggestions, keywords, and AI-heavy content." />
+  <meta property="og:title" content="Zenfeed — Clean LinkedIn and X without quitting them" />
+  <meta property="og:description" content="Local feed control for LinkedIn and X: less noise, keyword filters, and a timed focus mode for AI-heavy content." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://apputhegreat.github.io/zenfeed-site/" />
+  <meta property="og:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
+  <meta property="og:image:width" content="1400" />
+  <meta property="og:image:height" content="560" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zenfeed — Clean LinkedIn and X without quitting them" />
+  <meta name="twitter:description" content="Local feed control for LinkedIn and X: less noise, keyword filters, and a timed focus mode for AI-heavy content." />
+  <meta name="twitter:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand:    #F4EFE6;
+      --sand-2:  #EDE6D8;
+      --sage:    #8FAF98;
+      --sage-2:  #C8DDD1;
+      --slate:   #7A9BB5;
+      --slate-2: #C5D8E8;
+      --stone:   #2E3240;
+      --muted:   #6B7280;
+      --warm:    #C4896F;
+      --white:   #FDFAF5;
+      --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--white);
+      color: var(--stone);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+      background: var(--sand);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: var(--sage-2);
+      opacity: 0.45;
+      top: -200px; right: -200px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: var(--slate-2);
+      opacity: 0.35;
+      bottom: -150px; left: -150px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--stone);
+      margin-bottom: 36px;
+    }
+
+    .hero-logo-text {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1,
+    .story-scene-0 h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--stone);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em,
+    .story-scene-0 h1 em { font-style: italic; color: var(--sage); }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    .cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--stone);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #1a1e2a;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(46,50,64,0.2);
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .btn-ghost:hover { color: var(--stone); }
+
+    /* MOBILE HERO — real static screenshot fallback shown only under 768px;
+       the scroll-hijack story below is desktop-only (see RESPONSIVE block). */
+    .mobile-hero { display: none; }
+
+    /* PRODUCT SHOT */
+    .product-shot {
+      margin-top: 64px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 48px 120px rgba(46,50,64,0.22), 0 8px 24px rgba(46,50,64,0.08);
+      border: 1px solid rgba(46,50,64,0.1);
+      max-width: 1200px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .ps-chrome { background: #E3E3E3; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
+    .ps-dots { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+    .ps-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .ps-dot-r { background: #FF5F57; }
+    .ps-dot-y { background: #FEBC2E; }
+    .ps-dot-g { background: #28C840; }
+    .ps-addr-bar { flex: 1; background: #fff; border-radius: 6px; padding: 5px 14px; font-size: 12px; color: #555; display: flex; align-items: center; gap: 6px; max-width: 320px; margin: 0 auto; }
+    .ps-ext-icon { margin-left: auto; opacity: 0.7; flex-shrink: 0; }
+
+    .ps-viewport { display: flex; height: 520px; background: #f3f2ee; overflow: hidden; }
+
+    /* LinkedIn blurred */
+    .ps-li { flex: 1; overflow: hidden; position: relative; }
+    .ps-li-inner { width: 100%; height: 100%; filter: blur(1.8px); opacity: 0.5; }
+
+    .li-nav { background: #fff; border-bottom: 1px solid #e0d9d0; height: 52px; display: flex; align-items: center; padding: 0 12px; gap: 10px; }
+    .li-in { width: 32px; height: 32px; background: #0A66C2; border-radius: 4px; color: #fff; font-weight: 800; font-size: 18px; font-family: Georgia,serif; display: grid; place-items: center; flex-shrink: 0; }
+    .li-searchbar { background: #EEF3F8; border-radius: 4px; padding: 7px 12px; font-size: 12px; color: #888; width: 180px; flex-shrink: 0; }
+    .li-navbtns { display: flex; gap: 2px; margin-left: auto; }
+    .li-navbtn { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 10px; font-size: 9px; color: #666; }
+    .li-navbtn-icon { width: 20px; height: 20px; background: #ddd; border-radius: 50%; }
+
+    .li-content { display: flex; gap: 8px; padding: 8px; height: calc(100% - 52px); overflow: hidden; }
+    .li-sidebar { width: 176px; flex-shrink: 0; }
+    .li-profile-card { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; overflow: hidden; }
+    .li-cover { height: 44px; background: linear-gradient(135deg, #C5D8E8, #C8DDD1); }
+    .li-av { width: 44px; height: 44px; background: #C4896F; border-radius: 50%; margin: -22px auto 6px; border: 2px solid #fff; }
+    .li-uname { height: 9px; background: #ddd; margin: 4px 16px; border-radius: 3px; }
+    .li-usub { height: 7px; background: #eee; margin: 5px 24px 8px; border-radius: 3px; }
+    .li-ustats { padding: 8px 16px; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 5px; }
+    .li-stat { height: 7px; background: #eee; border-radius: 3px; }
+
+    .li-feed { flex: 1; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+    .li-postbox { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+    .li-po-av { width: 32px; height: 32px; background: #7A9BB5; border-radius: 50%; flex-shrink: 0; }
+    .li-po-input { flex: 1; border: 1px solid #c5c5c5; border-radius: 20px; padding: 7px 14px; font-size: 12px; color: #888; }
+
+    .zf-bar { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
+    .zf-bar-dot { width: 6px; height: 6px; border-radius: 50%; background: #8FAF98; flex-shrink: 0; }
+    .zf-bar-brand { font-size: 10px; font-weight: 700; color: #2E3240; background: #EDE6D8; padding: 2px 7px; border-radius: 3px; }
+    .zf-bar-txt { font-size: 12px; color: #666; flex: 1; }
+    .zf-bar-show { font-size: 11px; color: #0A66C2; font-weight: 500; }
+
+    .li-post { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; padding: 12px; flex: 1; overflow: hidden; }
+    .li-post-head { display: flex; gap: 8px; margin-bottom: 8px; }
+    .li-pa { width: 32px; height: 32px; background: #8FAF98; border-radius: 50%; flex-shrink: 0; }
+    .li-pinfo { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .li-pname { height: 8px; background: #ddd; width: 120px; border-radius: 3px; }
+    .li-ptitle { height: 7px; background: #eee; width: 180px; border-radius: 3px; }
+    .li-pline { height: 7px; background: #eee; margin-bottom: 5px; border-radius: 3px; }
+    .li-pline-short { width: 55%; }
+    .li-pimg { height: 90px; background: linear-gradient(135deg, #eee 0%, #ddd 100%); border-radius: 6px; margin-top: 8px; }
+
+    /* Zenfeed panel */
+    .ps-panel { width: 272px; flex-shrink: 0; background: #fff; border-left: 1px solid #d8d0c8; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; }
+    .pnl-head { background: linear-gradient(160deg, #C5D8E8 0%, #C8DDD1 50%, #EDE6D8 100%); padding: 14px 16px 10px; text-align: center; flex-shrink: 0; }
+    .pnl-art { margin-bottom: 6px; }
+    .pnl-brand { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--stone); }
+    .pnl-brand strong { font-weight: 600; }
+    .pnl-brand span { color: var(--muted); font-size: 11px; }
+    .pnl-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .pnl-zen { background: var(--sand); border-radius: 12px; padding: 12px; }
+    .pnl-hide { background: #fff; border: 1px solid rgba(46,50,64,0.08); border-radius: 12px; padding: 12px; }
+    .pnl-keywords { background: #fff; border: 1px solid rgba(46,50,64,0.08); border-radius: 12px; padding: 12px; }
+    .pnl-sec-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .pnl-zen-desc { font-size: 12px; color: var(--stone); margin-bottom: 8px; }
+    .pnl-timer-row { background: #fff; border-radius: 8px; padding: 8px 12px; font-size: 12px; display: flex; align-items: center; gap: 6px; margin-bottom: 8px; border: 1px solid rgba(46,50,64,0.08); }
+    .pnl-timer-lbl { color: var(--muted); }
+    .pnl-timer-count { color: var(--stone); font-weight: 600; flex: 1; }
+    .pnl-coins { font-size: 10px; background: #FEF3CD; color: #856404; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+    .pnl-stop-btn { width: 100%; background: #C0392B; color: #fff; border: none; border-radius: 8px; padding: 9px; font-size: 12px; font-weight: 600; cursor: default; font-family: var(--font-sans); }
+    .pnl-toggle-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+    .pnl-toggle-row + .pnl-toggle-row { border-top: 1px solid rgba(46,50,64,0.06); }
+    .pnl-toggle-info { flex: 1; min-width: 0; }
+    .pnl-toggle-title { font-size: 12px; font-weight: 500; color: var(--stone); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .pnl-toggle-desc { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .pnl-eye { font-size: 10px; background: var(--slate-2); color: var(--slate); padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+    .pnl-pill { width: 34px; height: 19px; border-radius: 100px; flex-shrink: 0; position: relative; background: #2563EB; }
+    .pnl-pill::after { content: ''; position: absolute; width: 13px; height: 13px; background: #fff; border-radius: 50%; top: 3px; right: 3px; }
+    .pnl-collapse-card { margin-top: 8px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 8px 10px; }
+    .pnl-collapse-row { display: flex; align-items: center; gap: 10px; }
+    .pnl-count-badge { background: var(--slate-2); color: var(--slate); font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 10px; letter-spacing: 0; }
+    .pnl-kw-row { display: flex; gap: 6px; margin-bottom: 8px; }
+    .pnl-kw-input { flex: 1; border: 1px solid rgba(46,50,64,0.15); border-radius: 8px; padding: 7px 10px; font-size: 11px; color: var(--muted); font-family: var(--font-sans); background: #fff; outline: none; }
+    .pnl-kw-add { background: var(--slate); color: #fff; border: none; border-radius: 8px; padding: 7px 12px; font-size: 11px; font-weight: 600; cursor: default; font-family: var(--font-sans); }
+    .pnl-kw-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .pnl-kw-tag { font-size: 10px; background: var(--sand-2); color: var(--stone); padding: 3px 8px; border-radius: 100px; border: 1px solid rgba(46,50,64,0.1); }
+
+    /* SECTION SHARED */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 16px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(32px,4vw,52px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--stone); margin-bottom: 20px; }
+    .section-desc { font-size: 18px; color: var(--muted); font-weight: 300; max-width: 540px; line-height: 1.7; }
+
+    /* FEATURES */
+    .features { background: var(--white); position: relative; overflow: hidden; }
+    .features::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: var(--sand-2); top: 50%; left: -250px; transform: translateY(-50%); opacity: 0.6; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; position: relative; z-index: 1; }
+
+    @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .feature-card { background: var(--white); border: 1px solid rgba(143,175,152,0.2); border-radius: 24px; padding: 28px 28px 36px; transition: transform 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(46,50,64,0.08); }
+    .feature-shot { border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(46,50,64,0.08); box-shadow: 0 8px 20px rgba(46,50,64,0.06); }
+    .feature-shot img { display: block; width: 100%; height: auto; }
+    .feature-geo { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin-bottom: 24px; }
+    .feature-geo.sage { background: var(--sage-2); }
+    .feature-geo.slate { background: var(--slate-2); }
+    .feature-geo.sand { background: var(--sand-2); }
+    .feature-geo.warm { background: #F0D9CF; }
+    .feature-geo.lavender { background: #E0D9F2; }
+    .feature-card h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 500; margin-bottom: 10px; color: var(--stone); }
+    .feature-card p { font-size: 15px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+    /* HOW IT WORKS */
+    .how { background: var(--sand); position: relative; overflow: hidden; }
+    .how::after { content: ''; position: absolute; width: 480px; height: 480px; border-radius: 50%; background: var(--slate-2); opacity: 0.4; bottom: -180px; right: -120px; }
+    .how-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .how-steps { display: flex; flex-direction: column; gap: 40px; position: relative; z-index: 1; }
+    .step { display: flex; gap: 20px; }
+    .step-num { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--white); display: grid; place-items: center; font-family: var(--font-serif); font-size: 16px; color: var(--sage); font-weight: 500; box-shadow: 0 2px 12px rgba(46,50,64,0.08); }
+    .step-text h3 { font-size: 17px; font-weight: 500; color: var(--stone); margin-bottom: 6px; }
+    .step-text p { font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.65; }
+    .how-visual { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
+    .geo-stack { position: relative; width: 320px; height: 320px; }
+    .geo-circle-1 { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: var(--sage-2); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .geo-circle-2 { position: absolute; width: 180px; height: 180px; border-radius: 50%; background: var(--slate-2); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .geo-circle-3 { position: absolute; width: 100px; height: 100px; border-radius: 50%; background: var(--sand); top: 50%; left: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; }
+
+    /* FOR WHO */
+    .who { background: var(--white); position: relative; overflow: hidden; }
+    .who::before { content: ''; position: absolute; width: 900px; height: 450px; border-radius: 50%; background: var(--sand-2); opacity: 0.5; top: -180px; right: -300px; }
+    .who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 56px; position: relative; z-index: 1; }
+    .who-card { background: var(--sand); border-radius: 20px; padding: 28px 24px; border: 1px solid rgba(143,175,152,0.15); }
+    .who-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .who-card h4 { font-size: 16px; font-weight: 500; color: var(--stone); margin-bottom: 6px; }
+    .who-card p { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+    /* FINAL CTA */
+    .cta-section { background: var(--stone); padding: 120px 40px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(143,175,152,0.2); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .cta-section::after { content: ''; position: absolute; width: 900px; height: 900px; border-radius: 50%; border: 1px solid rgba(143,175,152,0.1); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .cta-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
+    .cta-section h2 { font-family: var(--font-serif); font-size: clamp(36px,5vw,60px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 20px; }
+    .cta-section h2 em { font-style: italic; color: var(--sage-2); }
+    .cta-section p { font-size: 17px; color: rgba(253,250,245,0.6); font-weight: 300; margin-bottom: 48px; line-height: 1.7; }
+    .btn-light { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--stone); padding: 18px 40px; border-radius: 100px; text-decoration: none; font-size: 16px; font-weight: 500; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .btn-light:hover { background: var(--sage-2); transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+
+    /* FOOTER */
+    footer { background: var(--stone); border-top: 1px solid rgba(255,255,255,0.06); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: var(--font-serif); font-size: 18px; color: var(--white); font-weight: 400; text-decoration: none; }
+    .footer-text { font-size: 13px; color: rgba(253,250,245,0.4); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: rgba(253,250,245,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sage-2); }
+
+    /* ===== STORY SCROLL ===== */
+    .story-section {
+      height: 500vh;
+    }
+
+    .story-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .story-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      will-change: opacity;
+    }
+
+    /* Scene 0: hero + product combined */
+    .story-scene-0 {
+      background: var(--sand);
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+      opacity: 1;
+    }
+
+    .story-scene-0::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: var(--sage-2);
+      opacity: 0.45;
+      top: -200px; right: -200px;
+      pointer-events: none;
+    }
+
+    .story-scene-0::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: var(--slate-2);
+      opacity: 0.35;
+      bottom: -150px; left: -150px;
+      pointer-events: none;
+    }
+
+    .story-hero-text {
+      position: relative;
+      z-index: 2;
+      padding: 80px 40px 0;
+      margin-bottom: 0;
+      will-change: opacity;
+    }
+
+    .story-product-frame {
+      position: relative;
+      z-index: 1;
+      will-change: transform, border-radius, box-shadow;
+      transform-origin: center top;
+    }
+
+    /* cap viewport height so product fits below hero text */
+    .story-scene-0 .ps-viewport { height: clamp(240px, calc(100vh - 400px), 520px); }
+
+    /* Scenes 1-3: full-screen feature pages */
+    .story-scene-1 { background: var(--stone); }
+    .story-scene-2 { background: var(--sage); }
+    .story-scene-3 { background: var(--sand-2); }
+
+    .story-page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1100px;
+      width: 100%;
+      padding: 0 60px;
+    }
+
+    .story-page-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .story-scene-1 .story-page-label { color: var(--sage-2); }
+    .story-scene-2 .story-page-label { color: rgba(46,50,64,0.6); }
+    .story-scene-3 .story-page-label { color: var(--sage); }
+
+    .story-page h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .story-scene-1 .story-page h2 { color: var(--white); }
+    .story-scene-2 .story-page h2 { color: var(--stone); }
+    .story-scene-3 .story-page h2 { color: var(--stone); }
+
+    .story-page h2 em { font-style: italic; }
+    .story-scene-1 .story-page h2 em { color: var(--sage-2); }
+    .story-scene-2 .story-page h2 em { color: var(--stone); }
+    .story-scene-3 .story-page h2 em { color: var(--warm); }
+
+    .story-page p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .story-scene-1 .story-page p { color: rgba(253,250,245,0.65); }
+    .story-scene-2 .story-page p { color: rgba(46,50,64,0.7); }
+    .story-scene-3 .story-page p { color: var(--muted); }
+
+    .story-page-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Scene 1 visual: stacked zf-bars */
+    .story-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .story-bar-item {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .story-bar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+    .story-bar-brand { font-size: 11px; font-weight: 700; color: var(--white); background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; }
+    .story-bar-txt { font-size: 13px; color: rgba(255,255,255,0.5); flex: 1; }
+    .story-bar-count { font-size: 12px; font-weight: 600; color: var(--sage-2); }
+
+    /* Scene 2 visual: zen timer card */
+    .story-zen-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 24px 60px rgba(46,50,64,0.12);
+    }
+    .story-zen-icon { font-size: 36px; margin-bottom: 16px; }
+    .story-zen-title { font-family: var(--font-serif); font-size: 24px; color: var(--stone); margin-bottom: 8px; }
+    .story-zen-sub { font-size: 14px; color: var(--muted); font-weight: 300; margin-bottom: 24px; }
+    .story-zen-timer {
+      background: var(--sand);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .story-zen-timer-lbl { font-size: 13px; color: var(--muted); }
+    .story-zen-timer-val { font-size: 22px; font-weight: 600; font-family: var(--font-serif); color: var(--stone); flex: 1; text-align: right; }
+    .story-zen-btn { width: 100%; background: var(--stone); color: var(--white); border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 500; font-family: var(--font-sans); cursor: default; }
+
+    /* Scene 3 visual: keyword cloud */
+    .story-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 360px;
+    }
+    .story-kw {
+      font-size: 14px;
+      color: var(--stone);
+      background: var(--white);
+      border: 1px solid rgba(46,50,64,0.1);
+      border-radius: 100px;
+      padding: 8px 16px;
+      box-shadow: 0 2px 8px rgba(46,50,64,0.06);
+    }
+    .story-kw-add {
+      background: var(--stone);
+      color: var(--white);
+      border-radius: 100px;
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+
+    /* Progress dots */
+    .story-dots {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .story-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(143,175,152,0.35);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .story-dot.active {
+      background: var(--sage);
+      transform: scale(1.4);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section { padding: 80px 20px; }
+      .hero { padding: 80px 24px 64px; }
+      .how-layout { grid-template-columns: 1fr; gap: 48px; }
+      .how-visual { display: none; }
+      .product-shot { display: none; }
+      footer { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
+      .cta-section { padding: 80px 24px; }
+
+      /* Desktop scroll-hijack hero is replaced by a static mobile hero below */
+      .story-section { display: none; }
+      .mobile-hero {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        background: var(--sand);
+        padding: 56px 24px 40px;
+      }
+      .mobile-hero::before {
+        content: '';
+        position: absolute;
+        width: 420px; height: 420px;
+        border-radius: 50%;
+        background: var(--sage-2);
+        opacity: 0.45;
+        top: -160px; right: -160px;
+        pointer-events: none;
+      }
+      .mobile-hero::after {
+        content: '';
+        position: absolute;
+        width: 320px; height: 320px;
+        border-radius: 50%;
+        background: var(--slate-2);
+        opacity: 0.35;
+        bottom: -120px; left: -120px;
+        pointer-events: none;
+      }
+      .mobile-hero-inner { position: relative; z-index: 1; text-align: center; max-width: 520px; margin: 0 auto; }
+      .mobile-hero-shot {
+        margin-top: 32px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(46,50,64,0.1);
+        box-shadow: 0 24px 60px rgba(46,50,64,0.18), 0 6px 16px rgba(46,50,64,0.08);
+      }
+      .mobile-hero-shot img { display: block; width: 100%; height: auto; }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr !important; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE HERO — static fallback for narrow viewports. The scroll-hijack
+       story below (.story-section) is hidden under 768px because the
+       scroll-driven animation is desktop-appropriate but janky on mobile
+       scroll; this uses a real product screenshot instead. -->
+  <header class="mobile-hero">
+    <div class="mobile-hero-inner">
+      <a href="#" class="hero-logo">
+        <img src="icon-default.svg" width="36" height="36" alt="Zenfeed" />
+        <span class="hero-logo-text">Zenfeed</span>
+      </a>
+      <h1>Clean LinkedIn and X<br /><em>without quitting them.</em></h1>
+      <p class="hero-sub">
+        Zenfeed gives professionals local feed controls for promoted posts, suggestions, keywords, and AI-heavy content on LinkedIn and X.
+      </p>
+      <div class="cta-group">
+        <a href="#add-extension-mobile" class="btn-primary" id="add-extension-mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Add to Chrome — free
+        </a>
+        <a href="#features" class="btn-ghost">See what it does ↓</a>
+      </div>
+      <div class="mobile-hero-shot">
+        <img src="assets/screenshots/01-popup-overview.png" width="1280" height="800" alt="Zenfeed popup open over a LinkedIn feed, showing Promoted posts and Suggested posts toggles and a Rest from AI timer" />
+      </div>
+    </div>
+  </header>
+
+  <!-- STORY SCROLL (hero + scroll story combined) -->
+  <div class="story-section" id="storySection">
+    <div class="story-sticky">
+
+      <!-- Scene 0: hero text + product image — product expands on scroll -->
+      <div class="story-scene story-scene-0" id="storyScene0">
+
+        <!-- Hero text (fades as product grows) -->
+        <div class="hero-inner story-hero-text" id="storyHeroText">
+          <a href="#" class="hero-logo">
+            <img src="icon-default.svg" width="40" height="40" alt="Zenfeed" />
+            <span class="hero-logo-text">Zenfeed</span>
+          </a>
+          <h1>Clean LinkedIn and X<br /><em>without quitting them.</em></h1>
+          <p class="hero-sub">
+            Zenfeed gives professionals local feed controls for promoted posts, suggestions, keywords, and AI-heavy content on LinkedIn and X.
+          </p>
+          <div class="cta-group">
+            <a href="#add-extension" class="btn-primary" id="add-extension">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              Add to Chrome — free
+            </a>
+            <a href="#storySection" class="btn-ghost">See what it does ↓</a>
+          </div>
+        </div>
+
+        <div class="product-shot story-product-frame" id="storyProductFrame" style="margin-top:32px; flex-shrink:0">
+          <div class="ps-chrome">
+            <div class="ps-dots">
+              <span class="ps-dot ps-dot-r"></span>
+              <span class="ps-dot ps-dot-y"></span>
+              <span class="ps-dot ps-dot-g"></span>
+            </div>
+            <div class="ps-addr-bar">
+              <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><rect x="1" y="5" width="8" height="7" rx="1" stroke="#888" stroke-width="1.2"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5" stroke="#888" stroke-width="1.2" stroke-linecap="round"/></svg>
+              linkedin.com/feed/
+            </div>
+            <div class="ps-ext-icon">
+              <img src="icon-default.svg" width="16" height="16" alt="Zenfeed" />
+            </div>
+          </div>
+          <div class="ps-viewport">
+            <!-- LinkedIn (blurred) -->
+            <div class="ps-li">
+              <div class="ps-li-inner">
+                <div class="li-nav">
+                  <div class="li-in">in</div>
+                  <div class="li-searchbar">Search</div>
+                  <div class="li-navbtns">
+                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Home</span></div>
+                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Network</span></div>
+                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Jobs</span></div>
+                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Messaging</span></div>
+                  </div>
+                </div>
+                <div class="li-content">
+                  <div class="li-sidebar">
+                    <div class="li-profile-card">
+                      <div class="li-cover"></div>
+                      <div class="li-av"></div>
+                      <div class="li-uname"></div>
+                      <div class="li-usub"></div>
+                      <div class="li-ustats">
+                        <div class="li-stat"></div>
+                        <div class="li-stat" style="width:70%"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="li-feed">
+                    <div class="li-postbox">
+                      <div class="li-po-av"></div>
+                      <div class="li-po-input">Start a post</div>
+                    </div>
+                    <div class="zf-bar"><div class="zf-bar-dot"></div><span class="zf-bar-brand">Zenfeed</span><span class="zf-bar-txt">Keyword blocked</span><span class="zf-bar-show">show</span></div>
+                    <div class="zf-bar"><div class="zf-bar-dot"></div><span class="zf-bar-brand">Zenfeed</span><span class="zf-bar-txt">Keyword blocked</span><span class="zf-bar-show">show</span></div>
+                    <div class="zf-bar"><div class="zf-bar-dot"></div><span class="zf-bar-brand">Zenfeed</span><span class="zf-bar-txt">Keyword blocked</span><span class="zf-bar-show">show</span></div>
+                    <div class="li-post">
+                      <div class="li-post-head"><div class="li-pa"></div><div class="li-pinfo"><div class="li-pname"></div><div class="li-ptitle"></div></div></div>
+                      <div class="li-pline"></div>
+                      <div class="li-pline" style="width:85%"></div>
+                      <div class="li-pline li-pline-short"></div>
+                      <div class="li-pimg"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Zenfeed extension panel (clear) -->
+            <div class="ps-panel">
+              <div class="pnl-head">
+                <div class="pnl-art">
+                  <svg width="70" height="52" viewBox="0 0 80 60" fill="none">
+                    <ellipse cx="28" cy="52" rx="28" ry="16" fill="#8FAF98" opacity="0.7"/>
+                    <ellipse cx="62" cy="54" rx="22" ry="12" fill="#7A9BB5" opacity="0.6"/>
+                    <circle cx="62" cy="14" r="9" fill="#F4C97A"/>
+                    <circle cx="38" cy="36" r="8" fill="#C4896F" opacity="0.9"/>
+                    <ellipse cx="38" cy="47" rx="10" ry="5" fill="#C4896F" opacity="0.8"/>
+                    <circle cx="38" cy="27" r="5" fill="#E8B47A"/>
+                    <rect x="53" y="34" width="3" height="14" fill="#8B6914" rx="1"/>
+                    <circle cx="54.5" cy="30" r="8" fill="#8FAF98"/>
+                  </svg>
+                </div>
+                <div class="pnl-brand">
+                  <img src="icon-default.svg" width="16" height="16" alt="" />
+                  <strong>Zenfeed</strong>&nbsp;<span>LinkedIn &amp; X</span>
+                </div>
+              </div>
+              <div class="pnl-body">
+                <div class="pnl-zen">
+                  <div class="pnl-sec-label">REST FROM AI</div>
+                  <div class="pnl-zen-desc">Take a quiet break from AI content.</div>
+                  <div class="pnl-timer-row">
+                    <span class="pnl-timer-lbl">Resting —</span>
+                    <span class="pnl-timer-count">04:49 left</span>
+                    <span class="pnl-coins">&#x1FA99; 8</span>
+                  </div>
+                  <button class="pnl-stop-btn">&#x2296; Stop rest</button>
+                </div>
+                <div class="pnl-hide">
+                  <div class="pnl-sec-label">HIDE FROM FEED</div>
+                  <div class="pnl-toggle-row">
+                    <div class="pnl-toggle-info">
+                      <div class="pnl-toggle-title">Promoted posts <span class="pnl-eye">&#128065; 1</span></div>
+                      <div class="pnl-toggle-desc">Sponsored, promoted, and ad-labeled feed items</div>
+                    </div>
+                    <div class="pnl-pill"></div>
+                  </div>
+                  <div class="pnl-toggle-row">
+                    <div class="pnl-toggle-info">
+                      <div class="pnl-toggle-title">Suggested posts <span class="pnl-eye">&#128065; 2</span></div>
+                      <div class="pnl-toggle-desc">People you may know and recommended content</div>
+                    </div>
+                    <div class="pnl-pill"></div>
+                  </div>
+                  <div class="pnl-collapse-card">
+                    <div class="pnl-collapse-row">
+                      <div class="pnl-toggle-info">
+                        <div class="pnl-toggle-title"><strong>Collapse instead of remove</strong></div>
+                        <div class="pnl-toggle-desc">Shows a small bar — click it to restore a hidden post</div>
+                      </div>
+                      <div class="pnl-pill"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pnl-keywords">
+                  <div class="pnl-sec-label">BLOCK BY KEYWORD <span class="pnl-count-badge">25</span></div>
+                  <div class="pnl-kw-row">
+                    <input class="pnl-kw-input" type="text" placeholder="e.g. sales pitch" readonly />
+                    <button class="pnl-kw-add">Add</button>
+                  </div>
+                  <div class="pnl-kw-tags">
+                    <span class="pnl-kw-tag">engineering &#215;</span>
+                    <span class="pnl-kw-tag">sleep &#215;</span>
+                    <span class="pnl-kw-tag">completed &#215;</span>
+                    <span class="pnl-kw-tag">designer &#215;</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 1: Feed noise reduced -->
+      <div class="story-scene story-scene-1" id="storyScene1">
+        <div class="story-page">
+          <div class="story-page-text">
+            <div class="story-page-label">Less feed noise</div>
+            <h2>Promoted posts,<br /><em>quieted before you scroll.</em></h2>
+            <p>Sponsored, promoted, and suggested feed items are reduced locally, so LinkedIn and X feel more focused without changing how you use them.</p>
+          </div>
+          <div class="story-page-visual">
+            <div class="story-bars">
+              <div class="story-bar-item"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Sponsored · Microsoft</span><span class="story-bar-count">hidden</span></div>
+              <div class="story-bar-item"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Promoted · Salesforce</span><span class="story-bar-count">hidden</span></div>
+              <div class="story-bar-item"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Suggested for you</span><span class="story-bar-count">hidden</span></div>
+              <div class="story-bar-item" style="opacity:0.45;"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Promoted · Adobe</span><span class="story-bar-count">hidden</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 2: Zen mode -->
+      <div class="story-scene story-scene-2" id="storyScene2">
+        <div class="story-page">
+          <div class="story-page-text">
+            <div class="story-page-label">Zen mode</div>
+            <h2>AI noise,<br /><em>on a timer.</em></h2>
+            <p>Set a break from AI content — 5 minutes, an hour, or however long you need. Zenfeed steps aside when you're ready.</p>
+          </div>
+          <div class="story-page-visual">
+            <div class="story-zen-card">
+              <div class="story-zen-icon">&#127807;</div>
+              <div class="story-zen-title">Rest from AI</div>
+              <div class="story-zen-sub">AI-heavy content is hidden on LinkedIn and X</div>
+              <div class="story-zen-timer"><span class="story-zen-timer-lbl">Resting for</span><span class="story-zen-timer-val">04:49</span></div>
+              <button class="story-zen-btn">&#x2296;&nbsp; Stop rest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 3: Keywords -->
+      <div class="story-scene story-scene-3" id="storyScene3">
+        <div class="story-page">
+          <div class="story-page-text">
+            <div class="story-page-label">Your rules</div>
+            <h2>Block any<br /><em>word, forever.</em></h2>
+            <p>Type a word you're tired of. It never appears in your feed again — no delays, no page refreshes.</p>
+          </div>
+          <div class="story-page-visual">
+            <div class="story-keywords">
+              <span class="story-kw">hustle ×</span>
+              <span class="story-kw">grind ×</span>
+              <span class="story-kw">AI-generated ×</span>
+              <span class="story-kw">thought leader ×</span>
+              <span class="story-kw">pivot ×</span>
+              <span class="story-kw">synergy ×</span>
+              <span class="story-kw">disruption ×</span>
+              <span class="story-kw-add">+ Add keyword</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress dots -->
+      <div class="story-dots">
+        <div class="story-dot active" id="dot0"></div>
+        <div class="story-dot" id="dot1"></div>
+        <div class="story-dot" id="dot2"></div>
+        <div class="story-dot" id="dot3"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-inner">
+      <div class="section-label">What it does</div>
+      <h2 class="section-title">Less noise.<br />More intention.</h2>
+      <p class="section-desc">Five quiet controls that put you back in charge of what you see on LinkedIn and X.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-shot">
+            <img src="assets/screenshots/03-rest-from-ai.png" width="1280" height="800" alt="Zenfeed Rest from AI card showing a countdown timer and Stop rest button, with an AI content hidden bar in the feed" loading="lazy" />
+          </div>
+          <div class="feature-geo sage">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5A8C6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Zen mode for AI</h3>
+          <p>Take a timed break from AI-heavy LinkedIn and X content. Set 5 min, 1 hour, or longer — Zenfeed filters locally, then steps aside.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-shot">
+            <img src="assets/screenshots/01-popup-overview.png" width="1280" height="800" alt="Zenfeed popup with the Promoted posts toggle enabled and a count of 12 hidden items" loading="lazy" />
+          </div>
+          <div class="feature-geo slate">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A7090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Reduce promoted posts</h3>
+          <p>Sponsored, promoted, and ad-labeled feed items are reduced before they reach your scroll. Toggle once — Zenfeed works locally on LinkedIn and X page loads.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-shot">
+            <img src="assets/screenshots/05-x-home-support.png" width="1280" height="800" alt="Zenfeed running on the X home timeline with the Suggested posts toggle enabled" loading="lazy" />
+          </div>
+          <div class="feature-geo sand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Remove suggested posts</h3>
+          <p>Only see content from people you actually chose to follow. "People you may know" and algorithm-driven recommendations vanish from your feed.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-shot">
+            <img src="assets/screenshots/02-restore-bar.png" width="1280" height="800" alt="A collapsed Zenfeed restore bar reading Promoted / Sponsored with a show link" loading="lazy" />
+          </div>
+          <div class="feature-geo warm">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A05A40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <h3>Collapse, don't delete</h3>
+          <p>Hidden posts shrink to a slim bar instead of disappearing entirely. Click it any time to peek or restore — full control, no surprises, nothing lost forever.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-shot">
+            <img src="assets/screenshots/04-custom-keywords.png" width="1280" height="800" alt="Zenfeed Block by keyword panel with a keyword input and a Keyword blocked restore bar in the feed" loading="lazy" />
+          </div>
+          <div class="feature-geo lavender">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B52B0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+          <h3>Block by keyword</h3>
+          <p>Add any word or phrase you're tired of reading. Zenfeed catches every matching post on load — no delays, no page refreshes, no second chances for that word.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-inner">
+      <div class="how-layout">
+        <div>
+          <div class="section-label">How it works</div>
+          <h2 class="section-title">Three steps<br />to a calmer feed</h2>
+          <div class="how-steps" style="margin-top: 40px;">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <h3>Install the extension</h3>
+                <p>Add Zenfeed to Chrome in one click — no account, no sign-up, no tracking. It's just yours.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <h3>Set your preferences</h3>
+                <p>Toggle promoted posts, suggested posts, or AI-heavy content. Add keywords you want filtered out. Done in seconds.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <h3>Open LinkedIn or X</h3>
+                <p>Your feed loads with less noise on either supported site.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="how-visual">
+          <div class="geo-stack">
+            <div class="geo-circle-1"></div>
+            <div class="geo-circle-2"></div>
+            <div class="geo-circle-3">
+              <img src="icon-default.svg" width="52" height="52" alt="Zenfeed" style="opacity:0.85;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR WHO -->
+  <section class="who">
+    <div class="section-inner">
+      <div class="section-label">Who it's for</div>
+      <h2 class="section-title">Anyone who logs in<br />and leaves feeling worse</h2>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="icon">&#129368;</div>
+          <h4>The mindful scroller</h4>
+          <p>You want to stay connected — not bombarded. Zenfeed finds the balance.</p>
+        </div>
+        <div class="who-card">
+          <div class="icon">&#127919;</div>
+          <h4>The focused professional</h4>
+          <p>You check professional and social feeds for real connections, not brand campaigns and hot takes.</p>
+        </div>
+        <div class="who-card">
+          <div class="icon">&#129302;</div>
+          <h4>The AI-fatigued</h4>
+          <p>Not anti-AI — just done seeing it in every third post. A short Zen mode helps.</p>
+        </div>
+        <div class="who-card">
+          <div class="icon">&#127807;</div>
+          <h4>The intentional reader</h4>
+          <p>You want signal, not noise. Real voices from your actual network.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Start with<br /><em>a calmer feed</em></h2>
+      <p>Free to install. No account needed. Local controls for cleaner LinkedIn and X feeds while you scroll.</p>
+      <a href="#" class="btn-light">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Add Zenfeed to Chrome — free
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo" style="display:flex;align-items:center;gap:8px;">
+      <img src="icon-default.svg" width="24" height="24" alt="" style="filter:brightness(0) invert(1);opacity:0.7;" />
+      Zenfeed
+    </a>
+    <span class="footer-text">&copy; 2025 Zenfeed. Made for calmer feeds.</span>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var section   = document.getElementById('storySection');
+    var frame     = document.getElementById('storyProductFrame');
+    var heroText  = document.getElementById('storyHeroText');
+    var scenes    = [
+      document.getElementById('storyScene0'),
+      document.getElementById('storyScene1'),
+      document.getElementById('storyScene2'),
+      document.getElementById('storyScene3'),
+    ];
+    var dots = [
+      document.getElementById('dot0'),
+      document.getElementById('dot1'),
+      document.getElementById('dot2'),
+      document.getElementById('dot3'),
+    ];
+
+    if (!section || !frame) return;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+    var PHASES = [
+      [0.00, 0.22],  /* scene 0: product scales up */
+      [0.22, 0.48],  /* scene 1: ads */
+      [0.48, 0.74],  /* scene 2: zen */
+      [0.74, 1.00],  /* scene 3: keywords */
+    ];
+
+    /* Cache the product's natural center position (before any transform) */
+    var target = null;
+    function getTarget() {
+      if (target) return target;
+      var rect = frame.getBoundingClientRect();
+      var fw   = frame.offsetWidth;
+      var fh   = frame.offsetHeight;
+      var vw   = window.innerWidth;
+      var vh   = window.innerHeight;
+      var fcx  = rect.left + fw / 2;
+      var fcy  = rect.top  + fh / 2;
+      target = {
+        scale: Math.max(vw / fw, vh / fh),
+        tx: vw / 2 - fcx,
+        ty: vh / 2 - fcy,
+      };
+      return target;
+    }
+
+    /* Invalidate cache on resize */
+    window.addEventListener('resize', function () { target = null; });
+
+    var rafPending = false;
+
+    function update() {
+      var rect    = section.getBoundingClientRect();
+      var total   = section.offsetHeight - window.innerHeight;
+      var p       = clamp(-rect.top / total, 0, 1);
+
+      /* ── Scene 0: product grows from its natural hero position ── */
+      var scaleP  = ease(clamp(p / PHASES[0][1], 0, 1));
+      var t       = getTarget();
+      var sc      = lerp(1,    t.scale, scaleP);
+      var tx      = lerp(0,    t.tx,    scaleP);
+      var ty      = lerp(0,    t.ty,    scaleP);
+      var br      = lerp(14,   0,       scaleP);
+      var sh      = lerp(1,    0,       scaleP);
+      frame.style.transform    = 'translate(' + tx + 'px,' + ty + 'px) scale(' + sc + ')';
+      frame.style.borderRadius = br + 'px';
+      frame.style.boxShadow    = sh > 0.02
+        ? '0 ' + (48*sh) + 'px ' + (120*sh) + 'px rgba(46,50,64,' + (0.22*sh) + ')'
+        : 'none';
+
+      /* Hero text fades out in the first half of the scale phase */
+      if (heroText) heroText.style.opacity = clamp(1 - scaleP * 2.2, 0, 1);
+
+      /* ── Scene visibility ── */
+      scenes.forEach(function (sc, i) {
+        var ph   = PHASES[i];
+        var FADE = 0.06;
+        var fadeIn  = clamp((p - ph[0]) / FADE, 0, 1);
+        var fadeOut = i < scenes.length - 1
+          ? clamp((p - (ph[1] - FADE)) / FADE, 0, 1) : 0;
+        var op = i === 0
+          ? clamp(1 - clamp((p - (ph[1] - FADE)) / FADE, 0, 1), 0, 1)
+          : clamp(fadeIn - fadeOut, 0, 1);
+        sc.style.opacity = op;
+        if (i > 0) {
+          var tty = lerp(36, 0, ease(fadeIn)) - lerp(0, -36, ease(fadeOut));
+          sc.style.transform = 'translateY(' + tty + 'px)';
+        }
+      });
+
+      /* ── Progress dots ── */
+      var activeIdx = 0;
+      PHASES.forEach(function (ph, i) { if (p >= ph[0]) activeIdx = i; });
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === activeIdx); });
+
+      rafPending = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!rafPending) { rafPending = true; requestAnimationFrame(update); }
+    }, { passive: true });
+
+    update();
+  })();
+  </script>
+</body>
+</html>

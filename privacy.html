@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenfeed Privacy and Permissions</title>
+  <meta name="description" content="Zenfeed privacy and permissions information for the Chrome extension." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sage: #8faf98;
+      --blue: #0a66c2;
+      --sand: #f4efe6;
+      --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      padding: 70px 0 44px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--sage);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    main {
+      padding: 34px 0 72px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .summary-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .summary-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      margin-top: 16px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    p { margin: 0 0 14px; }
+
+    ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .muted { color: var(--muted); }
+
+    .permissions {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .permission-row {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fffdfa;
+    }
+
+    .permission-row strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      .summary { grid-template-columns: 1fr; }
+      section { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Privacy page navigation">
+        <a class="brand" href="index.html">
+          <img src="icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="#permissions">Permissions</a>
+          <a href="support.html">Support</a>
+        </div>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Privacy and permissions</p>
+        <h1>Zenfeed works locally in your browser.</h1>
+        <p class="intro">
+          Zenfeed is a Chrome extension for reducing feed noise on LinkedIn, X, and twitter.com.
+          This page explains what the extension can see, what it stores, and what it does not do.
+          For help, bug reports, or false-positive reports, visit the <a href="support.html">support page</a>.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="summary" aria-label="Privacy summary">
+      <div class="summary-card">
+        <strong>No account required</strong>
+        <span>You do not create a Zenfeed account to use the MVP.</span>
+      </div>
+      <div class="summary-card">
+        <strong>No cloud AI in MVP or V2</strong>
+        <span>Filtering rules run locally in the browser. Feed text is not sent to a cloud AI service.</span>
+      </div>
+      <div class="summary-card">
+        <strong>No feed export</strong>
+        <span>Zenfeed does not export, sell, or publish your feed content.</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>What Zenfeed does</h2>
+      <p>
+        Zenfeed reads supported feed surfaces in your browser and applies local rules to hide or collapse
+        matching feed items. Current supported surfaces are LinkedIn feed pages and X/twitter.com home
+        timelines. Current rules include promoted or ad labels, suggested content labels, custom keywords,
+        and the timed Rest from AI mode.
+      </p>
+      <p>
+        Zenfeed processes supported page content locally in your browser, including visible feed text,
+        short labels, image alt text, and accessibility labels, to decide whether a feed item matches
+        enabled filters.
+      </p>
+      <p class="muted">
+        In collapse mode, Zenfeed replaces a matched feed item with a small restore bar so you can show it again.
+      </p>
+    </section>
+
+    <section>
+      <h2>What Zenfeed does not do</h2>
+      <ul>
+        <li>No scraping or feed export.</li>
+        <li>No cloud AI processing in the MVP or planned V2 scope.</li>
+        <li>No account, login, or profile created with Zenfeed.</li>
+        <li>No messaging, commenting, liking, following, posting, or other social automation.</li>
+        <li>No backend service, analytics, tracking pixels, or remote rule sync in the MVP.</li>
+      </ul>
+      <p class="muted">
+        Zenfeed does not send, sell, rent, or share supported-page content, custom keywords,
+        extension settings, or local hidden-count state with the developer or any third party.
+      </p>
+    </section>
+
+    <section id="permissions">
+      <h2>Why Zenfeed needs permissions</h2>
+      <p>
+        Chrome extensions must ask for permission before reading or changing pages on specific websites.
+        Zenfeed asks only for the sites it currently supports and the extension APIs it uses.
+      </p>
+      <div class="permissions">
+        <div class="permission-row">
+          <strong>Host permissions for LinkedIn feed pages and X/twitter.com home timelines</strong>
+          <p class="muted">
+            Needed so Zenfeed can inspect feed items on the supported feed surfaces and hide or collapse
+            matches directly in the page. The extension does not use these permissions to scrape, export,
+            message, like, follow, or automate actions.
+          </p>
+        </div>
+        <div class="permission-row">
+          <strong>storage</strong>
+          <p class="muted">
+            Used to save your local settings, such as enabled filters, custom keywords, collapse mode,
+            Rest from AI timer state, and local hidden-count state.
+          </p>
+        </div>
+        <div class="permission-row">
+          <strong>alarms</strong>
+          <p class="muted">
+            Used to end Rest from AI at the selected time and update the toolbar badge countdown while that
+            temporary mode is active.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What is stored locally</h2>
+      <p>Zenfeed stores settings in <code>chrome.storage.local</code> on your device. This can include:</p>
+      <ul>
+        <li>Whether promoted/ad filtering is enabled.</li>
+        <li>Whether suggested-content filtering is enabled.</li>
+        <li>Your custom keyword list.</li>
+        <li>Collapse mode preference.</li>
+        <li>Rest from AI active state, end time, and selected duration.</li>
+        <li>Local hidden-count values used by the popup UI.</li>
+      </ul>
+      <p class="muted">
+        Zenfeed does not store a copy of your feed, your messages, your contacts, or your LinkedIn/X account credentials.
+        Local settings remain on your device until you change them, clear extension data, or remove the extension.
+      </p>
+    </section>
+
+    <section>
+      <h2>How to remove Zenfeed and its data</h2>
+      <ul>
+        <li>Open Chrome and go to <code>chrome://extensions</code>.</li>
+        <li>Find Zenfeed.</li>
+        <li>Choose Remove to uninstall the extension. Chrome removes the extension and its local extension storage.</li>
+        <li>If you loaded Zenfeed manually during testing, remove the unpacked extension from the same page.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Support</h2>
+      <p>
+        Visit the <a href="support.html">Zenfeed support page</a> for supported surfaces, troubleshooting steps,
+        and what to include in privacy-safe bug reports.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="index.html">
+          <img src="icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="support.html">Support</a>
+        </div>
+      </div>
+      <p>Last updated: July 9, 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>
