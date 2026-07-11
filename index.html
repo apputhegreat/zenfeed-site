@@ -3,19 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zenfeed — Take a break from AI on LinkedIn and X</title>
-  <meta name="description" content="Zenfeed is a Chrome extension with a timed Rest from AI mode for LinkedIn and X, plus local controls to clear out promoted posts, suggestions, and keyword noise." />
-  <meta property="og:title" content="Zenfeed — Take a break from AI on LinkedIn and X" />
-  <meta property="og:description" content="Rest from AI on a timer, and a cleaner feed the rest of the time — local controls for promoted posts, suggestions, and keywords." />
+  <title>Zenfeed — Take your LinkedIn and X feed back from AI</title>
+  <link rel="icon" type="image/svg+xml" href="icon-default.svg" />
+  <meta name="description" content="Zenfeed quietly filters the AI slop, ads, and suggestions on LinkedIn and X — rest from AI on a timer, and local controls the rest of the time. No accounts, nothing deleted." />
+  <meta property="og:title" content="Zenfeed — Take your LinkedIn and X feed back from AI" />
+  <meta property="og:description" content="Zenfeed quietly filters the AI slop, ads, and suggestions on LinkedIn and X — rest from AI on a timer, and local controls the rest of the time. No accounts, nothing deleted." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://apputhegreat.github.io/zenfeed-site/" />
   <meta property="og:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
   <meta property="og:image:width" content="1400" />
   <meta property="og:image:height" content="560" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Zenfeed — Take a break from AI on LinkedIn and X" />
-  <meta name="twitter:description" content="Rest from AI on a timer, and a cleaner feed the rest of the time — local controls for promoted posts, suggestions, and keywords." />
+  <meta name="twitter:title" content="Zenfeed — Take your LinkedIn and X feed back from AI" />
+  <meta name="twitter:description" content="Zenfeed quietly filters the AI slop, ads, and suggestions on LinkedIn and X — rest from AI on a timer, and local controls the rest of the time. No accounts, nothing deleted." />
   <meta name="twitter:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,9 +33,15 @@
       --stone:   #2E3240;
       --muted:   #6B7280;
       --warm:    #C4896F;
+      --warm-2:  #F0D9CF;
+      --gold:    #FFCE3A;
+      --gold-2:  #FDE9AE;
+      --gold-900: #4A3700;
+      --destructive: #B5533D;
+      --stone-hover: #1a1e2a;
       --white:   #FDFAF5;
-      --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --font-serif: ui-serif, Georgia, "Times New Roman", serif;
+      --font-sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -44,44 +54,32 @@
       overflow-x: hidden;
     }
 
-    /* HERO */
+    /* HERO — single column: content centered on top, live product demo below */
     .hero {
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: 80px 40px;
+      padding: 64px 40px;
       position: relative;
       overflow: hidden;
       background: var(--sand);
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 700px; height: 700px;
-      border-radius: 50%;
-      background: var(--sage-2);
-      opacity: 0.45;
-      top: -200px; right: -200px;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      background: var(--slate-2);
-      opacity: 0.35;
-      bottom: -150px; left: -150px;
-    }
-
     .hero-inner {
       position: relative;
       z-index: 1;
-      text-align: center;
-      max-width: 1250px;
+      max-width: 1360px;
+      width: 100%;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
     }
+
+    .hero-content { display: flex; flex-direction: column; align-items: center; min-width: 0; text-align: center; }
+
+    .hero-demo { min-width: 0; width: 100%; max-width: 1100px; }
 
     .hero-logo {
       display: flex;
@@ -100,10 +98,9 @@
       letter-spacing: -0.02em;
     }
 
-    .hero h1,
-    .story-scene-0 h1 {
+    .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(42px, 6vw, 72px);
+      font-size: clamp(38px, 4.2vw, 60px);
       font-weight: 400;
       line-height: 1.1;
       letter-spacing: -0.02em;
@@ -111,17 +108,35 @@
       margin-bottom: 24px;
     }
 
-    .hero h1 em,
-    .story-scene-0 h1 em { font-style: italic; color: var(--sage); }
+    .hero h1 em { font-style: italic; color: var(--sage); }
 
     .hero-sub {
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(16px, 1.4vw, 19px);
       color: var(--muted);
       font-weight: 300;
-      max-width: 520px;
-      margin: 0 auto 48px;
+      max-width: 560px;
+      margin: 0 auto 20px;
       line-height: 1.7;
     }
+
+    .hero-platforms {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto 32px;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .hero-platforms-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-platforms-icons svg { display: block; color: var(--stone); }
 
     .cta-group {
       display: flex;
@@ -146,7 +161,7 @@
     }
 
     .btn-primary:hover {
-      background: #1a1e2a;
+      background: var(--stone-hover);
       transform: translateY(-2px);
       box-shadow: 0 12px 32px rgba(46,50,64,0.2);
     }
@@ -161,110 +176,333 @@
 
     .btn-ghost:hover { color: var(--stone); }
 
+    /* ===== HERO DEMO — a live, faithful recreation of the actual product UI
+       (LinkedIn-layout feed + real zenfeed popup), not a stylized mockup.
+       Tokens below are the product's own (popup.css / content.css), kept
+       separate from the site's --sand/--sage/--stone palette on purpose —
+       this is the real extension's own visual identity, not page decor. */
+    @font-face {
+      font-family: "Poppins";
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+      src: url("fonts/poppins-400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Poppins";
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+      src: url("fonts/poppins-600.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Poppins";
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+      src: url("fonts/poppins-700.woff2") format("woff2");
+    }
+
+    .hero-demo {
+      --primary: #1677d2;
+      --primary-hover: #0f65b6;
+      --gold: #ffcf2e;
+      --badge-bg: #ffce3a;
+      --badge-text: #4a3700;
+      --rest-bg: #fff8d8;
+      --rest-border: #edd98a;
+      --ai-bg: #fff8e1;
+      --ai-border: #f0e1a8;
+      --ai-badge-bg: #ffe9a8;
+      --ai-badge-border: #eccf63;
+      --ai-badge-text: #8a6d00;
+      --ink: #172033;
+      --muted-demo: #647083;
+      --radius: 12px;
+    }
+
+    .stage-wrap { overflow: visible; padding: 6px; }
+
+    .demo-frame {
+      position: relative;
+      width: 100%;
+    }
+
+    .stage {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(23, 32, 51, 0.16), 0 2px 10px rgba(23, 32, 51, 0.08);
+      background: #ffffff;
+      color: var(--ink);
+      font-family: "Poppins", -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .chrome {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      background: #ececea;
+      border-bottom: 1px solid #ddd9d0;
+    }
+    .chrome .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .chrome .r { background: #ff5f57; }
+    .chrome .y { background: #febc2e; }
+    .chrome .g { background: #28c840; }
+    .url-pill {
+      margin-left: 12px;
+      height: 22px;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: #ffffff;
+      border-radius: 6px;
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-size: 12px;
+      color: #8a8f98;
+    }
+
+    .li-nav {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 20px;
+      background: #ffffff;
+      border-bottom: 1px solid #e4e0d6;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .li-search {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      width: 180px;
+      height: 32px;
+      padding: 0 10px;
+      background: #eef3f8;
+      border-radius: 6px;
+      color: #8a8f98;
+      font-size: 12.5px;
+    }
+    .li-search svg { flex: none; opacity: 0.7; }
+    .li-nav-items { display: flex; align-items: center; gap: 18px; margin-left: 8px; }
+    .li-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      color: #b0b3ba; font-size: 10.5px; height: 52px; justify-content: center;
+      border-bottom: 2px solid transparent;
+    }
+    .li-nav-item.active { color: #21262b; border-bottom-color: #0a66c2; }
+    .li-nav-item.active svg { color: #21262b; }
+    .li-nav-spacer { flex: 1; }
+    .li-me { display: flex; align-items: center; gap: 4px; color: #b0b3ba; }
+    .li-me .avatar { width: 26px; height: 26px; font-size: 10px; }
+
+    /* Fixed height + clipped overflow: the feed's real content is much
+       taller than this (7 cards + a suggested module), and it changes
+       height as cards collapse during the loop. Pinning the box means the
+       stage never resizes, so it can't push/shift the hero text next to it. */
+    /* No resting-state tint here on purpose — this is the LinkedIn side of
+       the recreation. A real extension doesn't recolor the host page; only
+       its own panel (.panel-card.active below) should show the AI-rest
+       state. */
+    .stage-body {
+      display: grid;
+      grid-template-columns: 163px 1fr;
+      gap: 0;
+      height: 728px;
+      overflow: hidden;
+      background: #fdfcfa;
+    }
+
+    .rail { padding: 16px 12px; border-right: 1px solid #ece7dd; background: #fbfaf7; overflow: hidden; }
+    .rail-card { background: #ffffff; border: 1px solid #e4e0d6; border-radius: 12px; overflow: hidden; }
+    .rail-cover { height: 28px; background: linear-gradient(135deg, #c5d8e8, #c8ddd1); }
+    .rail-avatar {
+      width: 48px; height: 48px; border-radius: 50%; margin: -24px auto 8px; border: 3px solid #fff;
+      background: #7a9bb5; color: #fff; font-weight: 700; font-size: 15px;
+      display: flex; align-items: center; justify-content: center; font-family: "Poppins", sans-serif;
+    }
+    .rail-name { margin: 0 8px; font-size: 12px; font-weight: 700; color: #172033; text-align: center; }
+    .rail-headline { margin: 3px 8px 10px; font-size: 10px; color: #8a8f98; text-align: center; line-height: 1.35; }
+    .rail-stats { border-top: 1px solid #ece7dd; padding: 8px 8px 10px; }
+    .rail-stat { display: flex; justify-content: space-between; font-size: 10px; color: #56687a; padding: 3px 0; }
+    .rail-stat b { color: #0a66c2; font-variant-numeric: tabular-nums; }
+
+    .feed { padding: 14px; display: flex; flex-direction: column; gap: 10px; border-right: 1px solid #ece7dd; min-width: 0; }
+
+    .card { position: relative; border: 1px solid #e4e0d6; border-radius: 12px; background: #ffffff; overflow: hidden; }
+    .card-content { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .card-content > div { overflow: hidden; min-height: 0; }
+    .card-inner { padding: 13px 14px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .card.is-collapsed .card-content { grid-template-rows: 0fr; }
+
+    .card.is-bursting .card-inner { animation: cardPop 0.36s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes cardPop {
+      0% { transform: scale(1); opacity: 1; }
+      45% { transform: scale(1.07); opacity: 1; }
+      100% { transform: scale(0.93); opacity: 0; }
+    }
+
+    .hero-demo .avatar {
+      width: 40px; height: 40px; border-radius: 50%; flex: none;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 12.5px; font-weight: 700; font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+    .hero-demo .avatar.avatar-photo { background: #e4e0d6; }
+    .hero-demo .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-head { display: flex; align-items: flex-start; gap: 10px; }
+    .card-head .card-who { min-width: 0; flex: 1; }
+    .card-head .name { margin: 0; font-size: 13px; font-weight: 600; color: #172033; line-height: 1.3; }
+    .card-head .name .deg { font-weight: 400; color: #8a8f98; }
+    .headline { margin: 1px 0 0; font-size: 11.5px; color: #56687a; line-height: 1.3; }
+    .meta { margin: 2px 0 0; font-size: 11px; color: #8a8f98; display: flex; align-items: center; gap: 4px; }
+    .promoted-tag { margin: 1px 0 0; font-size: 11.5px; color: #56687a; }
+    .more-dots { flex: none; color: #8a8f98; font-size: 14px; line-height: 1; padding: 2px 4px; letter-spacing: 1px; }
+    .card-connect {
+      flex: none; border: 1.5px solid #0a66c2; color: #0a66c2; background: none; border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; padding: 3px 10px; cursor: pointer; font-family: inherit;
+    }
+    .card-text { margin: 9px 0 0; font-size: 13px; line-height: 1.5; color: #2c313b; }
+
+    .card-banner-wrap { margin-top: 10px; border-radius: 8px; overflow: hidden; border: 1px solid #ece7dd; }
+    .card-banner { display: block; width: 100%; height: 150px; object-fit: cover; }
+    .card-banner-caption {
+      margin: 0; padding: 7px 10px; font-size: 11.5px; font-weight: 600; color: #172033;
+      background: #f3f6f8; text-align: center; font-family: -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .social-proof {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 9px; padding-top: 7px; border-top: 1px solid #ece7dd; font-size: 11px; color: #8a8f98;
+    }
+    .social-proof .reacts { display: flex; align-items: center; gap: 4px; }
+    .react-dot { width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; border: 1.5px solid #fff; margin-left: -5px; }
+    .react-dot:first-child { margin-left: 0; }
+
+    .engage-bar { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 3px; padding-top: 2px; }
+    .engage-btn { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 0; color: #56687a; font-size: 11px; font-weight: 600; }
+    .engage-btn svg { flex: none; }
+
+    .ai-chip {
+      margin-left: 8px; flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--ai-badge-text); background: var(--ai-badge-bg); border: 1px solid var(--ai-badge-border);
+      border-radius: 6px; padding: 2px 6px; animation: chipPulse 2.6s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) { .ai-chip { animation: none; } }
+    @keyframes chipPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+
+    .card-placeholder { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4,0,0.2,1) 0.05s; }
+    .card.is-collapsed .card-placeholder { grid-template-rows: 1fr; }
+    .card-placeholder > div { overflow: hidden; min-height: 0; }
+    .ph-inner {
+      display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--ai-bg); color: #7a6a32;
+      font-family: -apple-system, "Segoe UI", sans-serif; font-size: 12px; opacity: 0; transition: opacity 0.3s ease 0.2s;
+    }
+    .card.is-collapsed .ph-inner { opacity: 1; }
+    .ph-badge { font-weight: 800; font-size: 9.5px; letter-spacing: 0.03em; color: var(--ai-badge-text); background: var(--ai-badge-bg); border: 1px solid var(--ai-badge-border); border-radius: 6px; padding: 1px 6px; }
+    .ph-text { flex: 1; }
+    .ph-show { border: none; background: none; color: #8a6d00; font-weight: 600; font-size: 12px; cursor: pointer; padding: 2px 4px; }
+    .ph-show:hover { text-decoration: underline; }
+    .ph-inner.generic { background: #f3f6f8; color: #56687a; }
+    .ph-tag { font-weight: 700; color: #7A9BB5; flex: none; }
+    .ph-sep { color: #aab7c4; flex: none; }
+    .ph-inner.generic .ph-show { color: #7A9BB5; }
+
+    .suggested-card { border: 1px solid #e4e0d6; border-radius: 12px; background: #ffffff; padding: 13px 14px; position: relative; overflow: hidden; }
+    .suggested-title { margin: 0 0 9px; font-size: 12.5px; font-weight: 700; color: #172033; }
+    .suggested-people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .suggested-person { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+    .suggested-person .avatar { width: 40px; height: 40px; font-size: 13px; }
+    .suggested-person .sp-name { font-size: 10.5px; font-weight: 600; color: #172033; }
+    .suggested-person .sp-role { font-size: 9.5px; color: #8a8f98; line-height: 1.3; }
+    .sp-connect { margin-top: 2px; border: 1.5px solid #0a66c2; color: #0a66c2; background: none; border-radius: 999px; font-size: 10px; font-weight: 700; padding: 3px 10px; cursor: pointer; }
+
+    .particle { position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); pointer-events: none; animation: burst 0.55s ease-out forwards; }
+    @keyframes burst {
+      0% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; }
+    }
+
+    /* The real extension's own popup uses this exact gradient wash on its
+       hero band (popup.css) — reusing it here is what makes this column
+       read as "the extension's UI", not another feed column. */
+    /* Absolutely positioned over .stage on purpose, dropped below the
+       chrome/nav bars — a real extension overlays the page from its own
+       layer, it doesn't reflow the page or sit flush as another column.
+       Positioned against .demo-frame so the stage stays full-width. */
+    .panel {
+      position: absolute;
+      top: 30px;
+      right: -26px;
+      width: 33%;
+      border-radius: 16px;
+      padding: 18px 12px 16px;
+      background: linear-gradient(180deg, #bfefff 0%, #fff5cf 68%, #ffe9c5 160px) top / 100% 160px no-repeat, #fbfaf7;
+      display: flex; flex-direction: column; gap: 10px;
+      box-shadow: 0 24px 50px rgba(23,32,51,0.22), 0 6px 16px rgba(23,32,51,0.12), 0 0 0 1px rgba(255,255,255,0.7);
+      z-index: 5;
+    }
+    .panel-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .panel-mark { width: 20px; height: 20px; flex: none; display: block; }
+    .panel-word { font-family: var(--font-serif); font-weight: 500; font-size: 16px; color: var(--ink); }
+
+    .filters-card { background: #ffffff; border: 1px solid #e5e5e5; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 11px 12px; }
+    .filters-card .panel-label { margin-bottom: 8px; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 0; border-bottom: 1px solid #ebebeb; }
+    .toggle-row:last-child { border-bottom: none; padding-bottom: 2px; }
+    .toggle-row-text { font-size: 11.5px; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+    .count-chip { font-size: 9.5px; font-weight: 700; color: #0f65b6; background: #e7f2ff; border-radius: 999px; padding: 1px 6px; font-variant-numeric: tabular-nums; }
+    .toggle.sm { width: 30px; height: 18px; }
+    .toggle.sm .pip::before { width: 12px; height: 12px; left: 3px; top: 3px; }
+    .toggle.sm input:checked + .pip::before { transform: translateX(12px); }
+
+    .kw-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .kw-head .panel-label { margin-bottom: 0; }
+    .kw-row { display: flex; gap: 6px; margin-bottom: 8px; }
+    .kw-input { flex: 1; min-width: 0; height: 28px; font-size: 11.5px; padding: 0 9px; border: 1.5px solid #d8d8d8; border-radius: var(--radius); background: #fff; color: var(--ink); font-family: "Poppins", sans-serif; transition: border-color 0.18s ease, box-shadow 0.18s ease; }
+    .kw-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(22,119,210,0.18); }
+    .kw-add { height: 28px; padding: 0 11px; font-size: 11.5px; font-weight: 600; font-family: "Poppins", sans-serif; color: #fff; background: var(--primary); border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.18s ease; }
+    .kw-add:hover { background: var(--primary-hover); }
+    .kw-tags { display: flex; flex-wrap: wrap; gap: 5px; min-height: 0; }
+    .kw-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; background: #fff0b3; color: #734800; border-radius: var(--radius); padding: 3px 6px 3px 9px; }
+    .kw-remove { background: none; border: none; cursor: pointer; color: #8a6d00; font-size: 13px; line-height: 1; padding: 0; }
+    .kw-remove:hover { color: #c0392b; }
+
+    .panel-card { background: #ffffff; border: 1px solid #e5e5e5; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 12px; transition: background 0.5s ease, border-color 0.5s ease; }
+    .panel-card.active { background: var(--rest-bg); border-color: var(--rest-border); }
+    .panel-label { margin: 0 0 6px; font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-demo); }
+    .panel-hint { margin: 0 0 11px; font-size: 11px; line-height: 1.5; color: var(--muted-demo); }
+    .panel-row { display: flex; align-items: center; justify-content: space-between; }
+    .panel-row-text { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+
+    .toggle { position: relative; display: inline-flex; width: 40px; height: 24px; flex: none; cursor: pointer; }
+    .toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .pip { position: absolute; inset: 0; background: #cad7e6; border-radius: 12px; transition: background 0.22s ease; }
+    .pip::before { content: ""; position: absolute; width: 16px; height: 16px; left: 4px; top: 4px; background: #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,0.18); transition: transform 0.22s ease; }
+    .toggle input:checked + .pip { background: var(--primary); }
+    .toggle input:checked + .pip::before { transform: translateX(16px); }
+    .toggle input:focus-visible + .pip { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+    .countdown {
+      margin-top: 11px; display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: var(--badge-bg); color: var(--badge-text); border-radius: 999px; padding: 6px 12px;
+      font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums;
+      opacity: 0; transform: translateY(-4px); transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .countdown.show { opacity: 1; transform: translateY(0); }
+
+
+    @media (prefers-reduced-motion: reduce) {
+      .card.is-bursting .card-inner { animation: none; opacity: 0; transition: opacity 0.2s ease; }
+      .particle { display: none; }
+    }
+
     /* MOBILE HERO — real static screenshot fallback shown only under 768px;
        the scroll-hijack story below is desktop-only (see RESPONSIVE block). */
     .mobile-hero { display: none; }
-
-    /* PRODUCT SHOT */
-    .product-shot {
-      margin-top: 64px;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 48px 120px rgba(46,50,64,0.22), 0 8px 24px rgba(46,50,64,0.08);
-      border: 1px solid rgba(46,50,64,0.1);
-      max-width: 1200px;
-      width: 100%;
-      text-align: left;
-    }
-
-    .ps-chrome { background: #E3E3E3; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
-    .ps-dots { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-    .ps-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .ps-dot-r { background: #FF5F57; }
-    .ps-dot-y { background: #FEBC2E; }
-    .ps-dot-g { background: #28C840; }
-    .ps-addr-bar { flex: 1; background: #fff; border-radius: 6px; padding: 5px 14px; font-size: 12px; color: #555; display: flex; align-items: center; gap: 6px; max-width: 320px; margin: 0 auto; }
-    .ps-ext-icon { margin-left: auto; opacity: 0.7; flex-shrink: 0; }
-
-    .ps-viewport { display: flex; height: 520px; background: #f3f2ee; overflow: hidden; }
-
-    /* LinkedIn blurred */
-    .ps-li { flex: 1; overflow: hidden; position: relative; }
-    .ps-li-inner { width: 100%; height: 100%; filter: blur(1.8px); opacity: 0.5; }
-
-    .li-nav { background: #fff; border-bottom: 1px solid #e0d9d0; height: 52px; display: flex; align-items: center; padding: 0 12px; gap: 10px; }
-    .li-in { width: 32px; height: 32px; background: #0A66C2; border-radius: 4px; color: #fff; font-weight: 800; font-size: 18px; font-family: Georgia,serif; display: grid; place-items: center; flex-shrink: 0; }
-    .li-searchbar { background: #EEF3F8; border-radius: 4px; padding: 7px 12px; font-size: 12px; color: #888; width: 180px; flex-shrink: 0; }
-    .li-navbtns { display: flex; gap: 2px; margin-left: auto; }
-    .li-navbtn { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 10px; font-size: 9px; color: #666; }
-    .li-navbtn-icon { width: 20px; height: 20px; background: #ddd; border-radius: 50%; }
-
-    .li-content { display: flex; gap: 8px; padding: 8px; height: calc(100% - 52px); overflow: hidden; }
-    .li-sidebar { width: 176px; flex-shrink: 0; }
-    .li-profile-card { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; overflow: hidden; }
-    .li-cover { height: 44px; background: linear-gradient(135deg, #C5D8E8, #C8DDD1); }
-    .li-av { width: 44px; height: 44px; background: #C4896F; border-radius: 50%; margin: -22px auto 6px; border: 2px solid #fff; }
-    .li-uname { height: 9px; background: #ddd; margin: 4px 16px; border-radius: 3px; }
-    .li-usub { height: 7px; background: #eee; margin: 5px 24px 8px; border-radius: 3px; }
-    .li-ustats { padding: 8px 16px; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 5px; }
-    .li-stat { height: 7px; background: #eee; border-radius: 3px; }
-
-    .li-feed { flex: 1; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
-    .li-postbox { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
-    .li-po-av { width: 32px; height: 32px; background: #7A9BB5; border-radius: 50%; flex-shrink: 0; }
-    .li-po-input { flex: 1; border: 1px solid #c5c5c5; border-radius: 20px; padding: 7px 14px; font-size: 12px; color: #888; }
-
-    .zf-bar { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
-    .zf-bar-dot { width: 6px; height: 6px; border-radius: 50%; background: #8FAF98; flex-shrink: 0; }
-    .zf-bar-brand { font-size: 10px; font-weight: 700; color: #2E3240; background: #EDE6D8; padding: 2px 7px; border-radius: 3px; }
-    .zf-bar-txt { font-size: 12px; color: #666; flex: 1; }
-    .zf-bar-show { font-size: 11px; color: #0A66C2; font-weight: 500; }
-
-    .li-post { background: #fff; border: 1px solid #e0d9d0; border-radius: 8px; padding: 12px; flex: 1; overflow: hidden; }
-    .li-post-head { display: flex; gap: 8px; margin-bottom: 8px; }
-    .li-pa { width: 32px; height: 32px; background: #8FAF98; border-radius: 50%; flex-shrink: 0; }
-    .li-pinfo { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-    .li-pname { height: 8px; background: #ddd; width: 120px; border-radius: 3px; }
-    .li-ptitle { height: 7px; background: #eee; width: 180px; border-radius: 3px; }
-    .li-pline { height: 7px; background: #eee; margin-bottom: 5px; border-radius: 3px; }
-    .li-pline-short { width: 55%; }
-    .li-pimg { height: 90px; background: linear-gradient(135deg, #eee 0%, #ddd 100%); border-radius: 6px; margin-top: 8px; }
-
-    /* Zenfeed panel */
-    .ps-panel { width: 272px; flex-shrink: 0; background: #fff; border-left: 1px solid #d8d0c8; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; }
-    .pnl-head { background: linear-gradient(160deg, #C5D8E8 0%, #C8DDD1 50%, #EDE6D8 100%); padding: 14px 16px 10px; text-align: center; flex-shrink: 0; }
-    .pnl-art { margin-bottom: 6px; }
-    .pnl-brand { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--stone); }
-    .pnl-brand strong { font-weight: 600; }
-    .pnl-brand span { color: var(--muted); font-size: 11px; }
-    .pnl-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-    .pnl-zen { background: var(--sand); border-radius: 12px; padding: 12px; }
-    .pnl-hide { background: #fff; border: 1px solid rgba(46,50,64,0.08); border-radius: 12px; padding: 12px; }
-    .pnl-keywords { background: #fff; border: 1px solid rgba(46,50,64,0.08); border-radius: 12px; padding: 12px; }
-    .pnl-sec-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-    .pnl-zen-desc { font-size: 12px; color: var(--stone); margin-bottom: 8px; }
-    .pnl-timer-row { background: #fff; border-radius: 8px; padding: 8px 12px; font-size: 12px; display: flex; align-items: center; gap: 6px; margin-bottom: 8px; border: 1px solid rgba(46,50,64,0.08); }
-    .pnl-timer-lbl { color: var(--muted); }
-    .pnl-timer-count { color: var(--stone); font-weight: 600; flex: 1; }
-    .pnl-coins { font-size: 10px; background: #FEF3CD; color: #856404; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
-    .pnl-stop-btn { width: 100%; background: #C0392B; color: #fff; border: none; border-radius: 8px; padding: 9px; font-size: 12px; font-weight: 600; cursor: default; font-family: var(--font-sans); }
-    .pnl-toggle-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
-    .pnl-toggle-row + .pnl-toggle-row { border-top: 1px solid rgba(46,50,64,0.06); }
-    .pnl-toggle-info { flex: 1; min-width: 0; }
-    .pnl-toggle-title { font-size: 12px; font-weight: 500; color: var(--stone); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-    .pnl-toggle-desc { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
-    .pnl-eye { font-size: 10px; background: var(--slate-2); color: var(--slate); padding: 1px 6px; border-radius: 10px; font-weight: 600; }
-    .pnl-pill { width: 34px; height: 19px; border-radius: 100px; flex-shrink: 0; position: relative; background: #2563EB; }
-    .pnl-pill::after { content: ''; position: absolute; width: 13px; height: 13px; background: #fff; border-radius: 50%; top: 3px; right: 3px; }
-    .pnl-collapse-card { margin-top: 8px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 8px 10px; }
-    .pnl-collapse-row { display: flex; align-items: center; gap: 10px; }
-    .pnl-count-badge { background: var(--slate-2); color: var(--slate); font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 10px; letter-spacing: 0; }
-    .pnl-kw-row { display: flex; gap: 6px; margin-bottom: 8px; }
-    .pnl-kw-input { flex: 1; border: 1px solid rgba(46,50,64,0.15); border-radius: 8px; padding: 7px 10px; font-size: 11px; color: var(--muted); font-family: var(--font-sans); background: #fff; outline: none; }
-    .pnl-kw-add { background: var(--slate); color: #fff; border: none; border-radius: 8px; padding: 7px 12px; font-size: 11px; font-weight: 600; cursor: default; font-family: var(--font-sans); }
-    .pnl-kw-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .pnl-kw-tag { font-size: 10px; background: var(--sand-2); color: var(--stone); padding: 3px 8px; border-radius: 100px; border: 1px solid rgba(46,50,64,0.1); }
-
     /* SECTION SHARED */
     section { padding: 100px 40px; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
@@ -272,30 +510,8 @@
     .section-title { font-family: var(--font-serif); font-size: clamp(32px,4vw,52px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--stone); margin-bottom: 20px; }
     .section-desc { font-size: 18px; color: var(--muted); font-weight: 300; max-width: 540px; line-height: 1.7; }
 
-    /* FEATURES */
-    .features { background: var(--white); position: relative; overflow: hidden; }
-    .features::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: var(--sand-2); top: 50%; left: -250px; transform: translateY(-50%); opacity: 0.6; }
-
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; position: relative; z-index: 1; }
-
-    @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
-
-    .feature-card { background: var(--white); border: 1px solid rgba(143,175,152,0.2); border-radius: 24px; padding: 28px 28px 36px; transition: transform 0.2s, box-shadow 0.2s; }
-    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(46,50,64,0.08); }
-    .feature-shot { border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(46,50,64,0.08); box-shadow: 0 8px 20px rgba(46,50,64,0.06); }
-    .feature-shot img { display: block; width: 100%; height: auto; }
-    .feature-geo { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin-bottom: 24px; }
-    .feature-geo.sage { background: var(--sage-2); }
-    .feature-geo.slate { background: var(--slate-2); }
-    .feature-geo.sand { background: var(--sand-2); }
-    .feature-geo.warm { background: #F0D9CF; }
-    .feature-geo.lavender { background: #E0D9F2; }
-    .feature-card h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 500; margin-bottom: 10px; color: var(--stone); }
-    .feature-card p { font-size: 15px; color: var(--muted); line-height: 1.65; font-weight: 300; }
-
     /* HOW IT WORKS */
     .how { background: var(--sand); position: relative; overflow: hidden; }
-    .how::after { content: ''; position: absolute; width: 480px; height: 480px; border-radius: 50%; background: var(--slate-2); opacity: 0.4; bottom: -180px; right: -120px; }
     .how-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .how-steps { display: flex; flex-direction: column; gap: 40px; position: relative; z-index: 1; }
     .step { display: flex; gap: 20px; }
@@ -310,7 +526,6 @@
 
     /* FOR WHO */
     .who { background: var(--white); position: relative; overflow: hidden; }
-    .who::before { content: ''; position: absolute; width: 900px; height: 450px; border-radius: 50%; background: var(--sand-2); opacity: 0.5; top: -180px; right: -300px; }
     .who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 56px; position: relative; z-index: 1; }
     .who-card { background: var(--sand); border-radius: 20px; padding: 28px 24px; border: 1px solid rgba(143,175,152,0.15); }
     .who-card .icon { font-size: 28px; margin-bottom: 12px; }
@@ -319,8 +534,6 @@
 
     /* FINAL CTA */
     .cta-section { background: var(--stone); padding: 120px 40px; text-align: center; position: relative; overflow: hidden; }
-    .cta-section::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(143,175,152,0.2); top: 50%; left: 50%; transform: translate(-50%,-50%); }
-    .cta-section::after { content: ''; position: absolute; width: 900px; height: 900px; border-radius: 50%; border: 1px solid rgba(143,175,152,0.1); top: 50%; left: 50%; transform: translate(-50%,-50%); }
     .cta-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
     .cta-section h2 { font-family: var(--font-serif); font-size: clamp(36px,5vw,60px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 20px; }
     .cta-section h2 em { font-style: italic; color: var(--sage-2); }
@@ -336,94 +549,42 @@
     .footer-links a { font-size: 13px; color: rgba(253,250,245,0.4); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--sage-2); }
 
-    /* ===== STORY SCROLL ===== */
-    .story-section {
-      height: 500vh;
+    /* ===== STORY CARDS — three simple stacked highlights, top to bottom,
+       no scroll-hijack. Fades in once via the shared [data-animate]
+       IntersectionObserver used elsewhere on the page. ===== */
+    /* Mirrors the section + .section-inner split used elsewhere on the page:
+       .story-cards owns the full-bleed edge padding, .story-cards-inner owns
+       the centered 1100px content box with no padding of its own — so this
+       matches the Features/How/Who sections' actual content width exactly. */
+    .story-cards {
+      padding: 64px 40px 40px;
     }
-
-    .story-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
+    .story-cards-inner {
       display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .story-scene {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      will-change: opacity;
-    }
-
-    /* Scene 0: hero + product combined */
-    .story-scene-0 {
-      background: var(--sand);
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .story-card {
+      border-radius: 28px;
+      padding: 56px 60px;
       overflow: hidden;
-      opacity: 1;
-    }
-
-    .story-scene-0::before {
-      content: '';
-      position: absolute;
-      width: 700px; height: 700px;
-      border-radius: 50%;
-      background: var(--sage-2);
-      opacity: 0.45;
-      top: -200px; right: -200px;
-      pointer-events: none;
-    }
-
-    .story-scene-0::after {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      background: var(--slate-2);
-      opacity: 0.35;
-      bottom: -150px; left: -150px;
-      pointer-events: none;
-    }
-
-    .story-hero-text {
       position: relative;
-      z-index: 2;
-      padding: 80px 40px 0;
-      margin-bottom: 0;
-      will-change: opacity;
     }
 
-    .story-product-frame {
-      position: relative;
-      z-index: 1;
-      will-change: transform, border-radius, box-shadow;
-      transform-origin: center top;
-    }
-
-    /* cap viewport height so product fits below hero text */
-    .story-scene-0 .ps-viewport { height: clamp(240px, calc(100vh - 400px), 520px); }
-
-    /* Scenes 1-3: full-screen feature pages */
-    .story-scene-1 { background: var(--stone); }
-    .story-scene-2 { background: var(--sage); }
-    .story-scene-3 { background: var(--sand-2); }
+    .story-card-1 { background: var(--stone); }
+    .story-card-2 { background: var(--sage); }
+    .story-card-3 { background: var(--sand-2); }
+    .story-card-4 { background: var(--slate); }
+    .story-card-5 { background: var(--warm); }
 
     .story-page {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      gap: 56px;
       align-items: center;
-      max-width: 1100px;
-      width: 100%;
-      padding: 0 60px;
     }
 
     .story-page-label {
@@ -433,40 +594,54 @@
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-    .story-scene-1 .story-page-label { color: var(--sage-2); }
-    .story-scene-2 .story-page-label { color: rgba(46,50,64,0.6); }
-    .story-scene-3 .story-page-label { color: var(--sage); }
+    .story-card-1 .story-page-label { color: var(--sage-2); }
+    .story-card-2 .story-page-label { color: rgba(46,50,64,0.6); }
+    .story-card-3 .story-page-label { color: var(--sage); }
+    .story-card-4 .story-page-label { color: rgba(46,50,64,0.55); }
+    .story-card-5 .story-page-label { color: rgba(46,50,64,0.55); }
 
     .story-page h2 {
       font-family: var(--font-serif);
-      font-size: clamp(36px, 4.5vw, 64px);
+      font-size: clamp(28px, 3vw, 40px);
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 1.15;
       letter-spacing: -0.02em;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    .story-scene-1 .story-page h2 { color: var(--white); }
-    .story-scene-2 .story-page h2 { color: var(--stone); }
-    .story-scene-3 .story-page h2 { color: var(--stone); }
+    .story-card-1 .story-page h2 { color: var(--white); }
+    .story-card-2 .story-page h2 { color: var(--stone); }
+    .story-card-3 .story-page h2 { color: var(--stone); }
+    .story-card-4 .story-page h2 { color: var(--stone); }
+    .story-card-5 .story-page h2 { color: var(--stone); }
 
     .story-page h2 em { font-style: italic; }
-    .story-scene-1 .story-page h2 em { color: var(--sage-2); }
-    .story-scene-2 .story-page h2 em { color: var(--stone); }
-    .story-scene-3 .story-page h2 em { color: var(--warm); }
+    .story-card-1 .story-page h2 em { color: var(--sage-2); }
+    .story-card-2 .story-page h2 em { color: var(--stone); }
+    .story-card-3 .story-page h2 em { color: var(--warm); }
+    .story-card-4 .story-page h2 em { color: var(--white); }
+    .story-card-5 .story-page h2 em { color: var(--white); }
 
     .story-page p {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       line-height: 1.7;
     }
-    .story-scene-1 .story-page p { color: rgba(253,250,245,0.65); }
-    .story-scene-2 .story-page p { color: rgba(46,50,64,0.7); }
-    .story-scene-3 .story-page p { color: var(--muted); }
+    .story-card-1 .story-page p { color: rgba(253,250,245,0.65); }
+    .story-card-2 .story-page p { color: rgba(46,50,64,0.7); }
+    .story-card-3 .story-page p { color: var(--muted); }
+    .story-card-4 .story-page p { color: rgba(46,50,64,0.75); }
+    .story-card-5 .story-page p { color: rgba(46,50,64,0.75); }
 
     .story-page-visual {
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .story-card { padding: 40px 28px; }
+      .story-page { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+      .story-page-visual { order: -1; }
     }
 
     /* Scene 1 visual: stacked zf-bars */
@@ -540,66 +715,64 @@
       padding: 8px 16px;
     }
 
-    /* Progress dots */
-    .story-dots {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
+    /* Scene 4 visual: suggested-follow module being removed */
+    .story-suggest-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px 26px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 24px 60px rgba(46,50,64,0.12);
+    }
+    .story-suggest-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .story-suggest-head-title { font-size: 13px; font-weight: 600; color: var(--stone); }
+    .story-suggest-head-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--slate); background: var(--slate-2); padding: 3px 8px; border-radius: 6px; }
+    .story-suggest-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(46,50,64,0.08); opacity: 0.5; }
+    .story-suggest-row:first-of-type { border-top: none; padding-top: 0; }
+    .story-suggest-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--sand-2); flex-shrink: 0; }
+    .story-suggest-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .story-suggest-name { font-size: 13px; color: var(--stone); font-weight: 500; }
+    .story-suggest-meta { font-size: 11px; color: var(--muted); }
+    .story-suggest-removed { font-size: 11px; font-weight: 600; color: var(--muted); text-decoration: line-through; }
+
+    /* Scene 5 visual: collapsed restore bars */
+    .story-restore-card { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 380px; }
+    .story-restore-bar {
+      background: var(--white);
+      border: 1px solid rgba(46,50,64,0.08);
+      border-radius: 12px;
+      padding: 14px 18px;
       display: flex;
-      gap: 8px;
-      z-index: 20;
-      pointer-events: none;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(46,50,64,0.08);
     }
-    .story-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: rgba(143,175,152,0.35);
-      transition: background 0.3s, transform 0.3s;
-    }
-    .story-dot.active {
-      background: var(--sage);
-      transform: scale(1.4);
-    }
+    .story-restore-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warm); flex-shrink: 0; }
+    .story-restore-label { font-size: 13px; color: var(--stone); flex: 1; }
+    .story-restore-link { font-size: 12px; font-weight: 600; color: var(--slate); }
+    .story-restore-note { font-size: 12px; color: rgba(46,50,64,0.65); text-align: center; margin-top: 6px; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
       section { padding: 80px 20px; }
-      .hero { padding: 80px 24px 64px; }
+      .story-cards { padding: 40px 20px 32px; }
       .how-layout { grid-template-columns: 1fr; gap: 48px; }
       .how-visual { display: none; }
-      .product-shot { display: none; }
       footer { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
       .cta-section { padding: 80px 24px; }
 
-      /* Desktop scroll-hijack hero is replaced by a static mobile hero below */
-      .story-section { display: none; }
+      /* The desktop two-column hero (with the live demo) is replaced by a
+         lightweight static mobile hero below — keeps mobile fast and avoids
+         running the demo's DOM work on weaker/battery-constrained devices.
+         .story-cards stays visible on mobile — it's just static cards now,
+         no scroll-hijack, cheap either way. */
+      .hero { display: none; }
       .mobile-hero {
         display: block;
         position: relative;
         overflow: hidden;
         background: var(--sand);
         padding: 56px 24px 40px;
-      }
-      .mobile-hero::before {
-        content: '';
-        position: absolute;
-        width: 420px; height: 420px;
-        border-radius: 50%;
-        background: var(--sage-2);
-        opacity: 0.45;
-        top: -160px; right: -160px;
-        pointer-events: none;
-      }
-      .mobile-hero::after {
-        content: '';
-        position: absolute;
-        width: 320px; height: 320px;
-        border-radius: 50%;
-        background: var(--slate-2);
-        opacity: 0.35;
-        bottom: -120px; left: -120px;
-        pointer-events: none;
       }
       .mobile-hero-inner { position: relative; z-index: 1; text-align: center; max-width: 520px; margin: 0 auto; }
       .mobile-hero-shot {
@@ -613,33 +786,242 @@
     }
 
     @media (max-width: 480px) {
-      .features-grid { grid-template-columns: 1fr !important; }
       .who-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ===== MOTION SYSTEM ===== */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-animate].is-visible { opacity: 1; transform: none; }
+
+    .how-steps .step-num {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 400ms cubic-bezier(0.16,1,0.3,1), transform 400ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .how-steps .step-text {
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .step:nth-child(1) .step-num  { transition-delay: 0ms;   }
+    .step:nth-child(1) .step-text { transition-delay: 80ms;  }
+    .step:nth-child(2) .step-num  { transition-delay: 120ms; }
+    .step:nth-child(2) .step-text { transition-delay: 200ms; }
+    .step:nth-child(3) .step-num  { transition-delay: 240ms; }
+    .step:nth-child(3) .step-text { transition-delay: 320ms; }
+    .how-steps.is-visible .step-num  { opacity: 1; transform: scale(1); }
+    .how-steps.is-visible .step-text { opacity: 1; transform: none; }
+
+    .geo-circle-1, .geo-circle-2, .geo-circle-3 {
+      opacity: 0;
+      transform: translate(-50%,-50%) scale(0);
+      transition: opacity 700ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .geo-circle-2 { transition-delay: 150ms; }
+    .geo-circle-3 { transition-delay: 300ms; }
+    .how-visual.is-visible .geo-circle-1,
+    .how-visual.is-visible .geo-circle-2,
+    .how-visual.is-visible .geo-circle-3 {
+      opacity: 1;
+      transform: translate(-50%,-50%) scale(1);
+    }
+    @keyframes breathe-1 { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.02); } }
+    @keyframes breathe-2 { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.03); } }
+    .how-visual.is-visible .geo-circle-1 { animation: breathe-1 6s ease-in-out infinite; animation-delay: 700ms; }
+    .how-visual.is-visible .geo-circle-2 { animation: breathe-2 5s ease-in-out infinite; animation-delay: 850ms; }
+    /* position:absolute + inset:0 gives .geo-drift real 320x320 dimensions
+       (matching .geo-stack) before any transform is applied. Without this,
+       .geo-drift is a 0-height block (its only child is absolutely
+       positioned and contributes no height), and since transform — even
+       translate(0,0) — creates a new containing block, .geo-circle-N's
+       top:50% resolves against that 0-height box instead of .geo-stack,
+       shifting every circle to the top edge instead of centering them. */
+    .geo-drift { position: absolute; inset: 0; transform: translate(0,0); }
+
+    .who-grid .who-card:nth-child(1) { transition-delay: 0ms; }
+    .who-grid .who-card:nth-child(2) { transition-delay: 100ms; }
+    .who-grid .who-card:nth-child(3) { transition-delay: 200ms; }
+    .who-grid .who-card:nth-child(4) { transition-delay: 300ms; }
+    .who-card .icon {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 450ms cubic-bezier(0.16,1,0.3,1) 120ms, transform 450ms cubic-bezier(0.16,1,0.3,1) 120ms;
+    }
+    .who-card.is-visible .icon { opacity: 1; transform: scale(1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ============================================================
+       BELOW-THE-FOLD REDESIGN — same structure/interactions as the
+       redesign experiment, restyled entirely with the site's existing
+       tokens/fonts (--sand/--sage/--slate/--stone/--warm/--gold,
+       Manrope + Newsreader) so it reads as one continuous design.
+       ============================================================ */
+    .marquee { background: var(--stone); color: var(--white); overflow: hidden; padding: 18px 0; white-space: nowrap; }
+    .marquee-track { display: inline-flex; gap: 48px; animation: marqueeScroll 32s linear infinite; }
+    .marquee span { font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(253,250,245,0.72); display: inline-flex; align-items: center; gap: 48px; }
+    .marquee span i { color: var(--sage-2); font-style: normal; }
+    @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+    .problem { background: var(--sand); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 0.86fr; gap: 72px; align-items: center; }
+    .problem-copy .section-title { max-width: 520px; }
+    .problem-copy p { font-size: 16.5px; color: var(--muted); font-weight: 300; line-height: 1.75; margin-bottom: 22px; max-width: 520px; }
+    .stat-line { display: flex; gap: 14px; align-items: flex-start; padding: 20px 22px; background: var(--white); border: 1px solid rgba(46,50,64,0.08); border-left: 3px solid var(--sage); border-radius: 4px; font-size: 14px; color: var(--muted); max-width: 520px; }
+    .stat-line b { color: var(--stone); }
+    .problem-visual { position: relative; }
+    .problem-shot { border-radius: 20px; overflow: hidden; border: 1px solid rgba(46,50,64,0.08); box-shadow: 0 30px 70px rgba(23,32,51,0.16), 0 2px 10px rgba(23,32,51,0.08); transform: rotate(-2.5deg); }
+    .problem-shot img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+    .problem-caption { margin-top: 16px; font-size: 12.5px; color: var(--muted); font-weight: 500; text-align: center; }
+    @media (max-width: 980px) { .problem-grid { grid-template-columns: 1fr; gap: 44px; } .problem-visual { order: -1; } .problem-shot { transform: none; } }
+
+    .bento-section { background: var(--sand-2); }
+    .bento-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: auto auto; gap: 20px; }
+    .bcard { background: var(--white); border: 1px solid rgba(46,50,64,0.08); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+    .bcard-big { grid-column: 1 / 2; grid-row: 1 / 2; }
+    .bcard-2 { grid-column: 2 / 3; grid-row: 1 / 2; }
+    .bcard-3 { grid-column: 3 / 4; grid-row: 1 / 2; }
+    .bcard-wide { grid-column: 1 / 3; grid-row: 2 / 3; }
+    .bcard-trust { grid-column: 3 / 4; grid-row: 2 / 3; }
+    .bcard-label { font-family: var(--font-sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin-bottom: 14px; }
+    .bcard h3 { font-family: var(--font-serif); font-weight: 500; font-size: 22px; color: var(--stone); margin-bottom: 10px; }
+    .bcard p { font-size: 14.5px; color: var(--muted); font-weight: 300; line-height: 1.65; }
+    .bcard-visual { margin-top: 24px; flex: 1; display: flex; align-items: flex-end; }
+    .mock-timer { width: 100%; background: var(--sand); border: 1px solid rgba(46,50,64,0.08); border-radius: 16px; padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; }
+    .mock-timer-lbl { font-family: var(--font-sans); font-size: 13px; color: var(--muted); font-weight: 500; }
+    .mock-timer-val { font-family: var(--font-serif); font-size: 26px; color: var(--stone); font-variant-numeric: tabular-nums; }
+    .mock-kw { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; min-height: 74px; }
+    .mock-kw-tag { font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; background: var(--sage-2); color: #2E3240; border-radius: 100px; padding: 6px 13px; opacity: 0; transform: translateY(6px) scale(0.9); animation: kwIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+    @keyframes kwIn { to { opacity: 1; transform: none; } }
+    .mock-toggle-row { font-family: var(--font-sans); display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(46,50,64,0.08); font-size: 13px; font-weight: 500; color: var(--stone); }
+    .mock-toggle-row:last-child { border-bottom: none; }
+    .mock-toggle { width: 34px; height: 20px; border-radius: 100px; background: var(--stone); position: relative; flex: none; }
+    .mock-toggle::before { content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--white); top: 3px; right: 3px; }
+    .mock-restore { display: flex; flex-direction: column; gap: 10px; }
+    .mock-restore-bar { font-family: var(--font-sans); display: flex; align-items: center; gap: 10px; background: var(--sand); border: 1px solid rgba(46,50,64,0.08); border-radius: 12px; padding: 12px 16px; }
+    .mock-restore-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warm); flex: none; }
+    .mock-restore-label { flex: 1; font-size: 13px; color: var(--stone); }
+    .mock-restore-link { font-size: 12px; font-weight: 700; color: var(--slate); }
+    .trust-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+    .trust-list li { font-family: var(--font-sans); display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--muted); font-weight: 500; }
+    .trust-list svg { flex: none; color: var(--sage); }
+    @media (max-width: 980px) {
+      .bento-grid { grid-template-columns: 1fr 1fr; }
+      .bcard-big { grid-column: 1 / 3; }
+      .bcard-2 { grid-column: 1 / 2; }
+      .bcard-3 { grid-column: 2 / 3; }
+      .bcard-wide { grid-column: 1 / 3; }
+      .bcard-trust { grid-column: 1 / 3; }
+    }
+    @media (max-width: 640px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bcard-big, .bcard-2, .bcard-3, .bcard-wide, .bcard-trust { grid-column: 1 / 2; }
+    }
+
+    .r-how-steps { position: relative; padding-left: 34px; }
+    .r-how-rail { position: absolute; left: 6px; top: 6px; bottom: 6px; width: 1px; background: rgba(46,50,64,0.14); }
+    .r-how-rail-fill { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: var(--sage); transform: scaleY(0); transform-origin: top; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .r-how-step { position: relative; padding: 0 0 56px 0; cursor: default; }
+    .r-how-step:last-child { padding-bottom: 0; }
+    .r-how-step::before { content: ""; position: absolute; left: -34px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: var(--sand); border: 2px solid rgba(46,50,64,0.14); transition: border-color 0.3s, background 0.3s; }
+    .r-how-step.is-active::before { border-color: var(--sage); background: var(--sage); }
+    .r-how-step-num { font-family: var(--font-serif); font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .r-how-step h3 { font-family: var(--font-sans); font-weight: 500; font-size: 17px; color: var(--stone); margin-bottom: 8px; }
+    .r-how-step p { font-size: 14.5px; color: var(--muted); font-weight: 300; line-height: 1.65; max-width: 400px; }
+    .r-how-visual { position: sticky; top: 120px; align-self: start; height: fit-content; }
+    .r-how-shot-frame { border-radius: 20px; overflow: hidden; border: 1px solid rgba(46,50,64,0.08); box-shadow: 0 30px 70px rgba(23,32,51,0.16), 0 2px 10px rgba(23,32,51,0.08); background: var(--white); position: relative; }
+    .r-how-shot-frame img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; opacity: 0; transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1); position: absolute; inset: 0; }
+    .r-how-shot-frame img.is-active { opacity: 1; position: relative; }
+    .r-how-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; }
+    @media (max-width: 980px) { .r-how-grid { grid-template-columns: 1fr; gap: 40px; } .r-how-visual { position: static; } }
+
+    .personas { background: var(--stone); color: var(--white); }
+    .personas .section-label { color: var(--sage-2); }
+    .personas .section-title { color: var(--white); }
+    .persona-rail { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x proximity; scroll-behavior: auto; padding-bottom: 12px; margin: 0 -40px; padding-left: 40px; padding-right: 40px; cursor: grab; scrollbar-width: none; }
+    .persona-rail::-webkit-scrollbar { display: none; }
+    .persona-rail.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+    .persona-card { flex: 0 0 300px; scroll-snap-align: start; background: var(--stone-hover); border: 1px solid rgba(253,250,245,0.1); border-radius: 22px; padding: 32px 28px; }
+    .persona-tag { font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-2); margin-bottom: 16px; }
+    .persona-tag::before { content: "— "; }
+    .persona-card h4 { font-family: var(--font-serif); font-weight: 500; font-size: 20px; color: var(--white); margin-bottom: 12px; }
+    .persona-card p { font-size: 14.5px; color: rgba(253,250,245,0.62); font-weight: 300; line-height: 1.65; }
+
+    .cta-section::before { content: ""; position: absolute; inset: -20%; background: radial-gradient(560px 420px at 20% 30%, rgba(143,175,152,0.16), transparent 60%); pointer-events: none; }
+    .cta-note { font-family: var(--font-sans); margin-top: 22px; font-size: 13px; color: rgba(253,250,245,0.4); }
+
+    [data-r-animate] { opacity: 0; transform: translateY(24px); transition: opacity 700ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1); }
+    [data-r-animate].is-visible { opacity: 1; transform: none; }
+    [data-r-stagger] > * { opacity: 0; transform: translateY(18px); transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1); }
+    [data-r-stagger].is-visible > *:nth-child(1) { transition-delay: 0ms; }
+    [data-r-stagger].is-visible > *:nth-child(2) { transition-delay: 90ms; }
+    [data-r-stagger].is-visible > *:nth-child(3) { transition-delay: 180ms; }
+    [data-r-stagger].is-visible > *:nth-child(4) { transition-delay: 270ms; }
+    [data-r-stagger].is-visible > *:nth-child(5) { transition-delay: 360ms; }
+    [data-r-stagger].is-visible > * { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-r-animate], [data-r-stagger] > * { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- MOBILE HERO — static fallback for narrow viewports. The scroll-hijack
-       story below (.story-section) is hidden under 768px because the
-       scroll-driven animation is desktop-appropriate but janky on mobile
-       scroll; this uses a real product screenshot instead. -->
+  <!-- With JS disabled, entrance animations never get their .is-visible class
+       (they're only added via IntersectionObserver), so everything gated on
+       [data-animate]/[data-animate-parent] would stay stuck at opacity:0
+       forever. This forces the visible end-state with no motion instead. -->
+  <noscript>
+    <style>
+      [data-animate], [data-animate-parent],
+      [data-r-animate], [data-r-stagger] > *,
+      .how-steps .step-num, .how-steps .step-text,
+      .who-card .icon
+      { opacity: 1 !important; transform: none !important; animation: none !important; }
+      /* geo-circles keep their centering translate — only opacity/scale reset */
+      .geo-circle-1, .geo-circle-2, .geo-circle-3
+      { opacity: 1 !important; transform: translate(-50%,-50%) !important; animation: none !important; }
+    </style>
+  </noscript>
+
+  <!-- MOBILE HERO — static fallback for narrow viewports. The desktop
+       two-column hero (with the live demo) is hidden under 768px because
+       running that DOM/animation work is desktop-appropriate but wasteful
+       on mobile; this uses a real product screenshot instead. -->
   <header class="mobile-hero">
     <div class="mobile-hero-inner">
       <a href="#" class="hero-logo">
         <img src="icon-default.svg" width="36" height="36" alt="Zenfeed" />
         <span class="hero-logo-text">Zenfeed</span>
       </a>
-      <h1>Take a break<br /><em>from AI.</em></h1>
+      <h1>Every third post is <em>AI.</em></h1>
       <p class="hero-sub">
-        A timed Rest from AI mode for LinkedIn and X, plus local controls to clear out promoted posts, suggestions, and keyword noise.
+        Every feed is AI now — every third post on LinkedIn and X is AI hype, AI slop, or a pitch for someone's new AI tool. Tired of seeing it? Rest from AI on a timer, block posts by keyword so they never show up, and keep promoted and suggested noise turned down the rest of the time.
       </p>
+      <div class="hero-platforms">
+        <span class="hero-platforms-icons">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1-.001-4.124 2.062 2.062 0 0 1 .001 4.124zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </span>
+        <span>Works on LinkedIn and X</span>
+      </div>
       <div class="cta-group">
         <a href="#add-extension-mobile" class="btn-primary" id="add-extension-mobile">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
           Add to Chrome — free
         </a>
-        <a href="#features" class="btn-ghost">See what it does ↓</a>
+        <a href="#storyCards" class="btn-ghost">See what it does ↓</a>
       </div>
       <div class="mobile-hero-shot">
         <img src="assets/screenshots/01-popup-overview.png" width="1280" height="800" alt="Zenfeed popup open over a LinkedIn feed, showing Promoted posts and Suggested posts toggles and a Rest from AI timer" />
@@ -647,391 +1029,306 @@
     </div>
   </header>
 
-  <!-- STORY SCROLL (hero + scroll story combined) -->
-  <div class="story-section" id="storySection">
-    <div class="story-sticky">
-
-      <!-- Scene 0: hero text + product image — product expands on scroll -->
-      <div class="story-scene story-scene-0" id="storyScene0">
-
-        <!-- Hero text (fades as product grows) -->
-        <div class="hero-inner story-hero-text" id="storyHeroText">
-          <a href="#" class="hero-logo">
-            <img src="icon-default.svg" width="40" height="40" alt="Zenfeed" />
-            <span class="hero-logo-text">Zenfeed</span>
+  <!-- HERO — single column: content centered on top, live interactive product demo below.
+       Hidden under 768px in favor of .mobile-hero above. -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <a href="#" class="hero-logo">
+          <img src="icon-default.svg" width="40" height="40" alt="Zenfeed" />
+          <span class="hero-logo-text">Zenfeed</span>
+        </a>
+        <h1>Every third post is <em>AI.</em></h1>
+        <p class="hero-sub">
+          Every feed is AI now — every third post on LinkedIn and X is AI hype, AI slop, or a pitch for someone's new AI tool. Tired of seeing it? Rest from AI on a timer, block posts by keyword so they never show up, and keep promoted and suggested noise turned down the rest of the time.
+        </p>
+        <div class="hero-platforms">
+          <span class="hero-platforms-icons">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1-.001-4.124 2.062 2.062 0 0 1 .001 4.124zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </span>
+          <span>Works on LinkedIn and X</span>
+        </div>
+        <div class="cta-group">
+          <a href="#add-extension" class="btn-primary" id="add-extension">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Add to Chrome — free
           </a>
-          <h1>Take a break<br /><em>from AI.</em></h1>
-          <p class="hero-sub">
-            A timed Rest from AI mode for LinkedIn and X, plus local controls to clear out promoted posts, suggestions, and keyword noise.
-          </p>
-          <div class="cta-group">
-            <a href="#add-extension" class="btn-primary" id="add-extension">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              Add to Chrome — free
-            </a>
-            <a href="#storySection" class="btn-ghost">See what it does ↓</a>
-          </div>
+          <a href="#storyCards" class="btn-ghost">See what it does ↓</a>
         </div>
+      </div>
 
-        <div class="product-shot story-product-frame" id="storyProductFrame" style="margin-top:32px; flex-shrink:0">
-          <div class="ps-chrome">
-            <div class="ps-dots">
-              <span class="ps-dot ps-dot-r"></span>
-              <span class="ps-dot ps-dot-y"></span>
-              <span class="ps-dot ps-dot-g"></span>
+      <div class="hero-demo">
+        <div class="stage-wrap">
+          <div class="demo-frame">
+          <div class="stage" id="demoStage">
+            <div class="chrome">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <div class="url-pill">linkedin.com/feed</div>
             </div>
-            <div class="ps-addr-bar">
-              <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><rect x="1" y="5" width="8" height="7" rx="1" stroke="#888" stroke-width="1.2"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5" stroke="#888" stroke-width="1.2" stroke-linecap="round"/></svg>
-              linkedin.com/feed/
-            </div>
-            <div class="ps-ext-icon">
-              <img src="icon-default.svg" width="16" height="16" alt="Zenfeed" />
-            </div>
-          </div>
-          <div class="ps-viewport">
-            <!-- LinkedIn (blurred) -->
-            <div class="ps-li">
-              <div class="ps-li-inner">
-                <div class="li-nav">
-                  <div class="li-in">in</div>
-                  <div class="li-searchbar">Search</div>
-                  <div class="li-navbtns">
-                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Home</span></div>
-                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Network</span></div>
-                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Jobs</span></div>
-                    <div class="li-navbtn"><div class="li-navbtn-icon"></div><span>Messaging</span></div>
-                  </div>
+            <div class="li-nav">
+              <div class="li-search">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                Search
+              </div>
+              <div class="li-nav-items">
+                <div class="li-nav-item active">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1v-9z"/></svg>
+                  Home
                 </div>
-                <div class="li-content">
-                  <div class="li-sidebar">
-                    <div class="li-profile-card">
-                      <div class="li-cover"></div>
-                      <div class="li-av"></div>
-                      <div class="li-uname"></div>
-                      <div class="li-usub"></div>
-                      <div class="li-ustats">
-                        <div class="li-stat"></div>
-                        <div class="li-stat" style="width:70%"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="li-feed">
-                    <div class="li-postbox">
-                      <div class="li-po-av"></div>
-                      <div class="li-po-input">Start a post</div>
-                    </div>
-                    <div class="zf-bar"><div class="zf-bar-dot"></div><span class="zf-bar-brand">Zenfeed</span><span class="zf-bar-txt">Keyword blocked</span><span class="zf-bar-show">show</span></div>
-                    <div class="zf-bar"><div class="zf-bar-dot"></div><span class="zf-bar-brand">Zenfeed</span><span class="zf-bar-txt">Keyword blocked</span><span class="zf-bar-show">show</span></div>
-                    <div class="zf-bar"><div class="zf-bar-dot"></div><span class="zf-bar-brand">Zenfeed</span><span class="zf-bar-txt">Keyword blocked</span><span class="zf-bar-show">show</span></div>
-                    <div class="li-post">
-                      <div class="li-post-head"><div class="li-pa"></div><div class="li-pinfo"><div class="li-pname"></div><div class="li-ptitle"></div></div></div>
-                      <div class="li-pline"></div>
-                      <div class="li-pline" style="width:85%"></div>
-                      <div class="li-pline li-pline-short"></div>
-                      <div class="li-pimg"></div>
-                    </div>
+                <div class="li-nav-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M2 20c0-3 2.5-5 5-5s5 2 5 5M12 20c0-3 2.5-5 5-5s5 2 5 5"/></svg>
+                  Network
+                </div>
+                <div class="li-nav-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="16" height="12" rx="1.5"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2"/></svg>
+                  Jobs
+                </div>
+                <div class="li-nav-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+                  Messaging
+                </div>
+              </div>
+              <div class="li-nav-spacer"></div>
+              <div class="li-me"><div class="avatar" style="background:#7a9bb5">RS</div></div>
+            </div>
+            <div class="stage-body">
+              <div class="rail">
+                <div class="rail-card">
+                  <div class="rail-cover"></div>
+                  <div class="rail-avatar">RS</div>
+                  <p class="rail-name">Ravi S.</p>
+                  <p class="rail-headline">Building calmer feeds</p>
+                  <div class="rail-stats">
+                    <div class="rail-stat"><span>Profile views</span><b>128</b></div>
+                    <div class="rail-stat"><span>Post views</span><b>940</b></div>
                   </div>
                 </div>
               </div>
+              <div class="feed" id="demoFeed"></div>
             </div>
-            <!-- Zenfeed extension panel (clear) -->
-            <div class="ps-panel">
-              <div class="pnl-head">
-                <div class="pnl-art">
-                  <svg width="70" height="52" viewBox="0 0 80 60" fill="none">
-                    <ellipse cx="28" cy="52" rx="28" ry="16" fill="#8FAF98" opacity="0.7"/>
-                    <ellipse cx="62" cy="54" rx="22" ry="12" fill="#7A9BB5" opacity="0.6"/>
-                    <circle cx="62" cy="14" r="9" fill="#F4C97A"/>
-                    <circle cx="38" cy="36" r="8" fill="#C4896F" opacity="0.9"/>
-                    <ellipse cx="38" cy="47" rx="10" ry="5" fill="#C4896F" opacity="0.8"/>
-                    <circle cx="38" cy="27" r="5" fill="#E8B47A"/>
-                    <rect x="53" y="34" width="3" height="14" fill="#8B6914" rx="1"/>
-                    <circle cx="54.5" cy="30" r="8" fill="#8FAF98"/>
-                  </svg>
-                </div>
-                <div class="pnl-brand">
-                  <img src="icon-default.svg" width="16" height="16" alt="" />
-                  <strong>Zenfeed</strong>&nbsp;<span>LinkedIn &amp; X</span>
-                </div>
+          </div>
+
+          <!-- Deliberately NOT inside .stage — a real extension overlays the
+               page, it doesn't reflow into a page column. Floats offset to
+               the right with its own shadow so it reads as injected UI. -->
+          <aside class="panel">
+            <div class="panel-brand">
+              <img class="panel-mark" src="icon-default.svg" width="20" height="20" alt="" />
+              <span class="panel-word">Zenfeed</span>
+            </div>
+
+            <div class="panel-card" id="demoPanelCard">
+              <p class="panel-label">Rest from AI</p>
+              <p class="panel-hint">Mute AI takes and hustle‑bait for a while.</p>
+              <div class="panel-row">
+                <span class="panel-row-text" id="demoToggleText">Off</span>
+                <label class="toggle">
+                  <input type="checkbox" id="demoToggleInput" aria-label="Toggle Rest from AI">
+                  <span class="pip"></span>
+                </label>
               </div>
-              <div class="pnl-body">
-                <div class="pnl-zen">
-                  <div class="pnl-sec-label">REST FROM AI</div>
-                  <div class="pnl-zen-desc">Take a quiet break from AI content.</div>
-                  <div class="pnl-timer-row">
-                    <span class="pnl-timer-lbl">Resting —</span>
-                    <span class="pnl-timer-count">04:49 left</span>
-                    <span class="pnl-coins">&#x1FA99; 8</span>
-                  </div>
-                  <button class="pnl-stop-btn">&#x2296; Stop rest</button>
-                </div>
-                <div class="pnl-hide">
-                  <div class="pnl-sec-label">HIDE FROM FEED</div>
-                  <div class="pnl-toggle-row">
-                    <div class="pnl-toggle-info">
-                      <div class="pnl-toggle-title">Promoted posts <span class="pnl-eye">&#128065; 1</span></div>
-                      <div class="pnl-toggle-desc">Sponsored, promoted, and ad-labeled feed items</div>
-                    </div>
-                    <div class="pnl-pill"></div>
-                  </div>
-                  <div class="pnl-toggle-row">
-                    <div class="pnl-toggle-info">
-                      <div class="pnl-toggle-title">Suggested posts <span class="pnl-eye">&#128065; 2</span></div>
-                      <div class="pnl-toggle-desc">People you may know and recommended content</div>
-                    </div>
-                    <div class="pnl-pill"></div>
-                  </div>
-                  <div class="pnl-collapse-card">
-                    <div class="pnl-collapse-row">
-                      <div class="pnl-toggle-info">
-                        <div class="pnl-toggle-title"><strong>Collapse instead of remove</strong></div>
-                        <div class="pnl-toggle-desc">Shows a small bar — click it to restore a hidden post</div>
-                      </div>
-                      <div class="pnl-pill"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="pnl-keywords">
-                  <div class="pnl-sec-label">BLOCK BY KEYWORD <span class="pnl-count-badge">25</span></div>
-                  <div class="pnl-kw-row">
-                    <input class="pnl-kw-input" type="text" placeholder="e.g. sales pitch" readonly />
-                    <button class="pnl-kw-add">Add</button>
-                  </div>
-                  <div class="pnl-kw-tags">
-                    <span class="pnl-kw-tag">engineering &#215;</span>
-                    <span class="pnl-kw-tag">sleep &#215;</span>
-                    <span class="pnl-kw-tag">completed &#215;</span>
-                    <span class="pnl-kw-tag">designer &#215;</span>
-                  </div>
-                </div>
+              <div class="countdown" id="demoCountdown">AI Rest · <strong>14:58</strong></div>
+            </div>
+
+            <div class="filters-card">
+              <p class="panel-label">Feed Filters</p>
+              <div class="toggle-row">
+                <span class="toggle-row-text">Hide Promoted <span class="count-chip" id="demoPromotedCount">1</span></span>
+                <label class="toggle sm">
+                  <input type="checkbox" id="demoPromotedToggle" aria-label="Hide Promoted">
+                  <span class="pip"></span>
+                </label>
+              </div>
+              <div class="toggle-row">
+                <span class="toggle-row-text">Hide Suggested <span class="count-chip" id="demoSuggestedCount">1</span></span>
+                <label class="toggle sm">
+                  <input type="checkbox" id="demoSuggestedToggle" aria-label="Hide Suggested">
+                  <span class="pip"></span>
+                </label>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Scene 1: Feed noise reduced -->
-      <div class="story-scene story-scene-1" id="storyScene1">
-        <div class="story-page">
-          <div class="story-page-text">
-            <div class="story-page-label">Less feed noise</div>
-            <h2>Promoted posts,<br /><em>quieted before you scroll.</em></h2>
-            <p>Sponsored, promoted, and suggested feed items are reduced locally, so LinkedIn and X feel more focused without changing how you use them.</p>
-          </div>
-          <div class="story-page-visual">
-            <div class="story-bars">
-              <div class="story-bar-item"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Sponsored · Microsoft</span><span class="story-bar-count">hidden</span></div>
-              <div class="story-bar-item"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Promoted · Salesforce</span><span class="story-bar-count">hidden</span></div>
-              <div class="story-bar-item"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Suggested for you</span><span class="story-bar-count">hidden</span></div>
-              <div class="story-bar-item" style="opacity:0.45;"><div class="story-bar-dot"></div><span class="story-bar-brand">Zenfeed</span><span class="story-bar-txt">Promoted · Adobe</span><span class="story-bar-count">hidden</span></div>
+            <div class="filters-card">
+              <div class="kw-head">
+                <p class="panel-label">Block by keyword</p>
+                <span class="count-chip" id="demoKeywordCount" style="display:none">1</span>
+              </div>
+              <div class="kw-row">
+                <input type="text" id="demoKwInput" class="kw-input" placeholder="e.g. hustle, 10x" maxlength="40" aria-label="Keyword to block">
+                <button type="button" id="demoKwAdd" class="kw-add">Add</button>
+              </div>
+              <div class="kw-tags" id="demoKwTags"></div>
             </div>
+          </aside>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Scene 2: Zen mode -->
-      <div class="story-scene story-scene-2" id="storyScene2">
-        <div class="story-page">
-          <div class="story-page-text">
-            <div class="story-page-label">Zen mode</div>
-            <h2>AI noise,<br /><em>on a timer.</em></h2>
-            <p>Set a break from AI content — 5 minutes, an hour, or however long you need. Zenfeed steps aside when you're ready.</p>
-          </div>
-          <div class="story-page-visual">
-            <div class="story-zen-card">
-              <div class="story-zen-icon">&#127807;</div>
-              <div class="story-zen-title">Rest from AI</div>
-              <div class="story-zen-sub">AI-heavy content is hidden on LinkedIn and X</div>
-              <div class="story-zen-timer"><span class="story-zen-timer-lbl">Resting for</span><span class="story-zen-timer-val">04:49</span></div>
-              <button class="story-zen-btn">&#x2296;&nbsp; Stop rest</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scene 3: Keywords -->
-      <div class="story-scene story-scene-3" id="storyScene3">
-        <div class="story-page">
-          <div class="story-page-text">
-            <div class="story-page-label">Your rules</div>
-            <h2>Block any<br /><em>word, forever.</em></h2>
-            <p>Type a word you're tired of. It never appears in your feed again — no delays, no page refreshes.</p>
-          </div>
-          <div class="story-page-visual">
-            <div class="story-keywords">
-              <span class="story-kw">hustle ×</span>
-              <span class="story-kw">grind ×</span>
-              <span class="story-kw">AI-generated ×</span>
-              <span class="story-kw">thought leader ×</span>
-              <span class="story-kw">pivot ×</span>
-              <span class="story-kw">synergy ×</span>
-              <span class="story-kw">disruption ×</span>
-              <span class="story-kw-add">+ Add keyword</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Progress dots -->
-      <div class="story-dots">
-        <div class="story-dot active" id="dot0"></div>
-        <div class="story-dot" id="dot1"></div>
-        <div class="story-dot" id="dot2"></div>
-        <div class="story-dot" id="dot3"></div>
-      </div>
-
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>RUNS ON YOUR DEVICE <i>—</i> NO ACCOUNT REQUIRED <i>—</i> NOTHING SENT TO A SERVER <i>—</i> EVERY HIDDEN POST IS RESTORABLE <i>—</i> YOUR RULES, NOT AN ALGORITHM <i>—</i></span>
+      <span>RUNS ON YOUR DEVICE <i>—</i> NO ACCOUNT REQUIRED <i>—</i> NOTHING SENT TO A SERVER <i>—</i> EVERY HIDDEN POST IS RESTORABLE <i>—</i> YOUR RULES, NOT AN ALGORITHM <i>—</i></span>
     </div>
   </div>
 
-  <!-- FEATURES -->
-  <section class="features" id="features">
-    <div class="section-inner">
-      <div class="section-label">What it does</div>
-      <h2 class="section-title">Less noise.<br />More intention.</h2>
-      <p class="section-desc">Five quiet controls that put you back in charge of what you see on LinkedIn and X.</p>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-shot">
-            <img src="assets/screenshots/03-rest-from-ai.png" width="1280" height="800" alt="Zenfeed Rest from AI card showing a countdown timer and Stop rest button, with an AI content hidden bar in the feed" loading="lazy" />
-          </div>
-          <div class="feature-geo sage">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5A8C6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Zen mode for AI</h3>
-          <p>Take a timed break from AI-heavy LinkedIn and X content. Set 5 min, 1 hour, or longer — Zenfeed filters locally, then steps aside.</p>
+  <!-- WHY ZENFEED EXISTS -->
+  <section class="problem">
+    <div class="section-inner problem-grid">
+      <div class="problem-copy" data-r-animate>
+        <div class="section-label">Why Zenfeed exists</div>
+        <h2 class="section-title">You can't just quit LinkedIn.</h2>
+        <p>For a recruiter, a founder, a consultant, or anyone building a reputation in public, LinkedIn isn't optional — it's where the work happens. But the home feed is tuned for engagement, not for the person scrolling it: sponsored posts wedged between real updates, "suggested" strangers, and the same handful of AI takes reworded by different accounts.</p>
+        <div class="stat-line">
+          <span>ⓘ</span>
+          <span><b>1.3B+ members, 1.7M+ feed updates viewed every minute</b> — LinkedIn's own public engagement figures. The noise isn't in your head. It's the design.</span>
         </div>
-
-        <div class="feature-card">
-          <div class="feature-shot">
-            <img src="assets/screenshots/01-popup-overview.png" width="1280" height="800" alt="Zenfeed popup with the Promoted posts toggle enabled and a count of 12 hidden items" loading="lazy" />
-          </div>
-          <div class="feature-geo slate">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A7090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3>Reduce promoted posts</h3>
-          <p>Sponsored, promoted, and ad-labeled feed items are reduced before they reach your scroll. Toggle once — Zenfeed works locally on LinkedIn and X page loads.</p>
+      </div>
+      <div class="problem-visual" data-r-animate>
+        <div class="problem-shot">
+          <img src="assets/screenshots/06-promoted-posts.png" alt="A LinkedIn feed showing multiple promoted and sponsored posts, unfiltered" />
         </div>
-
-        <div class="feature-card">
-          <div class="feature-shot">
-            <img src="assets/screenshots/05-x-home-support.png" width="1280" height="800" alt="Zenfeed running on the X home timeline with the Suggested posts toggle enabled" loading="lazy" />
-          </div>
-          <div class="feature-geo sand">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3>Remove suggested posts</h3>
-          <p>Only see content from people you actually chose to follow. "People you may know" and algorithm-driven recommendations vanish from your feed.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-shot">
-            <img src="assets/screenshots/02-restore-bar.png" width="1280" height="800" alt="A collapsed Zenfeed restore bar reading Promoted / Sponsored with a show link" loading="lazy" />
-          </div>
-          <div class="feature-geo warm">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A05A40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-          </div>
-          <h3>Collapse, don't delete</h3>
-          <p>Hidden posts shrink to a slim bar instead of disappearing entirely. Click it any time to peek or restore — full control, no surprises, nothing lost forever.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-shot">
-            <img src="assets/screenshots/04-custom-keywords.png" width="1280" height="800" alt="Zenfeed Block by keyword panel with a keyword input and a Keyword blocked restore bar in the feed" loading="lazy" />
-          </div>
-          <div class="feature-geo lavender">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B52B0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-          </div>
-          <h3>Block by keyword</h3>
-          <p>Add any word or phrase you're tired of reading. Zenfeed catches every matching post on load — no delays, no page refreshes, no second chances for that word.</p>
-        </div>
+        <p class="problem-caption">A real feed, before Zenfeed</p>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how">
+  <!-- WHAT IT DOES -->
+  <section class="bento-section" id="features">
     <div class="section-inner">
-      <div class="how-layout">
-        <div>
+      <div data-r-animate>
+        <div class="section-label">What it actually does</div>
+        <h2 class="section-title">Four quiet controls,<br />nothing phoned home.</h2>
+      </div>
+      <div class="bento-grid" data-r-stagger style="margin-top: 40px;">
+
+        <div class="bcard bcard-big">
+          <div class="bcard-label">Zen mode</div>
+          <h3>Rest from AI</h3>
+          <p>Schedule a break from AI takes, AI-generated images, and "I asked ChatGPT to redesign my life" posts. Fifteen minutes or all day — Zenfeed quiets them until the timer runs out.</p>
+          <div class="bcard-visual">
+            <div class="mock-timer">
+              <span class="mock-timer-lbl">Resting for</span>
+              <span class="mock-timer-val" id="mockTimer">14:58</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bcard bcard-2">
+          <div class="bcard-label">Your rules</div>
+          <h3>Block a word, forever</h3>
+          <p>Type it once. Every post that mentions it is filtered from then on — no re-adding, no rules that expire.</p>
+          <div class="bcard-visual">
+            <div class="mock-kw" id="mockKeywords"></div>
+          </div>
+        </div>
+
+        <div class="bcard bcard-3">
+          <div class="bcard-label">Less feed noise</div>
+          <h3>Promoted &amp; suggested, turned down</h3>
+          <p>Sponsored posts and "people you may know" modules are quieted the moment you flip the switch.</p>
+          <div class="bcard-visual" style="flex-direction:column;align-items:stretch;width:100%;">
+            <div class="mock-toggle-row">Promoted posts<div class="mock-toggle"></div></div>
+            <div class="mock-toggle-row">Suggested posts<div class="mock-toggle"></div></div>
+          </div>
+        </div>
+
+        <div class="bcard bcard-wide">
+          <div class="bcard-label">Full control</div>
+          <h3>Nothing is deleted</h3>
+          <p>Every hidden post collapses into a single line. Click it, and it's back exactly as it was — Zenfeed never removes anything from LinkedIn or X, it just steps out of the way.</p>
+          <div class="bcard-visual" style="width:100%;">
+            <div class="mock-restore" style="width:100%;">
+              <div class="mock-restore-bar"><span class="mock-restore-dot"></span><span class="mock-restore-label">Promoted · Sponsored</span><span class="mock-restore-link">Show</span></div>
+              <div class="mock-restore-bar"><span class="mock-restore-dot"></span><span class="mock-restore-label">Suggested for you</span><span class="mock-restore-link">Show</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bcard bcard-trust">
+          <div class="bcard-label">Built to be trusted</div>
+          <h3>Not just used</h3>
+          <ul class="trust-list">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 5-3.4 8.4-7 9-3.6-.6-7-4-7-9V7l7-4z"/></svg> Runs locally on your device</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/><line x1="3" y1="3" x2="21" y2="21"/></svg> No account or sign-in</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 16a4 4 0 000-8 5.5 5.5 0 00-10.6 1.7A4 4 0 007 17"/><line x1="3" y1="3" x2="21" y2="21"/></svg> No cloud AI, ever</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Minimal permissions by design</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (redesign version — sticky screenshot swap) -->
+  <section class="how" id="how">
+    <div class="section-inner r-how-grid">
+      <div>
+        <div data-r-animate>
           <div class="section-label">How it works</div>
-          <h2 class="section-title">Three steps<br />to a calmer feed</h2>
-          <div class="how-steps" style="margin-top: 40px;">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div class="step-text">
-                <h3>Install the extension</h3>
-                <p>Add Zenfeed to Chrome in one click — no account, no sign-up, no tracking. It's just yours.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div class="step-text">
-                <h3>Set your preferences</h3>
-                <p>Toggle promoted posts, suggested posts, or AI-heavy content. Add keywords you want filtered out. Done in seconds.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div class="step-text">
-                <h3>Open LinkedIn or X</h3>
-                <p>Your feed loads with less noise on either supported site.</p>
-              </div>
-            </div>
+          <h2 class="section-title">Three steps.<br />No learning curve.</h2>
+        </div>
+        <div class="r-how-steps" id="howSteps" style="margin-top: 40px;">
+          <div class="r-how-rail"><div class="r-how-rail-fill" id="howRailFill"></div></div>
+
+          <div class="r-how-step" data-step="0">
+            <div class="r-how-step-num">01</div>
+            <h3>Install</h3>
+            <p>Add Zenfeed to Chrome in one click. No account, no onboarding survey, no email.</p>
+          </div>
+          <div class="r-how-step" data-step="1">
+            <div class="r-how-step-num">02</div>
+            <h3>Set your rules</h3>
+            <p>Toggle promoted and suggested posts, add a few keywords, or schedule a Rest from AI window. Takes under a minute.</p>
+          </div>
+          <div class="r-how-step" data-step="2">
+            <div class="r-how-step-num">03</div>
+            <h3>Keep scrolling</h3>
+            <p>LinkedIn and X load exactly as before — just with less of what you didn't ask to see.</p>
           </div>
         </div>
-        <div class="how-visual">
-          <div class="geo-stack">
-            <div class="geo-circle-1"></div>
-            <div class="geo-circle-2"></div>
-            <div class="geo-circle-3">
-              <img src="icon-default.svg" width="52" height="52" alt="Zenfeed" style="opacity:0.85;" />
-            </div>
-          </div>
+      </div>
+
+      <div class="r-how-visual" data-r-animate>
+        <div class="r-how-shot-frame" id="howShotFrame">
+          <img src="assets/screenshots/01-popup-overview.png" class="is-active" alt="Zenfeed popup overview" data-step="0" />
+          <img src="assets/screenshots/04-custom-keywords.png" alt="Zenfeed custom keyword blocking UI" data-step="1" />
+          <img src="assets/screenshots/05-x-home-support.png" alt="Zenfeed running on X home feed" data-step="2" />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOR WHO -->
-  <section class="who">
+  <!-- PERSONAS -->
+  <section class="personas">
     <div class="section-inner">
-      <div class="section-label">Who it's for</div>
-      <h2 class="section-title">Anyone who logs in<br />and leaves feeling worse</h2>
-      <div class="who-grid">
-        <div class="who-card">
-          <div class="icon">&#129368;</div>
-          <h4>The mindful scroller</h4>
-          <p>You want to stay connected — not bombarded. Zenfeed finds the balance.</p>
-        </div>
-        <div class="who-card">
-          <div class="icon">&#127919;</div>
-          <h4>The focused professional</h4>
-          <p>You check professional and social feeds for real connections, not brand campaigns and hot takes.</p>
-        </div>
-        <div class="who-card">
-          <div class="icon">&#129302;</div>
-          <h4>The AI-fatigued</h4>
-          <p>Not anti-AI — just done seeing it in every third post. A short Zen mode helps.</p>
-        </div>
-        <div class="who-card">
-          <div class="icon">&#127807;</div>
-          <h4>The intentional reader</h4>
-          <p>You want signal, not noise. Real voices from your actual network.</p>
-        </div>
+      <div data-r-animate>
+        <div class="section-label">Who actually needs this</div>
+        <h2 class="section-title">You don't have to hate LinkedIn<br />to want less of it.</h2>
       </div>
+    </div>
+    <div class="persona-rail" id="personaRail" style="margin-top: 40px;">
+      <div class="persona-card"><div class="persona-tag">The recruiter</div><h4>Seeing the market, not the carousel</h4><p>You need to scan real signal from your network — not the same five people posting motivational carousels between candidates.</p></div>
+      <div class="persona-card"><div class="persona-tag">The consultant</div><h4>Visible, not drowned</h4><p>Staying visible on LinkedIn matters for pipeline. A feed that drowns you in noise doesn't help you get found.</p></div>
+      <div class="persona-card"><div class="persona-tag">The indie founder</div><h4>Built for the two replies that matter</h4><p>You show up for the handful of people who actually reply — not the promoted post wedged between them.</p></div>
+      <div class="persona-card"><div class="persona-tag">The AI-fatigued</div><h4>Not anti-AI, just done seeing it</h4><p>Not against the technology — just tired of it showing up in every third post. A scheduled rest helps.</p></div>
+      <div class="persona-card"><div class="persona-tag">The quiet networker</div><h4>Your network, not its guess</h4><p>You want the people you actually chose to follow — not LinkedIn's algorithmic guess at who else that might be.</p></div>
     </div>
   </section>
 
   <!-- FINAL CTA -->
   <section class="cta-section">
-    <div class="cta-inner">
-      <h2>Start with<br /><em>a calmer feed</em></h2>
-      <p>Free to install. No account needed. Local controls for cleaner LinkedIn and X feeds while you scroll.</p>
-      <a href="#" class="btn-light">
+    <div class="cta-inner" data-r-animate>
+      <h2>Your feed. Your rules.<br /><em>Your device.</em></h2>
+      <p>Free to install, no account required. Zenfeed doesn't collect anything, so there's nothing to sell.</p>
+      <a href="#" class="btn-light" id="magneticBtn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        Add Zenfeed to Chrome — free
+        Add Zenfeed to Chrome
       </a>
+      <p class="cta-note">Also works on X (twitter.com)</p>
     </div>
   </section>
 
@@ -1049,112 +1346,566 @@
   </footer>
 
   <script>
+  /* Section entrance motion — one shared observer for everything below the
+     scroll-hijack story. Entrances don't replay on scroll-up (unobserve
+     after first trigger) — replaying reads as nervous, not calm. */
   (function () {
-    var section   = document.getElementById('storySection');
-    var frame     = document.getElementById('storyProductFrame');
-    var heroText  = document.getElementById('storyHeroText');
-    var scenes    = [
-      document.getElementById('storyScene0'),
-      document.getElementById('storyScene1'),
-      document.getElementById('storyScene2'),
-      document.getElementById('storyScene3'),
-    ];
-    var dots = [
-      document.getElementById('dot0'),
-      document.getElementById('dot1'),
-      document.getElementById('dot2'),
-      document.getElementById('dot3'),
-    ];
+    var targets = document.querySelectorAll('[data-animate], [data-animate-parent]');
+    if (!targets.length) return;
 
-    if (!section || !frame) return;
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-    function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-
-    var PHASES = [
-      [0.00, 0.22],  /* scene 0: product scales up */
-      [0.22, 0.48],  /* scene 1: ads */
-      [0.48, 0.74],  /* scene 2: zen */
-      [0.74, 1.00],  /* scene 3: keywords */
-    ];
-
-    /* Cache the product's natural center position (before any transform) */
-    var target = null;
-    function getTarget() {
-      if (target) return target;
-      var rect = frame.getBoundingClientRect();
-      var fw   = frame.offsetWidth;
-      var fh   = frame.offsetHeight;
-      var vw   = window.innerWidth;
-      var vh   = window.innerHeight;
-      var fcx  = rect.left + fw / 2;
-      var fcy  = rect.top  + fh / 2;
-      target = {
-        scale: Math.max(vw / fw, vh / fh),
-        tx: vw / 2 - fcx,
-        ty: vh / 2 - fcy,
-      };
-      return target;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      targets.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
     }
 
-    /* Invalidate cache on resize */
-    window.addEventListener('resize', function () { target = null; });
-
-    var rafPending = false;
-
-    function update() {
-      var rect    = section.getBoundingClientRect();
-      var total   = section.offsetHeight - window.innerHeight;
-      var p       = clamp(-rect.top / total, 0, 1);
-
-      /* ── Scene 0: product grows from its natural hero position ── */
-      var scaleP  = ease(clamp(p / PHASES[0][1], 0, 1));
-      var t       = getTarget();
-      var sc      = lerp(1,    t.scale, scaleP);
-      var tx      = lerp(0,    t.tx,    scaleP);
-      var ty      = lerp(0,    t.ty,    scaleP);
-      var br      = lerp(14,   0,       scaleP);
-      var sh      = lerp(1,    0,       scaleP);
-      frame.style.transform    = 'translate(' + tx + 'px,' + ty + 'px) scale(' + sc + ')';
-      frame.style.borderRadius = br + 'px';
-      frame.style.boxShadow    = sh > 0.02
-        ? '0 ' + (48*sh) + 'px ' + (120*sh) + 'px rgba(46,50,64,' + (0.22*sh) + ')'
-        : 'none';
-
-      /* Hero text fades out in the first half of the scale phase */
-      if (heroText) heroText.style.opacity = clamp(1 - scaleP * 2.2, 0, 1);
-
-      /* ── Scene visibility ── */
-      scenes.forEach(function (sc, i) {
-        var ph   = PHASES[i];
-        var FADE = 0.06;
-        var fadeIn  = clamp((p - ph[0]) / FADE, 0, 1);
-        var fadeOut = i < scenes.length - 1
-          ? clamp((p - (ph[1] - FADE)) / FADE, 0, 1) : 0;
-        var op = i === 0
-          ? clamp(1 - clamp((p - (ph[1] - FADE)) / FADE, 0, 1), 0, 1)
-          : clamp(fadeIn - fadeOut, 0, 1);
-        sc.style.opacity = op;
-        if (i > 0) {
-          var tty = lerp(36, 0, ease(fadeIn)) - lerp(0, -36, ease(fadeOut));
-          sc.style.transform = 'translateY(' + tty + 'px)';
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
         }
       });
+    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
 
-      /* ── Progress dots ── */
-      var activeIdx = 0;
-      PHASES.forEach(function (ph, i) { if (p >= ph[0]) activeIdx = i; });
-      dots.forEach(function (d, i) { d.classList.toggle('active', i === activeIdx); });
+    targets.forEach(function (el) { io.observe(el); });
+  })();
+  </script>
 
-      rafPending = false;
+  <script>
+  /* Geo-stack cursor-reactive drift — desktop pointer only. Breathing
+     (CSS keyframes) lives on the circles themselves; drift lives on the
+     wrapping .geo-drift layer so the two transforms don't fight. */
+  (function () {
+    var stack = document.querySelector('.geo-stack');
+    if (!stack) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var layers = stack.querySelectorAll('.geo-drift');
+    var raf = false, mx = 0, my = 0;
+
+    stack.addEventListener('mousemove', function (e) {
+      var r = stack.getBoundingClientRect();
+      mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      my = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) { raf = true; requestAnimationFrame(apply); }
+    });
+    stack.addEventListener('mouseleave', function () {
+      mx = 0; my = 0;
+      requestAnimationFrame(apply);
+    });
+
+    function apply() {
+      layers.forEach(function (l) {
+        var depth = parseFloat(l.dataset.depth);
+        var max   = 6 + depth * 8; // 6–14px, nearer layers drift more
+        l.style.transform  = 'translate(' + (mx * max) + 'px,' + (my * max) + 'px)';
+        l.style.transition = 'transform 500ms cubic-bezier(0.16,1,0.3,1)';
+      });
+      raf = false;
+    }
+  })();
+  </script>
+
+
+  <!-- HERO DEMO ENGINE — drives the live product recreation above. -->
+  <script>
+  (function () {
+    "use strict";
+
+    var ICONS = {
+      like: '<path d="M2 20h4V10H2v10zM22 10.5c0-.8-.7-1.5-1.5-1.5H15l1-4.5c.1-.6-.1-1.2-.5-1.6-.4-.4-1-.5-1.5-.3L9 5.5V20h10c.7 0 1.3-.4 1.4-1l1.5-7c.1-.2.1-.3.1-.5z"/>',
+      comment: '<path d="M4 4h16v12H8l-4 4V4z"/>',
+      repost: '<path d="M6 8h11l-3-3M18 16H7l3 3"/>',
+      send: '<path d="M3 11l18-8-8 18-3-7-7-3z"/>'
+    };
+    var GLOBE = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18 14 14 0 010-18z"/></svg>';
+
+    function icon(name) {
+      return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">' + ICONS[name] + '</svg>';
     }
 
-    window.addEventListener('scroll', function () {
-      if (!rafPending) { rafPending = true; requestAnimationFrame(update); }
-    }, { passive: true });
+    var POSTS = [
+      { kind: "real", initials: "JC", color: "#7a9bb5", photo: "https://i.pravatar.cc/80?img=33", name: "Jordan Cole", deg: "2nd", headline: "Senior Product Designer @ Fieldstone Studio", meta: "2h", connect: true, text: "Excited to start this new chapter! Joining the product design team to help build calmer, more intentional tools.", banner: "https://picsum.photos/seed/zenfeed-newrole/640/260", bannerCaption: "Starting a new position", likes: "Devon Park and 81 others", comments: 16 },
+      { kind: "ai", initials: "TS", color: "#c4896f", name: "The Signal", headline: "1,204 followers · Follow", meta: "4h", text: "🚀 7 ways generative AI will replace your morning routine by 2027 — thread.", likes: "18 people", comments: 6 },
+      { kind: "promoted", initials: "NW", color: "#b58a5c", name: "Northwind Software", meta: "", text: "Ship faster with Northwind's AI-assisted code review. Free for teams under 10.", likes: "12 people", comments: 3 },
+      { kind: "real", initials: "MT", color: "#7a9bb5", photo: "https://i.pravatar.cc/80?img=47", name: "Maya Torres", deg: "2nd", headline: "Product Design @ Northstar", meta: "3h", text: "Finally shipped the redesign we'd been sitting on for three months. Small team, big relief.", likes: "Devon Park and 46 others", comments: 12 },
+      { kind: "real", initials: "DP", color: "#8faf98", photo: "https://i.pravatar.cc/80?img=12", name: "Devon Park", deg: "1st", headline: "Engineering Lead @ Fielder", meta: "6h", text: "Coffee with an old mentor today. Best career advice: ignore the algorithm.", likes: "Maya Torres and 22 others", comments: 4 },
+      { kind: "keyword", initials: "MW", color: "#93a4b8", photo: "https://i.pravatar.cc/80?img=52", name: "Marcus Webb", deg: "3rd", headline: "Sales Leader @ Everest Consulting", meta: "5h", text: "If you're not hustling before sunrise, you're already behind everyone else in this game. 🔥", likes: "9 people", comments: 2 },
+      { kind: "ai", initials: "PW", color: "#c4896f", name: "PromptWeekly", headline: "48,110 followers · Follow", meta: "7h", text: "BREAKING: new model claims “human-level” reasoning — here's what actually changed.", likes: "64 people", comments: 31 },
+      { kind: "ai", initials: "FD", color: "#c4896f", name: "FutureDesk AI", headline: "9,442 followers · Follow", meta: "11h", text: "I asked ChatGPT to redesign my resume and the result shocked me 👇", likes: "31 people", comments: 9 }
+    ];
 
-    update();
+    var SUGGESTED_PEOPLE = [
+      { initials: "KN", color: "#8faf98", photo: "https://i.pravatar.cc/80?img=25", name: "Kai Nakamura", role: "Data Analyst" },
+      { initials: "LR", color: "#c4896f", photo: "https://i.pravatar.cc/80?img=44", name: "Lena Ruiz", role: "UX Researcher" },
+      { initials: "OT", color: "#7a9bb5", photo: "https://i.pravatar.cc/80?img=51", name: "Omar Tahir", role: "Founder, Loopwork" }
+    ];
+
+    function placeholderHTML(kind) {
+      if (kind === "ai") {
+        return '<div class="card-placeholder"><div><div class="ph-inner">'
+          + '<span class="ph-badge">AI</span><span class="ph-text">AI content hidden — resting</span>'
+          + '<button class="ph-show" type="button">Show</button></div></div></div>';
+      }
+      var reason = kind === "promoted" ? "Promoted post hidden" : kind === "suggested" ? "Suggested content hidden" : "Keyword blocked";
+      return '<div class="card-placeholder"><div><div class="ph-inner generic">'
+        + '<span class="ph-tag">Zenfeed</span><span class="ph-sep">|</span>'
+        + '<span class="ph-text">' + reason + '</span>'
+        + '<button class="ph-show" type="button">Show</button></div></div></div>';
+    }
+
+    function subtitleHTML(p) {
+      if (p.kind === "promoted") return '<p class="promoted-tag">Promoted</p>';
+      return '<p class="headline">' + p.headline + '</p><p class="meta">' + p.meta + ' · ' + GLOBE + '</p>';
+    }
+
+    function socialHTML(p) {
+      if (!p.likes) return "";
+      return '<div class="social-proof">'
+        + '<span class="reacts"><span class="react-dot" style="background:#1677d2;color:#fff">👍</span><span class="react-dot" style="background:#6dae7a;color:#fff">👏</span><span class="react-dot" style="background:#e0455c;color:#fff">❤</span> ' + p.likes + '</span>'
+        + '<span>' + p.comments + ' comments</span></div>'
+        + '<div class="engage-bar">'
+        + '<span class="engage-btn">' + icon("like") + ' Like</span>'
+        + '<span class="engage-btn">' + icon("comment") + ' Comment</span>'
+        + '<span class="engage-btn">' + icon("repost") + ' Repost</span>'
+        + '<span class="engage-btn">' + icon("send") + ' Send</span></div>';
+    }
+
+    function avatarHTML(p) {
+      if (p.photo) return '<div class="avatar avatar-photo"><img src="' + p.photo + '" alt="" loading="lazy" /></div>';
+      return '<div class="avatar" style="background:' + p.color + '">' + p.initials + '</div>';
+    }
+
+    function bannerHTML(p) {
+      if (!p.banner) return "";
+      return '<div class="card-banner-wrap"><img class="card-banner" src="' + p.banner + '" alt="" loading="lazy" />'
+        + (p.bannerCaption ? '<p class="card-banner-caption">' + p.bannerCaption + '</p>' : "")
+        + '</div>';
+    }
+
+    function buildCard(p) {
+      var card = document.createElement("article");
+      card.className = "card";
+      card.dataset.kind = p.kind;
+      var html = '<div class="card-content"><div><div class="card-inner">'
+        + '<div class="card-head">'
+        + avatarHTML(p)
+        + '<div class="card-who"><p class="name">' + p.name
+        + (p.deg ? ' <span class="deg">· ' + p.deg + '</span>' : "")
+        + (p.kind === "ai" ? ' <span class="ai-chip">AI</span>' : "")
+        + '</p>' + subtitleHTML(p) + '</div>'
+        + (p.connect ? '<button type="button" class="card-connect">+ Connect</button>' : "")
+        + '<span class="more-dots">•••</span>'
+        + '</div>'
+        + '<p class="card-text">' + p.text + '</p>'
+        + bannerHTML(p)
+        + socialHTML(p)
+        + '</div></div></div>'
+        + placeholderHTML(p.kind);
+      card.innerHTML = html;
+      return card;
+    }
+
+    function buildSuggested() {
+      var card = document.createElement("article");
+      card.className = "card";
+      card.dataset.kind = "suggested";
+      var peopleHtml = SUGGESTED_PEOPLE.map(function (pp) {
+        return '<div class="suggested-person">' + avatarHTML(pp)
+          + '<span class="sp-name">' + pp.name + '</span><span class="sp-role">' + pp.role + '</span>'
+          + '<button class="sp-connect" type="button">+ Connect</button></div>';
+      }).join("");
+      card.innerHTML = '<div class="card-content"><div><div class="suggested-card">'
+        + '<p class="suggested-title">People you may know</p>'
+        + '<div class="suggested-people">' + peopleHtml + '</div>'
+        + '</div></div></div>' + placeholderHTML("suggested");
+      return card;
+    }
+
+    var feedEl = document.getElementById("demoFeed");
+    var stageEl = document.getElementById("demoStage");
+    if (!feedEl || !stageEl) return;
+
+    var toggleInput = document.getElementById("demoToggleInput");
+    var toggleText = document.getElementById("demoToggleText");
+    var panelCard = document.getElementById("demoPanelCard");
+    var countdown = document.getElementById("demoCountdown");
+    var promotedToggle = document.getElementById("demoPromotedToggle");
+    var suggestedToggle = document.getElementById("demoSuggestedToggle");
+    var promotedCount = document.getElementById("demoPromotedCount");
+    var suggestedCount = document.getElementById("demoSuggestedCount");
+    var kwInput = document.getElementById("demoKwInput");
+    var kwAdd = document.getElementById("demoKwAdd");
+    var kwTags = document.getElementById("demoKwTags");
+    var keywordCount = document.getElementById("demoKeywordCount");
+    var stageBodyEl = stageEl.querySelector(".stage-body");
+
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    POSTS.forEach(function (p, i) {
+      feedEl.appendChild(buildCard(p));
+      if (i === 2) feedEl.appendChild(buildSuggested());
+    });
+
+    Array.prototype.forEach.call(feedEl.querySelectorAll(".ph-show"), function (btn) {
+      btn.addEventListener("click", function () {
+        btn.closest(".card").classList.remove("is-collapsed");
+      });
+    });
+
+    var aiCards = Array.prototype.slice.call(feedEl.querySelectorAll('.card[data-kind="ai"]'));
+    var promotedCards = Array.prototype.slice.call(feedEl.querySelectorAll('.card[data-kind="promoted"]'));
+    var suggestedCards = Array.prototype.slice.call(feedEl.querySelectorAll('.card[data-kind="suggested"]'));
+    var keywordCards = Array.prototype.slice.call(feedEl.querySelectorAll('.card[data-kind="keyword"]'));
+    var keywords = [];
+
+    function renderKeywordTags() {
+      kwTags.innerHTML = keywords.map(function (kw, i) {
+        return '<span class="kw-tag">' + kw + '<button type="button" class="kw-remove" data-i="' + i + '">×</button></span>';
+      }).join("");
+      Array.prototype.forEach.call(kwTags.querySelectorAll(".kw-remove"), function (btn) {
+        btn.addEventListener("click", function () {
+          keywords.splice(Number(btn.dataset.i), 1);
+          renderKeywordTags();
+          rescanKeywords();
+        });
+      });
+      keywordCount.style.display = keywords.length ? "" : "none";
+      keywordCount.textContent = keywordCards.length;
+    }
+
+    function rescanKeywords() {
+      keywordCards.forEach(function (card) {
+        var text = card.querySelector(".card-text").textContent.toLowerCase();
+        var matches = keywords.some(function (kw) { return kw && text.indexOf(kw.toLowerCase()) !== -1; });
+        if (matches) {
+          if (!card.classList.contains("is-collapsed") && !card.classList.contains("is-bursting")) {
+            hideCards([card], { baseDelay: 0, pitchStart: 1.4 });
+          }
+        } else {
+          showCards([card]);
+        }
+      });
+    }
+
+    function addKeyword(word) {
+      word = (word || "").trim();
+      if (!word || keywords.indexOf(word) !== -1) return;
+      keywords.push(word);
+      renderKeywordTags();
+      rescanKeywords();
+    }
+
+    function spawnParticles(card) {
+      if (reducedMotion) return;
+      for (var i = 0; i < 7; i++) {
+        var particle = document.createElement("span");
+        particle.className = "particle";
+        var angle = Math.random() * Math.PI * 2;
+        var dist = 34 + Math.random() * 26;
+        particle.style.setProperty("--dx", (Math.cos(angle) * dist).toFixed(1) + "px");
+        particle.style.setProperty("--dy", (Math.sin(angle) * dist).toFixed(1) + "px");
+        particle.style.background = i % 2 === 0 ? "#ffcf2e" : "#1677d2";
+        card.appendChild(particle);
+        (function (el) { setTimeout(function () { el.remove(); }, 600); })(particle);
+      }
+    }
+
+    var timers = [];
+    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function hideCards(cards, opts) {
+      opts = opts || {};
+      var stagger = opts.stagger || 0;
+      var baseDelay = opts.baseDelay || 0;
+      var delays = opts.delays;
+      cards.forEach(function (card, i) {
+        var delay = baseDelay + (delays ? delays[i] : i * stagger);
+        timers.push(setTimeout(function () {
+          card.classList.add("is-bursting");
+          spawnParticles(card);
+          timers.push(setTimeout(function () {
+            card.classList.add("is-collapsed");
+          }, reducedMotion ? 60 : 340));
+        }, delay));
+      });
+    }
+
+    function showCards(cards) {
+      cards.forEach(function (card) {
+        card.classList.remove("is-bursting", "is-collapsed");
+      });
+    }
+
+    function setResting(on) {
+      toggleInput.checked = on;
+      toggleText.textContent = on ? "On" : "Off";
+      stageEl.classList.toggle("resting", on);
+      panelCard.classList.toggle("active", on);
+      countdown.classList.toggle("show", on);
+    }
+
+    var AI_DELAYS = [0, 420, 760];
+
+    function turnOn() {
+      setResting(true);
+      hideCards(aiCards, { delays: AI_DELAYS, baseDelay: 320 });
+    }
+
+    function turnOff() {
+      setResting(false);
+      showCards(aiCards);
+    }
+
+    function setPromoted(on) {
+      promotedToggle.checked = on;
+      promotedCount.style.display = on ? "none" : "";
+      if (on) hideCards(promotedCards, { baseDelay: 0 });
+      else showCards(promotedCards);
+    }
+
+    function setSuggested(on) {
+      suggestedToggle.checked = on;
+      suggestedCount.style.display = on ? "none" : "";
+      if (on) hideCards(suggestedCards, { baseDelay: 0 });
+      else showCards(suggestedCards);
+    }
+
+    function resetAll() {
+      clearTimers();
+      stageBodyEl.classList.add("fading");
+      timers.push(setTimeout(function () {
+        turnOff();
+        setPromoted(false);
+        setSuggested(false);
+        keywords = [];
+        renderKeywordTags();
+        showCards(keywordCards);
+        timers.push(setTimeout(function () { stageBodyEl.classList.remove("fading"); }, 30));
+      }, 320));
+    }
+
+    function playFullDemo() {
+      timers.push(setTimeout(function () { setPromoted(true); }, 150));
+      timers.push(setTimeout(function () { setSuggested(true); }, 150 + 500));
+      timers.push(setTimeout(function () { addKeyword("hustl"); }, 150 + 500 + 500));
+      timers.push(setTimeout(function () { turnOn(); }, 150 + 500 + 500 + 500));
+    }
+
+    kwAdd.addEventListener("click", function () {
+      addKeyword(kwInput.value);
+      kwInput.value = "";
+    });
+    kwInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addKeyword(kwInput.value);
+        kwInput.value = "";
+      }
+    });
+
+    /* Ambient auto-loop — plays like a looping GIF, no controls. Runs the
+       full sequence, holds the "clean" end state, crossfades back to start,
+       repeats. Paused while the demo is scrolled out of view. */
+    var SETTLE_MS = 150 + 500 + 500 + 500 + 320 + AI_DELAYS[AI_DELAYS.length - 1] + 340 + 400 + 300;
+    var HOLD_MS = 1800;
+    var RESET_MS = 350;
+    var loopEnabled = false;
+    var cycleActive = false;
+
+    function kickOff() {
+      cycleActive = true;
+      playFullDemo();
+      timers.push(setTimeout(function () {
+        cycleActive = false;
+        if (loopEnabled) runCycle();
+      }, SETTLE_MS + HOLD_MS));
+    }
+
+    function runCycle() {
+      cycleActive = true;
+      resetAll();
+      timers.push(setTimeout(function () {
+        if (!loopEnabled) { cycleActive = false; return; }
+        kickOff();
+      }, RESET_MS));
+    }
+
+    if (reducedMotion) {
+      playFullDemo();
+    } else if ("IntersectionObserver" in window) {
+      var loopIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          loopEnabled = entry.isIntersecting;
+          if (loopEnabled && !cycleActive) kickOff();
+        });
+      }, { threshold: 0.2 });
+      loopIo.observe(stageEl);
+    } else {
+      loopEnabled = true;
+      kickOff();
+    }
+  })();
+  </script>
+
+  <!-- BELOW-THE-FOLD REDESIGN SCRIPTS -->
+  <script>
+  /* Scroll-reveal for the new below-fold sections only ([data-r-animate] /
+     [data-r-stagger]) — kept separate from the hero's own [data-animate]
+     observer above so neither has to know about the other. */
+  (function () {
+    var targets = document.querySelectorAll('[data-r-animate], [data-r-stagger]');
+    if (!targets.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      targets.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+    targets.forEach(function (el) { io.observe(el); });
+  })();
+  </script>
+
+  <script>
+  /* Rest-from-AI mini countdown in the bento card — purely decorative. */
+  (function () {
+    var el = document.getElementById('mockTimer');
+    if (!el) return;
+    var total = 15 * 60 - 2;
+    function tick() {
+      total -= 1;
+      if (total < 0) total = 15 * 60 - 2;
+      var m = Math.floor(total / 60), s = total % 60;
+      el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    setInterval(tick, 1000);
+  })();
+  </script>
+
+  <script>
+  /* Keyword chip card — cycles a small demo word list so it reads as alive. */
+  (function () {
+    var host = document.getElementById('mockKeywords');
+    if (!host) return;
+    var WORDS = ['hustle', 'synergy', 'thought leader', 'grind', '10x', 'disruption'];
+    var shown = [];
+    var i = 0;
+    function render() {
+      host.innerHTML = shown.map(function (w) { return '<span class="mock-kw-tag">' + w + ' ×</span>'; }).join('');
+    }
+    function step() {
+      shown.push(WORDS[i % WORDS.length]);
+      i += 1;
+      if (shown.length > 4) shown.shift();
+      render();
+    }
+    step();
+    setInterval(step, 2400);
+  })();
+  </script>
+
+  <script>
+  /* How-it-works: highlight the active step on scroll, swap the sticky
+     screenshot to match. */
+  (function () {
+    var steps = document.querySelectorAll('.r-how-step');
+    var images = document.querySelectorAll('#howShotFrame img');
+    var rail = document.getElementById('howRailFill');
+    if (!steps.length) return;
+    function setActive(index) {
+      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === index); });
+      images.forEach(function (img) { img.classList.toggle('is-active', Number(img.dataset.step) === index); });
+      rail.style.transform = 'scaleY(' + ((index + 1) / steps.length) + ')';
+    }
+    if (!('IntersectionObserver' in window)) { setActive(0); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(Number(entry.target.dataset.step));
+      });
+    }, { threshold: 0.6 });
+    steps.forEach(function (s) { io.observe(s); });
+  })();
+  </script>
+
+  <script>
+  /* Personas rail — native horizontal scroll, drag-to-scroll, plus a gentle auto-playing carousel. */
+  (function () {
+    var rail = document.getElementById('personaRail');
+    if (!rail) return;
+    var isDown = false, startX = 0, startScroll = 0;
+    rail.addEventListener('mousedown', function (e) {
+      isDown = true; rail.classList.add('is-dragging');
+      startX = e.pageX; startScroll = rail.scrollLeft;
+    });
+    window.addEventListener('mouseup', function () { isDown = false; rail.classList.remove('is-dragging'); });
+    window.addEventListener('mousemove', function (e) {
+      if (!isDown) return;
+      rail.scrollLeft = startScroll - (e.pageX - startX);
+    });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Scroll-snap fights a continuously-incrementing scrollLeft (it snaps back
+    // to the nearest card every frame), so drop it once autoplay takes over.
+    rail.style.scrollSnapType = 'none';
+
+    // Duplicate the card set once so the rail can loop seamlessly left-to-right.
+    var originals = Array.prototype.slice.call(rail.children);
+    originals.forEach(function (card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      rail.appendChild(clone);
+    });
+
+    var setWidth = 0;
+    function measure() { setWidth = rail.scrollWidth / 2; }
+    measure();
+    window.addEventListener('resize', measure);
+
+    var paused = false;
+    rail.addEventListener('mouseenter', function () { paused = true; });
+    rail.addEventListener('mouseleave', function () { paused = false; });
+    rail.addEventListener('touchstart', function () { paused = true; }, { passive: true });
+    rail.addEventListener('touchend', function () { paused = false; });
+
+    var SPEED = 0.4; // px per frame (~24px/s)
+    // scrollLeft rounds to whole pixels on read, so a sub-1px increment added
+    // to it every frame never accumulates. Track position in a float instead.
+    var pos = rail.scrollLeft;
+    function tick() {
+      if (paused || isDown) {
+        pos = rail.scrollLeft;
+      } else if (setWidth > 0) {
+        pos += SPEED;
+        if (pos >= setWidth) pos -= setWidth;
+        rail.scrollLeft = pos;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+  </script>
+
+  <script>
+  /* Magnetic final-CTA button — pulls slightly toward the cursor. */
+  (function () {
+    var btn = document.getElementById('magneticBtn');
+    if (!btn) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var raf = false, tx = 0, ty = 0;
+    btn.addEventListener('mousemove', function (e) {
+      var r = btn.getBoundingClientRect();
+      tx = (e.clientX - r.left - r.width / 2) * 0.25;
+      ty = (e.clientY - r.top - r.height / 2) * 0.25;
+      if (!raf) { raf = true; requestAnimationFrame(apply); }
+    });
+    btn.addEventListener('mouseleave', function () { tx = 0; ty = 0; requestAnimationFrame(apply); });
+    function apply() { btn.style.transform = 'translate(' + tx + 'px,' + ty + 'px)'; raf = false; }
   })();
   </script>
 </body>
