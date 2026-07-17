@@ -17,6 +17,38 @@
   <meta name="twitter:title" content="Zenfeed — Take your LinkedIn and X feed back from AI" />
   <meta name="twitter:description" content="Zenfeed filters ads, suggested posts, and AI content on LinkedIn and X — so you stop missing the real posts buried underneath it. Rest from AI on a timer, local controls the rest of the time. No accounts, nothing deleted." />
   <meta name="twitter:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
+
+  <!-- SoftwareApplication structured data — every field below is literally
+       true today (checked against .claude/BRAND.md and the live CWS
+       listing). No aggregate rating is included because the extension has
+       0 reviews right now — adding a fabricated rating would be a false
+       claim, not an SEO/GEO win. Update this block if pricing, platform
+       support, or the canonical URLs ever change. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zenfeed",
+    "alternateName": "Zenfeed — LinkedIn & X Feed Control",
+    "description": "Zenfeed is a Chrome extension that declutters LinkedIn and X feeds. It hides promoted and suggested posts, blocks posts by custom keyword, and gives your feed a scheduled break from AI-generated content with the Rest from AI timer. It runs 100% locally, with no backend, no tracking, and no account required.",
+    "url": "https://apputhegreat.github.io/zenfeed-site/",
+    "applicationCategory": "BrowserExtension",
+    "operatingSystem": "Chrome",
+    "browserRequirements": "Requires Google Chrome",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "image": "https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png",
+    "installUrl": "https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan",
+    "sameAs": [
+      "https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan"
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
@@ -959,6 +991,23 @@
     .persona-card h4 { font-family: var(--font-serif); font-weight: 500; font-size: 20px; color: var(--white); margin-bottom: 12px; }
     .persona-card p { font-size: 14.5px; color: rgba(253,250,245,0.62); font-weight: 300; line-height: 1.65; }
 
+    /* FAQ — plain <details>/<summary> accordion, no JS needed. Styled with
+       the same sand cards + serif/sans pairing as the rest of the page. */
+    .faq { background: var(--sand); }
+    .faq-list { display: flex; flex-direction: column; gap: 14px; margin-top: 40px; max-width: 760px; }
+    .faq-item { border: 1px solid rgba(46,50,64,0.08); border-radius: 16px; background: var(--white); padding: 0 24px; }
+    .faq-item summary {
+      cursor: pointer; list-style: none; font-family: var(--font-sans); font-weight: 600; font-size: 16px;
+      color: var(--stone); padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+"; font-size: 20px; font-weight: 400; color: var(--sage); flex: none; line-height: 1;
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p { font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.7; padding: 0 0 22px; max-width: 640px; }
+
     .cta-section::before { content: ""; position: absolute; inset: -20%; background: radial-gradient(560px 420px at 20% 30%, rgba(143,175,152,0.16), transparent 60%); pointer-events: none; }
     .cta-note { font-family: var(--font-sans); margin-top: 22px; font-size: 13px; color: rgba(253,250,245,0.4); }
 
@@ -1318,6 +1367,95 @@
       <div class="persona-card"><div class="persona-tag">The quiet networker</div><h4>Your network, not its guess</h4><p>You want the people you actually chose to follow — not LinkedIn's algorithmic guess at who else that might be.</p></div>
     </div>
   </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="section-inner">
+      <div data-r-animate>
+        <div class="section-label">Questions people actually ask</div>
+        <h2 class="section-title">Straight answers,<br />no fine print.</h2>
+      </div>
+      <div class="faq-list" data-r-stagger>
+
+        <details class="faq-item">
+          <summary>How do I hide AI-generated posts on LinkedIn?</summary>
+          <p>Install Zenfeed, open the popup, and turn on Rest from AI. Pick a window — anywhere from 15 minutes to a few hours — and Zenfeed hides AI-generated posts across your LinkedIn and X feed for that whole time, then brings everything back automatically once the timer runs out. This isn't about AI posts being bad. It's that there are so many of them that they bury the real posts from the people you actually follow, and Rest from AI gives your feed a break so those posts become visible again.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is Zenfeed free?</summary>
+          <p>Yes, it's free. There's no paid tier, no ads, and no upsell hiding behind it. I built Zenfeed to fix my own feed, not to turn it into a business, so free is the plan — not an intro offer.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does Zenfeed track me or send my data anywhere?</summary>
+          <p>No. 100% local. No backend, no tracking, no account. Zenfeed reads your feed's text right there in your browser to decide what to hide, and none of that ever leaves your device. There's no analytics running in the background, because there's no server for it to report to.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does this work on X (Twitter) too?</summary>
+          <p>Yes. Zenfeed works on both LinkedIn and X (twitter.com) — the same Rest from AI timer, keyword blocking, and promoted and suggested post filtering run on both. It's a Chrome extension, so it currently only works in Chrome. I'd like to support Firefox too, but Firefox handles this type of extension differently, so that would take extra work I haven't gotten to yet.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What's different about Zenfeed vs other feed cleaners?</summary>
+          <p>Most feed cleaners just hide ads. Zenfeed does that too, but the feature it's actually built around is Rest from AI: a scheduled break specifically from AI-generated posts, with a live countdown badge, so you can turn it on for 15 minutes or a few hours and have everything come back automatically when it's done. On top of that, keyword blocking sticks for good — add a word once, and every matching post stays filtered from then on — and everything runs locally on your device, with no account and no backend. That combination, not just "hides posts," is what makes it different.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQPage structured data — mirrors the on-page FAQ above word for
+       word. Keep both in sync if the copy changes. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I hide AI-generated posts on LinkedIn?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install Zenfeed, open the popup, and turn on Rest from AI. Pick a window — anywhere from 15 minutes to a few hours — and Zenfeed hides AI-generated posts across your LinkedIn and X feed for that whole time, then brings everything back automatically once the timer runs out. This isn't about AI posts being bad. It's that there are so many of them that they bury the real posts from the people you actually follow, and Rest from AI gives your feed a break so those posts become visible again."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Zenfeed free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, it's free. There's no paid tier, no ads, and no upsell hiding behind it. I built Zenfeed to fix my own feed, not to turn it into a business, so free is the plan — not an intro offer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Zenfeed track me or send my data anywhere?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. 100% local. No backend, no tracking, no account. Zenfeed reads your feed's text right there in your browser to decide what to hide, and none of that ever leaves your device. There's no analytics running in the background, because there's no server for it to report to."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work on X (Twitter) too?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Zenfeed works on both LinkedIn and X (twitter.com) — the same Rest from AI timer, keyword blocking, and promoted and suggested post filtering run on both. It's a Chrome extension, so it currently only works in Chrome. Firefox isn't supported yet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's different about Zenfeed vs other feed cleaners?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most feed cleaners just hide ads. Zenfeed does that too, but the feature it's actually built around is Rest from AI: a scheduled break specifically from AI-generated posts, with a live countdown badge, so you can turn it on for 15 minutes or a few hours and have everything come back automatically when it's done. On top of that, keyword blocking sticks for good, and everything runs locally on your device, with no account and no backend."
+        }
+      }
+    ]
+  }
+  </script>
 
   <!-- FINAL CTA -->
   <section class="cta-section">
