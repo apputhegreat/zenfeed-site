@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenfeed Comparisons — vs Other Feed-Cleaning Extensions</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <meta name="description" content="Compare Zenfeed to other Chrome extensions for cleaning up LinkedIn, X, and YouTube feeds — pricing, platforms, and features side by side." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sage: #8faf98;
+      --blue: #0a66c2;
+      --sand: #f4efe6;
+      --font-sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      padding: 70px 0 44px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--sage);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      max-width: 700px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    main {
+      padding: 34px 0 72px;
+    }
+
+    .compare-card {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      margin-top: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .compare-card:hover {
+      border-color: var(--sage);
+      transform: translateY(-1px);
+    }
+
+    .compare-card h2 {
+      margin: 0 0 10px;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .compare-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .compare-card .read-more {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .muted { color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      .compare-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Comparison hub navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="../">Home</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+        </div>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Compare</p>
+        <h1>Zenfeed vs other feed-cleaning extensions.</h1>
+        <p class="intro">
+          Honest, source-linked comparisons — pricing, platforms, and features, side by side. Every fact below is
+          checked against the competitor's live Chrome Web Store listing, and we link straight to it so you can
+          verify it yourself.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <a class="compare-card" href="zenfeed-vs-linkoff.html">
+      <h2>Zenfeed vs LinkOff</h2>
+      <p>LinkOff is a free, LinkedIn-only feed customizer with deep content-type filtering; Zenfeed also covers X and YouTube, and adds a timed Rest from AI window LinkOff doesn't have.</p>
+      <span class="read-more">Read the comparison →</span>
+    </a>
+
+    <a class="compare-card" href="zenfeed-vs-control-panel-for-twitter.html">
+      <h2>Zenfeed vs Control Panel for Twitter</h2>
+      <p>Control Panel for Twitter has 300,000 users and a huge X-only feature set, but doesn't detect AI content or cover LinkedIn/YouTube like Zenfeed does.</p>
+      <span class="read-more">Read the comparison →</span>
+    </a>
+
+    <a class="compare-card" href="zenfeed-vs-socialfocus.html">
+      <h2>Zenfeed vs SocialFocus</h2>
+      <p>SocialFocus is the closest match to Zenfeed's one-extension, multi-platform approach, covering five sites, but it skips LinkedIn and has no AI detection or keyword blocking.</p>
+      <span class="read-more">Read the comparison →</span>
+    </a>
+
+    <a class="compare-card" href="zenfeed-vs-ai-content-shield.html">
+      <h2>Zenfeed vs AI Content Shield</h2>
+      <p>AI Content Shield blocks AI content across far more sites — Reddit, Facebook, Gmail, and more — while Zenfeed stays free, adds promoted/suggested filtering, and uses a timed auto-restore instead of always-on blocking.</p>
+      <span class="read-more">Read the comparison →</span>
+    </a>
+
+    <a class="compare-card" href="zenfeed-vs-clarity.html">
+      <h2>Zenfeed vs Clarity</h2>
+      <p>Clarity's community blocklist improves AI detection on YouTube over time through crowdsourcing, but it only covers YouTube and has a small install base compared to Zenfeed's broader platform reach.</p>
+      <span class="read-more">Read the comparison →</span>
+    </a>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+        </div>
+      </div>
+      <p>Last updated: July 23, 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenfeed vs Clarity — Chrome Extension Comparison</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <meta name="description" content="Zenfeed vs Clarity (Hide AI Videos on YouTube): compare Chrome extensions for filtering AI-generated content — detection method, platform coverage, and blocking." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sage: #8faf98;
+      --blue: #0a66c2;
+      --sand: #f4efe6;
+      --font-sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      padding: 70px 0 44px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--sage);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      max-width: 700px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    main {
+      padding: 34px 0 72px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      margin-top: 16px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    p { margin: 0 0 14px; }
+
+    ul, ol {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    code {
+      background: #f4efe6;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .info-box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdfa;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    table.compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 15px;
+    }
+
+    .compare-table th {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--sand);
+    }
+
+    .compare-table td:first-child {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .btn-primary-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 100px;
+      transition: background 0.2s;
+    }
+
+    .btn-primary-cta:hover { background: #1a1e2a; }
+
+    .btn-secondary-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 100px;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary-cta:hover { background: var(--sand); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      section { padding: 22px; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Comparison page navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="../">Home</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+        </div>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Compare</p>
+        <h1>Zenfeed vs Clarity</h1>
+        <p class="intro">
+          Clarity (Hide AI Videos on YouTube) is a free, YouTube-only extension that auto-detects suspected
+          AI-generated videos and improves its filtering over time through a community blocklist. Zenfeed covers
+          LinkedIn, X, and YouTube and detects AI content locally through keyword matching. Here's how they actually
+          compare.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>Side by side</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Zenfeed</th>
+              <th>Clarity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Price</td>
+              <td>Free, no tiers</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Platforms</td>
+              <td>LinkedIn, X/Twitter, YouTube</td>
+              <td>YouTube only</td>
+            </tr>
+            <tr>
+              <td>Account required</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>AI-content detection method</td>
+              <td>Local keyword/phrase sweep — no account or data sharing needed</td>
+              <td>Auto-detection plus an optional shared/community blocklist that improves filtering over time via crowdsourcing</td>
+            </tr>
+            <tr>
+              <td>Promoted + Suggested filtering</td>
+              <td>Yes, toggle per category</td>
+              <td>Not part of its stated feature set</td>
+            </tr>
+            <tr>
+              <td>Keyword blocking</td>
+              <td>Yes — custom keyword list</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>Timed auto-restore</td>
+              <td>Yes — 15/30/60 min or a custom duration, everything comes back automatically when the timer ends</td>
+              <td>No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why someone might choose Zenfeed</h2>
+      <p>
+        Zenfeed covers LinkedIn and X in addition to YouTube, and adds promoted/suggested filtering and custom
+        keyword blocking, none of which are part of Clarity's stated feature set. Zenfeed's AI detection is also
+        entirely local — no account, and nothing about your feed gets shared to improve a shared model.
+      </p>
+      <h2 style="margin-top: 22px;">Why someone might still want Clarity</h2>
+      <p class="muted">
+        Clarity's community blocklist is a real, meaningful difference: users can label AI channels to contribute
+        to a shared list that improves detection over time, something Zenfeed's local-only keyword approach doesn't
+        do at all. Clarity is purpose-built for YouTube specifically, with a one-click toggle and a daily counter
+        of videos blocked, on Home, Shorts, and recommendations. It's worth noting Clarity's install base is small —
+        1,000 users and 4.2★ from 10 ratings — so that track record is thinner than the other tools in this
+        comparison series, and its developer states plainly that "filtering may not be perfect."
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Clarity facts above (pricing, platforms, ratings) are from its live Chrome Web Store listing, checked
+        July 24, 2026: 4.2★ (10 ratings), 1,000 users, updated January 29, 2026.
+      </p>
+      <div class="cta-row">
+        <a class="btn-secondary-cta" href="https://chromewebstore.google.com/detail/clarity-hide-ai-videos-on/gjngfjkebjejpaagdlbkdibdameiolfk" target="_blank" rel="noopener">
+          View Clarity on Chrome Web Store ↗
+        </a>
+        <a class="btn-primary-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">
+          Add Zenfeed to Chrome — free ↗
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="index.html">See all comparisons</a>
+        </div>
+      </div>
+      <p>Last updated: July 24, 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>
