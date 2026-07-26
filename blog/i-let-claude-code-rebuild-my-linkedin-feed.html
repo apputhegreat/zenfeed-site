@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Let Claude Code Rebuild My LinkedIn Feed — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <meta name="description" content="No VC, no backend, and no single magic prompt. How Zenfeed — a Chrome extension that declutters LinkedIn and X feeds — got built, broke when LinkedIn changed its markup, and got fixed." />
+  <meta property="og:title" content="I Let Claude Code Rebuild My LinkedIn Feed" />
+  <meta property="og:description" content="No VC, no backend, and no single magic prompt. How Zenfeed got built, broke when LinkedIn changed its markup, and got fixed." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://apputhegreat.github.io/zenfeed-site/blog/i-let-claude-code-rebuild-my-linkedin-feed.html" />
+  <meta property="og:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="I Let Claude Code Rebuild My LinkedIn Feed" />
+  <meta name="twitter:description" content="No VC, no backend, and no single magic prompt. How Zenfeed got built, broke when LinkedIn changed its markup, and got fixed." />
+  <meta name="twitter:image" content="https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "I let Claude Code rebuild my LinkedIn feed. Here's what actually happened.",
+    "description": "No VC, no backend, and no single magic prompt. How Zenfeed got built, broke when LinkedIn changed its markup, and got fixed.",
+    "datePublished": "2026-07-25",
+    "dateModified": "2026-07-25",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": { "@type": "Organization", "name": "Zenfeed" },
+    "mainEntityOfPage": "https://apputhegreat.github.io/zenfeed-site/blog/i-let-claude-code-rebuild-my-linkedin-feed.html",
+    "image": "https://apputhegreat.github.io/zenfeed-site/assets/promotional/marquee-promo-tile.png"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sand-2: #ede6d8;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --slate-2: #c5d8e8;
+      --warm: #c4896f;
+      --warm-2: #f0d9cf;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --stone-dark: #1a1e2a;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    header {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    .byline .avatar {
+      width: 28px; height: 28px; border-radius: 50%; flex: none;
+      background: linear-gradient(140deg, var(--slate), var(--sage));
+    }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+
+    /* ---- prompt panel ---- */
+    .prompt-card {
+      margin: 28px 0 34px;
+      background: var(--stone-dark);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .prompt-card .bar {
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .prompt-card .bar span { width: 9px; height: 9px; border-radius: 50%; }
+    .prompt-card .bar span:nth-child(1) { background: #ff5f57; }
+    .prompt-card .bar span:nth-child(2) { background: #febc2e; }
+    .prompt-card .bar span:nth-child(3) { background: #28c840; }
+    .prompt-card .bar label {
+      margin-left: 8px; font-family: var(--font-sans); font-size: 11.5px; color: #fff; opacity: 0.5; letter-spacing: 0.04em;
+    }
+    .prompt-card pre {
+      margin: 0; padding: 20px 20px 22px;
+      color: #e7ecf5;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 14.5px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ---- before/after diagram ---- */
+    figure.feed-diagram {
+      margin: 30px 0 8px;
+      padding: 22px 18px 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    .diagram-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .diagram-col-label {
+      font-family: var(--font-sans); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .diagram-col { display: flex; flex-direction: column; gap: 9px; }
+    .card-full {
+      border: 1px solid var(--line); border-radius: 8px; padding: 10px 11px;
+      display: flex; gap: 9px; align-items: flex-start; background: var(--paper);
+    }
+    .card-full .av { width: 20px; height: 20px; border-radius: 50%; flex: none; margin-top: 2px; }
+    .card-full .lines { flex: 1; display: flex; flex-direction: column; gap: 5px; padding-top: 2px; }
+    .card-full .ln { height: 6px; border-radius: 3px; background: var(--line); }
+    .card-full .ln.w1 { width: 55%; }
+    .card-full .ln.w2 { width: 92%; }
+    .card-full .ln.w3 { width: 80%; }
+    .card-full .tag {
+      font-family: var(--font-sans); font-size: 9px; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 3px; display: block;
+    }
+    .card-bar {
+      border: 1px dashed var(--line); border-radius: 8px; padding: 8px 11px;
+      font-family: var(--font-sans); font-size: 11.5px; color: var(--muted);
+      display: flex; align-items: center; justify-content: space-between; background: var(--paper);
+    }
+    .card-bar .undo { font-size: 10px; opacity: 0.6; }
+    .card-bar.ai { background: var(--gold-2); border-style: solid; border-color: transparent; color: var(--gold-900); }
+    figcaption {
+      margin-top: 16px; font-family: var(--font-sans); font-size: 12.5px;
+      color: var(--muted); text-align: center;
+    }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .diagram-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> BUILD LOG · 7 MIN READ · JULY 25, 2026</p>
+      <h1 class="title">I let Claude Code rebuild my LinkedIn feed. Here's what actually happened.</h1>
+      <p class="dek">No VC, no backend, and no single magic prompt. Just a Chrome extension I built by describing the problem out loud, one iteration at a time — including the week LinkedIn quietly broke it.</p>
+      <div class="byline">
+        <div class="avatar"></div>
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>If you spend time on LinkedIn or X, you already know the feeling. You open the app to catch up with people you actually follow, and instead you scroll past promoted posts, "people you may know" suggestions, and so much AI-generated content that the real posts get buried underneath all of it. I hit that wall often enough that I decided to fix it for myself.</p>
+
+        <p>I'm not primarily a Chrome extension developer. What I had was a clear, specific problem and Claude Code sitting in my terminal. So instead of spending a few weekends learning the Manifest V3 APIs from scratch, I described what I wanted, section by section, and let it write the code while I made the decisions — what to hide, how to label it, when to trust it.</p>
+
+        <h2>The first real prompt</h2>
+
+        <p>I didn't write a novel. The first ask was close to this:</p>
+
+        <div class="prompt-card">
+          <div class="bar"><span></span><span></span><span></span><label>prompt.txt</label></div>
+          <pre>Build a Chrome Manifest V3 extension that runs on LinkedIn and X.
+Scan the feed, detect promoted/sponsored posts and "people you may
+know" suggestions, and collapse each one into a small placeholder
+bar the user can click to restore. No backend, no build step —
+plain JS files Chrome loads directly. Store settings in
+chrome.storage.local. Add a popup with on/off toggles per category.</pre>
+        </div>
+
+        <p>What came back was a real, working skeleton in that first sitting: a content script that scanned the feed, a classifier, a collapse/restore mechanic, and a popup wired to storage. I loaded it unpacked, opened LinkedIn, and it worked well enough to keep going.</p>
+
+        <p>That's the part that looks like magic. It isn't the whole story.</p>
+
+        <h2>Then LinkedIn changed the floor under me</h2>
+
+        <p>A few weeks in, LinkedIn quietly rewrote how it renders its feed — moving to a server-driven UI, where the page is assembled from a data schema instead of stable, readable class names. Every selector the extension relied on stopped matching overnight. Posts I used to detect in one line of CSS were now nested inside generic, auto-generated wrapper elements with no useful hooks at all.</p>
+
+        <p>That's not a bug you patch with a deprecation fix. It meant rebuilding the entire LinkedIn detection layer — new selectors, a text-walking fallback for when selectors fail, and a button-based ancestor search as a second line of defense, so the extension wouldn't go blind the next time LinkedIn shipped a redesign.</p>
+
+        <blockquote>The honest version of "AI wrote my app" is that AI wrote a strong first draft. LinkedIn breaking it a few weeks later is the part a one-prompt story usually leaves out.</blockquote>
+
+        <p>I found more of these along the way, all small, all real: a circuit breaker meant to detect a dead feed was latching permanently instead of resetting per page load. Custom keyword matching failed silently against curly apostrophes, so "don't" in a user's blocklist wouldn't match "don't" typed with a smart quote. Each one got a fix and a regression test, not a rewrite.</p>
+
+        <figure class="feed-diagram">
+          <div class="diagram-grid">
+            <div class="diagram-col">
+              <div class="diagram-col-label">Before</div>
+              <div class="card-full">
+                <div class="av" style="background:var(--warm)"></div>
+                <div class="lines"><span class="tag">Promoted</span><div class="ln w2"></div><div class="ln w1"></div></div>
+              </div>
+              <div class="card-full">
+                <div class="av" style="background:var(--gold)"></div>
+                <div class="lines"><span class="tag">AI post</span><div class="ln w3"></div><div class="ln w1"></div></div>
+              </div>
+              <div class="card-full">
+                <div class="av" style="background:var(--slate)"></div>
+                <div class="lines"><span class="tag">A person you follow</span><div class="ln w2"></div><div class="ln w3"></div></div>
+              </div>
+              <div class="card-full">
+                <div class="av" style="background:var(--muted)"></div>
+                <div class="lines"><span class="tag">Suggested</span><div class="ln w1"></div><div class="ln w2"></div></div>
+              </div>
+            </div>
+            <div class="diagram-col">
+              <div class="diagram-col-label">After</div>
+              <div class="card-bar">Promoted post — hidden <span class="undo">restore ↺</span></div>
+              <div class="card-bar ai">AI post — resting <span class="undo">restore ↺</span></div>
+              <div class="card-full">
+                <div class="av" style="background:var(--slate)"></div>
+                <div class="lines"><span class="tag">A person you follow</span><div class="ln w2"></div><div class="ln w3"></div></div>
+              </div>
+              <div class="card-bar">Suggested — hidden <span class="undo">restore ↺</span></div>
+            </div>
+          </div>
+          <figcaption>What collapse actually does: not deleted, just folded into a labeled bar you can undo — same mechanic on LinkedIn, X, and YouTube.</figcaption>
+        </figure>
+
+        <h2>What actually shipped</h2>
+
+        <p>Zenfeed runs the same shared machinery — scan, classify, collapse, restore — across three sites, but each site gets its own adapter, because LinkedIn, X, and YouTube don't expose their feeds the same way. X has stable <span class="mono">data-testid</span> hooks, so it needs less guesswork. YouTube uses a different collapse style entirely — blurred in place instead of folded into a bar, so the grid keeps its shape. Here's what's actually behind the toggles:</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>Hide promoted</div>
+            <p>Collapses sponsored posts on LinkedIn and "Ad" / "Promoted" tweets on X.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--muted)"></i>Hide suggested</div>
+            <p>"People you may know," "Who to follow," "Discover more" — off by default, since it's a looser match.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--gold)"></i>Rest from AI</div>
+            <p>A timer that hides AI-flagged posts for a set number of minutes, with a live countdown badge on the toolbar icon.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>Custom keywords</div>
+            <p>Block posts by your own word list, matched case-insensitively, across all three sites.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--sage)"></i>Hide Shorts</div>
+            <p>Collapses the entire YouTube Shorts shelf as one unit, not tile by tile. Off by default.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>Hide company pages</div>
+            <p>Filters LinkedIn Company and Showcase Page posts by checking the byline link, not the post text. Off by default.</p>
+          </div>
+        </div>
+
+        <h3 class="kicker">Why "off by default" shows up twice</h3>
+        <p>Suggested-content and Shorts detection are content-type filters, not unambiguous ad labels. A false positive on day one costs more trust than a miss does, so both ship opt-in. That's a product decision, not a technical limitation — and it's the kind of call that "one prompt" can't make for you.</p>
+
+        <h2>Making it trustworthy, not just working</h2>
+
+        <p>A feed extension that's wrong even occasionally is worse than useless — it hides posts you wanted to see. So most of the later work wasn't new features, it was tests: a Playwright suite that drives real page structure per site, plus jsdom unit tests for the parts that don't need a browser. There's a dedicated test for the LinkedIn sidebar ad sweep, one for company-page detection, one for the YouTube Shorts shelf, one just for Rest from AI's countdown logic. Nine separate <span class="mono">npm run test:*</span> commands, because "it looks like it works" and "it's still right after LinkedIn's next redesign" are different bars.</p>
+
+        <div class="callout">
+          <span class="label">On privacy — stated plainly, because it has to be true</span>
+          Everything runs locally, in the browser. There's no server, no tracking, and no account. Settings live in <span class="mono">chrome.storage.local</span>, on your machine, nowhere else.
+        </div>
+
+        <h2>Where it landed</h2>
+
+        <p>Zenfeed is live on the Chrome Web Store, on version 1.1.4 as of this post. It's free, it's built by one person, and it started as a tool to fix my own feed before it was anything else. It only works on Chrome right now — Firefox handles this kind of extension differently, so that's a later project, not a promise.</p>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">The honest takeaway isn't that one prompt built a working Chrome extension. It's that a clear first prompt gets you a real skeleton, fast — and the actual work is the same work it's always been: watching what breaks, fixing it, and testing it until you trust it again. Claude Code changed how fast I could get from idea to working code. It didn't change what "done" means.</p>
+          <p class="followup">If you use LinkedIn, X, or YouTube and this problem sounds familiar, I'd rather hear what's still broken than have you assume it's all polished. That feedback loop is most of how it got here.</p>
+          <div class="tags">
+            <span>Chrome Extension</span>
+            <span>Claude Code</span>
+            <span>Manifest V3</span>
+            <span>Building in Public</span>
+            <span>LinkedIn</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/index.html">Compare</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>
