@@ -13,4 +13,4 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-Sitemap: https://apputhegreat.github.io/zenfeed-site/sitemap.xml
+Sitemap: https://zenfeed.org/sitemap.xml
