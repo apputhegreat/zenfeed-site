@@ -942,13 +942,16 @@
     @media (max-width: 980px) { .problem-grid { grid-template-columns: 1fr; gap: 44px; } .problem-visual { order: -1; } .problem-shot { transform: none; } }
 
     .bento-section { background: var(--sand-2); }
-    .bento-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: auto auto; gap: 20px; }
+    .bento-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: auto auto auto; gap: 20px; }
     .bcard { background: var(--white); border: 1px solid rgba(46,50,64,0.08); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
     .bcard-big { grid-column: 1 / 2; grid-row: 1 / 2; }
     .bcard-2 { grid-column: 2 / 3; grid-row: 1 / 2; }
     .bcard-3 { grid-column: 3 / 4; grid-row: 1 / 2; }
     .bcard-wide { grid-column: 1 / 3; grid-row: 2 / 3; }
     .bcard-trust { grid-column: 3 / 4; grid-row: 2 / 3; }
+    .bcard-sources { grid-column: 1 / 4; grid-row: 3 / 4; }
+    .bcard-sources p { max-width: 66ch; }
+    .bcard-sources .bcard-visual { max-width: 420px; }
     .bcard-label { font-family: var(--font-sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin-bottom: 14px; }
     .bcard h3 { font-family: var(--font-serif); font-weight: 500; font-size: 22px; color: var(--stone); margin-bottom: 10px; }
     .bcard p { font-size: 14.5px; color: var(--muted); font-weight: 300; line-height: 1.65; }
@@ -963,6 +966,8 @@
     .mock-toggle-row:last-child { border-bottom: none; }
     .mock-toggle { width: 34px; height: 20px; border-radius: 100px; background: var(--stone); position: relative; flex: none; }
     .mock-toggle::before { content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--white); top: 3px; right: 3px; }
+    .mock-toggle--off { background: rgba(46,50,64,0.18); }
+    .mock-toggle--off::before { right: auto; left: 3px; }
     .mock-restore { display: flex; flex-direction: column; gap: 10px; }
     .mock-restore-bar { font-family: var(--font-sans); display: flex; align-items: center; gap: 10px; background: var(--sand); border: 1px solid rgba(46,50,64,0.08); border-radius: 12px; padding: 12px 16px; }
     .mock-restore-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warm); flex: none; }
@@ -972,16 +977,18 @@
     .trust-list li { font-family: var(--font-sans); display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--muted); font-weight: 500; }
     .trust-list svg { flex: none; color: var(--sage); }
     @media (max-width: 980px) {
-      .bento-grid { grid-template-columns: 1fr 1fr; }
+      .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
       .bcard-big { grid-column: 1 / 3; }
       .bcard-2 { grid-column: 1 / 2; }
       .bcard-3 { grid-column: 2 / 3; }
       .bcard-wide { grid-column: 1 / 3; }
       .bcard-trust { grid-column: 1 / 3; }
+      .bcard-sources { grid-column: 1 / 3; }
+      .bcard-big, .bcard-2, .bcard-3, .bcard-wide, .bcard-trust, .bcard-sources { grid-row: auto; }
     }
     @media (max-width: 640px) {
       .bento-grid { grid-template-columns: 1fr; }
-      .bcard-big, .bcard-2, .bcard-3, .bcard-wide, .bcard-trust { grid-column: 1 / 2; }
+      .bcard-big, .bcard-2, .bcard-3, .bcard-wide, .bcard-trust, .bcard-sources { grid-column: 1 / 2; }
     }
 
     .r-how-steps { position: relative; padding-left: 34px; }
@@ -1278,7 +1285,7 @@
     <div class="section-inner">
       <div data-r-animate>
         <div class="section-label">What it actually does</div>
-        <h2 class="section-title">Four quiet controls,<br />nothing phoned home.</h2>
+        <h2 class="section-title">Six quiet controls,<br />nothing phoned home.</h2>
       </div>
       <div class="bento-grid" data-r-stagger style="margin-top: 40px;">
 
@@ -1334,6 +1341,16 @@
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 16a4 4 0 000-8 5.5 5.5 0 00-10.6 1.7A4 4 0 007 17"/><line x1="3" y1="3" x2="21" y2="21"/></svg> No cloud AI, ever</li>
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Minimal permissions by design</li>
           </ul>
+        </div>
+
+        <div class="bcard bcard-sources">
+          <div class="bcard-label">Off by default</div>
+          <h3>Hide a whole kind of post</h3>
+          <p>On LinkedIn, you can hide posts from Company, Showcase, and School Pages, so your feed leans back toward the people you actually follow. On YouTube, you can collapse the Shorts shelf as one row, instead of trying to filter it clip by clip. Both start switched off, because these are content types rather than ads, and that's your call to make, not mine.</p>
+          <div class="bcard-visual" style="flex-direction:column;align-items:stretch;width:100%;">
+            <div class="mock-toggle-row">Company &amp; School Pages<div class="mock-toggle mock-toggle--off"></div></div>
+            <div class="mock-toggle-row">YouTube Shorts shelf<div class="mock-toggle mock-toggle--off"></div></div>
+          </div>
         </div>
 
       </div>
@@ -1431,6 +1448,11 @@
         </details>
 
         <details class="faq-item">
+          <summary>Can I hide posts from LinkedIn Company Pages?</summary>
+          <p>Yes. There's a toggle in the popup that hides posts from Company, Showcase, and School Pages, so what's left in your feed leans back toward the people you actually follow. It's off by default, because that's a kind of content rather than an ad, and it should be your call rather than something I decide for you. Zenfeed works it out from who posted: if the author of the post links to a company or school page instead of a personal profile, the post gets hidden. A company that's simply mentioned or linked inside someone else's post won't trigger it.</p>
+        </details>
+
+        <details class="faq-item">
           <summary>What's different about Zenfeed vs other feed cleaners?</summary>
           <p>Most feed cleaners just hide ads. Zenfeed does that too, but the feature it's actually built around is Rest from AI: a scheduled break specifically from AI-generated posts, with a live countdown badge, so you can turn it on for 15 minutes or a few hours and have everything come back automatically when it's done. On top of that, keyword blocking sticks for good — add a word once, and every matching post stays filtered from then on — and everything runs locally on your device, with no account and no backend. That combination, not just "hides posts," is what makes it different.</p>
         </details>
@@ -1484,6 +1506,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Yes, but it does less there than on LinkedIn and X. On YouTube, Zenfeed supports Rest from AI, your custom keyword list, and an optional toggle for hiding the Shorts shelf — all on the Home, Subscriptions, and Search pages. It doesn't filter promoted or suggested content on YouTube. Filtered videos get blurred in place rather than collapsed into a bar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I hide posts from LinkedIn Company Pages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. There's a toggle in the popup that hides posts from Company, Showcase, and School Pages, so what's left in your feed leans back toward the people you actually follow. It's off by default, because that's a kind of content rather than an ad, and it should be your call rather than something I decide for you. Zenfeed works it out from who posted: if the author of the post links to a company or school page instead of a personal profile, the post gets hidden. A company that's simply mentioned or linked inside someone else's post won't trigger it."
         }
       },
       {
