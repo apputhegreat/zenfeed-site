@@ -19,116 +19,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-
-    :root {
-      --paper: #fdfaf5;
-      --panel: #ffffff;
-      --ink: #2e3240;
-      --muted: #6b7280;
-      --line: #e6dfd4;
-      --sage: #8faf98;
-      --blue: #0a66c2;
-      --sand: #f4efe6;
-      --font-sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--font-sans);
-      background: var(--paper);
-      color: var(--ink);
-      line-height: 1.65;
-    }
-
-    a { color: var(--blue); }
-
-    header {
-      border-bottom: 1px solid var(--line);
-      background: var(--sand);
-    }
-
-    .wrap {
-      width: min(920px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 0;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--ink);
-      text-decoration: none;
-      font-family: var(--font-serif);
-      font-size: 19px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-    }
-
-    .brand img {
-      width: 28px;
-      height: 28px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    .hero {
-      padding: 70px 0 44px;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--sage);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 760px;
-      margin: 0;
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(38px, 6vw, 64px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-    }
-
-    .intro {
+  <link rel="stylesheet" href="../hub.css">
+<style>
+.intro {
       max-width: 700px;
       margin: 22px 0 0;
       color: var(--muted);
       font-size: 18px;
     }
 
-    main {
-      padding: 34px 0 72px;
-    }
-
-    .compare-card {
+.compare-card {
       display: block;
       background: var(--panel);
       border: 1px solid var(--line);
@@ -140,12 +40,12 @@
       transition: border-color 0.2s, transform 0.15s;
     }
 
-    .compare-card:hover {
+.compare-card:hover {
       border-color: var(--sage);
       transform: translateY(-1px);
     }
 
-    .compare-card h2 {
+.compare-card h2 {
       margin: 0 0 10px;
       font-family: var(--font-serif);
       font-weight: 500;
@@ -154,13 +54,13 @@
       color: var(--ink);
     }
 
-    .compare-card p {
+.compare-card p {
       margin: 0;
       color: var(--muted);
       font-size: 15px;
     }
 
-    .compare-card .read-more {
+.compare-card .read-more {
       display: inline-block;
       margin-top: 12px;
       color: var(--blue);
@@ -168,42 +68,11 @@
       font-weight: 600;
     }
 
-    .muted { color: var(--muted); }
-
-    footer {
-      border-top: 1px solid var(--line);
-      background: var(--sand);
-      padding: 24px 0 32px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .footer-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 18px;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-    }
-
-    .footer-links a:hover { color: var(--ink); }
-
-    @media (max-width: 760px) {
+@media (max-width: 760px) {
       .nav { align-items: flex-start; flex-direction: column; }
       .compare-card { padding: 22px; }
     }
-  </style>
+</style>
 </head>
 <body>
   <header>
