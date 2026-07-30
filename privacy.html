@@ -280,7 +280,7 @@
       <h2>What Zenfeed does</h2>
       <p>
         Zenfeed reads supported feed surfaces in your browser and applies local rules to hide or collapse
-        matching feed items. Current supported surfaces are LinkedIn feed pages, X/twitter.com home timelines, and YouTube's Home, Subscriptions, and Search pages. Current rules include promoted or ad labels, suggested content labels, custom keywords,
+        matching feed items. Current supported surfaces are LinkedIn feed pages and X/twitter.com home timelines, both active as soon as you install, plus YouTube's Home, Subscriptions, and Search pages once you turn YouTube filtering on in the popup. Current rules include promoted or ad labels, suggested content labels, Company/Showcase/School Page detection, the YouTube Shorts shelf, custom keywords,
         and the timed Rest from AI mode.
       </p>
       <p>
@@ -289,7 +289,7 @@
         enabled filters.
       </p>
       <p class="muted">
-        In collapse mode, Zenfeed replaces a matched feed item with a small restore bar so you can show it again.
+        On LinkedIn and X, Zenfeed replaces a matched feed item with a small restore bar so you can show it again. On YouTube, matched videos are blurred in place instead, so the grid keeps its shape, and you can unblur one at any time.
       </p>
     </section>
 
@@ -316,7 +316,7 @@
       </p>
       <div class="permissions">
         <div class="permission-row">
-          <strong>Host permissions for LinkedIn feed pages, X/twitter.com home timelines, and YouTube</strong>
+          <strong>Host permissions for LinkedIn feed pages and X/twitter.com home timelines, plus YouTube only if you turn it on</strong>
           <p class="muted">
             Needed so Zenfeed can inspect feed items on the supported feed surfaces and hide or collapse
             matches directly in the page. The extension does not use these permissions to scrape, export,
@@ -337,6 +337,14 @@
             temporary mode is active.
           </p>
         </div>
+        <div class="permission-row">
+          <strong>scripting</strong>
+          <p class="muted">
+            Used to load Zenfeed's filtering script into a supported feed page. This covers tabs that were
+            already open when the extension was installed, updated, or re-enabled, and YouTube tabs once you
+            turn YouTube filtering on. It is never used to run code on sites you have not granted.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -346,6 +354,8 @@
       <ul>
         <li>Whether promoted/ad filtering is enabled.</li>
         <li>Whether suggested-content filtering is enabled.</li>
+        <li>Whether Shorts-shelf filtering is enabled (YouTube).</li>
+        <li>Whether Company/Showcase/School Page filtering is enabled (LinkedIn).</li>
         <li>Your custom keyword list.</li>
         <li>Collapse mode preference.</li>
         <li>Rest from AI active state, end time, and selected duration.</li>

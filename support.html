@@ -240,7 +240,7 @@
         <p class="eyebrow">Support</p>
         <h1>Help for Zenfeed users.</h1>
         <p class="intro">
-          Zenfeed is a local Chrome extension for LinkedIn feed pages, X/twitter.com home timelines, and YouTube's Home, Subscriptions, and Search pages.
+          Zenfeed is a local Chrome extension for LinkedIn feed pages and X/twitter.com home timelines, active right after install, plus YouTube's Home, Subscriptions, and Search pages once you turn YouTube filtering on in the popup.
           This page explains the supported surfaces, common fixes, and what to include when reporting a problem.
         </p>
       </div>
@@ -254,7 +254,7 @@
         <li>LinkedIn feed pages: <code>https://www.linkedin.com/feed/</code></li>
         <li>X home timeline: <code>https://x.com/home</code></li>
         <li>Legacy Twitter home timeline: <code>https://twitter.com/home</code></li>
-        <li>YouTube: <code>https://www.youtube.com/</code> (Home), <code>/feed/subscriptions</code>, and <code>/results</code> (search)</li>
+        <li>YouTube: <code>https://www.youtube.com/</code> (Home), <code>/feed/subscriptions</code>, and <code>/results</code> (search) &mdash; only after you turn on YouTube filtering under Sites in the popup</li>
       </ul>
       <p class="muted">
         Zenfeed does not claim full support for LinkedIn jobs, LinkedIn search, LinkedIn profile pages,
@@ -269,6 +269,10 @@
         <li>Click the reload icon on the Zenfeed extension card after updating the extension.</li>
         <li>Refresh the LinkedIn feed, X home timeline, or YouTube tab.</li>
         <li>Open the Zenfeed toolbar popup and confirm the relevant filter is enabled.</li>
+        <li><strong>On YouTube:</strong> check that <strong>Turn on YouTube filtering</strong> is on
+          under <em>Sites</em> in the popup. YouTube access is off by default and nothing is
+          filtered there until you turn it on — this is the most common reason YouTube looks
+          untouched while LinkedIn and X work.</li>
         <li>If a collapsed item is a false positive, click <strong>show</strong> on the restore bar.</li>
       </ol>
     </section>
