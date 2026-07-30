@@ -110,6 +110,31 @@ main {
 
   .muted { color: var(--muted); }
 
+/* Report/suggest pill. Shared by roadmap.html and support.html; each sets its
+ * own margin-top inline because the element above it differs (a snug helper
+ * line on roadmap, a full paragraph on support).
+ *
+ * margin-bottom is scoped to :not(:last-child) so the button always clears
+ * whatever follows it, without adding stray space when it closes a block.
+ * It is inline-flex, so nothing else pushes the next block away. */
+.btn-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 100px;
+  transition: background 0.2s;
+}
+
+.btn-report:not(:last-child) { margin-bottom: 18px; }
+
+.btn-report:hover { background: #1a1e2a; }
+
 footer {
   border-top: 1px solid var(--line);
   background: var(--sand);
