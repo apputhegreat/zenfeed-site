@@ -26,7 +26,11 @@
     "datePublished": "2026-07-26",
     "dateModified": "2026-07-26",
     "author": { "@type": "Person", "name": "Zenfeed" },
-    "publisher": { "@type": "Organization", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
     "mainEntityOfPage": "https://zenfeed.org/blog/what-actually-clutters-a-linkedin-feed-in-2026.html",
     "image": "https://zenfeed.org/assets/promotional/marquee-promo-tile.png"
   }
@@ -71,7 +75,10 @@
 
     a { color: var(--blue); }
 
-    header {
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
       border-bottom: 1px solid var(--line);
       background: var(--sand);
     }
@@ -146,10 +153,9 @@
       font-size: 14px; color: var(--muted);
       padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
     }
-    .byline .avatar {
-      width: 28px; height: 28px; border-radius: 50%; flex: none;
-      background: linear-gradient(140deg, var(--slate), var(--sage));
-    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
     .byline b { color: var(--ink); font-weight: 700; }
     .byline .sep { opacity: 0.5; }
 
@@ -290,7 +296,7 @@
       <h1 class="title">What actually clutters a LinkedIn feed in 2026 — it's not just ads anymore</h1>
       <p class="dek">Ads get the blame because they're labeled. The rest of what's crowding your feed doesn't announce itself, which is exactly why it adds up to more than the ads do.</p>
       <div class="byline">
-        <div class="avatar"></div>
+        <img class="avatar" src="../icon-default.svg" alt="" />
         <span><b>Zenfeed</b> — built by one person</span>
         <span class="sep">·</span>
         <span>Live on the Chrome Web Store</span>

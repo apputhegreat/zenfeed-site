@@ -26,7 +26,11 @@
     "datePublished": "2026-07-25",
     "dateModified": "2026-07-25",
     "author": { "@type": "Person", "name": "Zenfeed" },
-    "publisher": { "@type": "Organization", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
     "mainEntityOfPage": "https://zenfeed.org/blog/i-let-claude-code-rebuild-my-linkedin-feed.html",
     "image": "https://zenfeed.org/assets/promotional/marquee-promo-tile.png"
   }
@@ -71,7 +75,10 @@
 
     a { color: var(--blue); }
 
-    header {
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
       border-bottom: 1px solid var(--line);
       background: var(--sand);
     }
@@ -146,10 +153,9 @@
       font-size: 14px; color: var(--muted);
       padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
     }
-    .byline .avatar {
-      width: 28px; height: 28px; border-radius: 50%; flex: none;
-      background: linear-gradient(140deg, var(--slate), var(--sage));
-    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
     .byline b { color: var(--ink); font-weight: 700; }
     .byline .sep { opacity: 0.5; }
 
@@ -361,7 +367,7 @@
       <h1 class="title">I let Claude Code rebuild my LinkedIn feed. Here's what actually happened.</h1>
       <p class="dek">No VC, no backend, and no single magic prompt. Just a Chrome extension I built by describing the problem out loud, one iteration at a time — including the week LinkedIn quietly broke it.</p>
       <div class="byline">
-        <div class="avatar"></div>
+        <img class="avatar" src="../icon-default.svg" alt="" />
         <span><b>Zenfeed</b> — built by one person</span>
         <span class="sep">·</span>
         <span>Live on the Chrome Web Store</span>
