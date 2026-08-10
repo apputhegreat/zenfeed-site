@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Rest from AI Is a Timer, Not a Permanent Block — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html" />
+  <meta name="description" content="Rest from AI could have been a permanent filter instead of a countdown. Here's the reasoning behind building it as a timer — and why that's a better fit for a volume problem than a verdict is." />
+  <meta property="og:title" content="Why Rest from AI Is a Timer, Not a Permanent Block" />
+  <meta property="og:description" content="Rest from AI could have been a permanent filter instead of a countdown. Here's the reasoning behind building it as a timer." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why Rest from AI Is a Timer, Not a Permanent Block" />
+  <meta name="twitter:description" content="Rest from AI could have been a permanent filter instead of a countdown. Here's the reasoning behind building it as a timer." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why Rest from AI is a timer, not a permanent block",
+    "description": "Rest from AI could have been a permanent filter instead of a countdown. Here's the reasoning behind building it as a timer — and why that's a better fit for a volume problem than a verdict is.",
+    "datePublished": "2026-08-10",
+    "dateModified": "2026-08-10",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": { "@type": "Organization", "name": "Zenfeed" },
+    "mainEntityOfPage": "https://zenfeed.org/blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html",
+    "image": "https://zenfeed.org/assets/promotional/marquee-promo-tile.png"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sand-2: #ede6d8;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --slate-2: #c5d8e8;
+      --warm: #c4896f;
+      --warm-2: #f0d9cf;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --stone-dark: #1a1e2a;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    .byline .avatar {
+      width: 28px; height: 28px; border-radius: 50%; flex: none;
+      background: linear-gradient(140deg, var(--slate), var(--sage));
+    }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--gold);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> PRODUCT NOTES · 5 MIN READ · AUGUST 10, 2026</p>
+      <h1 class="title">Why Rest from AI is a timer, not a permanent block</h1>
+      <p class="dek">The obvious version of this feature would hide AI posts forever. I built a countdown instead, and the reason comes down to what the problem actually is.</p>
+      <div class="byline">
+        <div class="avatar"></div>
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>Every so often someone asks why Rest from AI isn't just a permanent filter, on by default, forever. It's a fair question — if AI posts are the problem, why not just always hide them, the same way Zenfeed always hides promoted posts? I thought about building it that way first. I didn't, and the reason is worth explaining, because it's the same reason the feature is named "rest" instead of "block."</p>
+
+        <h2>The complaint was never that AI posts are bad</h2>
+
+        <p>Rest from AI didn't come from thinking AI-generated posts are low quality. It came from noticing how many of them there are. On a bad day, my LinkedIn feed would be four or five AI posts in a row before a single post from someone I actually follow showed up. I wasn't offended by any one of those posts. I was missing the other posts because there was so much AI content stacked in front of them.</p>
+
+        <p>That's a volume problem, not a quality judgment. And a volume problem doesn't call for a verdict on every post forever — it calls for a break from the pattern long enough for the rest of the feed to become visible again. That distinction is what shaped the whole feature.</p>
+
+        <h2>What a permanent block would actually be promising</h2>
+
+        <p>If Rest from AI hid AI posts permanently, it would be making a claim it can't back up: that it can tell, with total confidence, which posts are AI-generated and which aren't. It can't. Under the hood it's a keyword and phrase match against the text of a post — and the alt text on any images in it — checked against a list I maintain in <span class="mono">keywords.js</span>. It's a heuristic, not a detector. It reads text; it doesn't look at pixels, and it isn't running any kind of model.</p>
+
+        <p>A heuristic that's wrong occasionally is a fine thing to build a temporary break around. It's a bad thing to build a permanent, silent removal around, because a false positive under a permanent block doesn't just annoy you once — it quietly deletes a real person's post from your feed forever, and you'd never know it happened. A timer keeps the downside of being wrong small and visible instead of permanent and invisible.</p>
+
+        <blockquote>The feature isn't answering "is this AI." It's answering "have I had enough of this pattern for now" — and only one of those two questions is honest to ask a text heuristic.</blockquote>
+
+        <h2>How the timer actually works</h2>
+
+        <p>You turn Rest from AI on from the popup and pick a duration — 15 minutes by default, adjustable to whatever you want. From that point, matching posts collapse into a distinct light-yellow card with an "AI" label instead of disappearing outright, so it's obvious what got filtered and why. The toolbar icon swaps to a small meditating-figure icon and shows a gold countdown badge with the minutes left, ticking down once a minute, until the timer expires and everything comes back on its own. You can also stop it early from the popup if you change your mind.</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--gold)"></i>Set duration</div>
+            <p>Pick how long the break lasts from the popup. 15 minutes is the default; nothing forces that number.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>Live countdown</div>
+            <p>The toolbar badge counts down the minutes remaining, so the state of the timer is never a mystery.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>Labeled, not hidden</div>
+            <p>Matched posts collapse into a marked "AI" card, not a blank gap — you can always see what got folded away.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--sage)"></i>Restores on its own</div>
+            <p>When the timer runs out, matched posts come back automatically. No permanent decision gets made about any post.</p>
+          </div>
+        </div>
+
+        <p>That's also why restoring a specific post you clicked to unhide is treated differently from the timer expiring — a post you manually restore stays visible for good, because that's you overriding the heuristic on a specific post you looked at and judged for yourself. The timer expiring is different: it's the heuristic's break ending, not a verdict on any individual post.</p>
+
+        <h3 class="kicker">The same logic shows up in the wording</h3>
+        <p>It's why the feature is called "Rest from AI" and not "Block AI" or "Hide AI." A rest implies you come back to it. A block implies you've decided the thing shouldn't be there. I only trust the heuristic enough to make the first claim.</p>
+
+        <div class="callout">
+          <span class="label">Worth saying plainly</span>
+          Rest from AI hides posts that match AI-related keywords and phrases — it isn't a perfect detector, and it isn't reading images. Treat it as a break from a pattern, not as proof that every hidden post was actually AI-written, or that everything left on screen wasn't.
+        </div>
+
+        <h2>Where that leaves the design</h2>
+
+        <p>A permanent filter would have been simpler to build and easier to describe in a screenshot. It also would have quietly asserted more confidence in a text heuristic than the heuristic deserves. The timer is the more honest shape for what Rest from AI actually is: not a judgment on any post, just a way to give the rest of your feed a chance to be visible again for a while.</p>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">If you've used Rest from AI and felt like the default 15 minutes is too short or too long, that's exactly the kind of thing the duration setting exists for — change it and see what fits how you actually scroll.</p>
+          <p class="followup">If something about the AI matching feels off — missing an obvious pattern, or catching something that clearly wasn't AI-written — I'd like to hear about it. That list in <span class="mono">keywords.js</span> only gets better with real examples.</p>
+          <div class="tags">
+            <span>Rest from AI</span>
+            <span>Product Design</span>
+            <span>AI Content</span>
+            <span>LinkedIn</span>
+            <span>X</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/index.html">Compare</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>
