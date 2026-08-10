@@ -6,7 +6,7 @@
   <title>I Let Claude Code Rebuild My LinkedIn Feed — Zenfeed Blog</title>
   <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
   <link rel="canonical" href="https://zenfeed.org/blog/i-let-claude-code-rebuild-my-linkedin-feed.html" />
-  <meta name="description" content="No VC, no backend, and no single magic prompt. How Zenfeed — a Chrome extension that declutters LinkedIn and X feeds — got built, broke when LinkedIn changed its markup, and got fixed." />
+  <meta name="description" content="No VC, no backend, no magic prompt. How Zenfeed, the Chrome extension that declutters LinkedIn, X, and YouTube feeds, got built, broke, and got fixed." />
   <meta property="og:title" content="I Let Claude Code Rebuild My LinkedIn Feed" />
   <meta property="og:description" content="No VC, no backend, and no single magic prompt. How Zenfeed got built, broke when LinkedIn changed its markup, and got fixed." />
   <meta property="og:type" content="article" />
@@ -24,7 +24,7 @@
     "headline": "I let Claude Code rebuild my LinkedIn feed. Here's what actually happened.",
     "description": "No VC, no backend, and no single magic prompt. How Zenfeed got built, broke when LinkedIn changed its markup, and got fixed.",
     "datePublished": "2026-07-25",
-    "dateModified": "2026-07-25",
+    "dateModified": "2026-08-10",
     "author": { "@type": "Person", "name": "Zenfeed" },
     "publisher": {
       "@type": "Organization",
@@ -377,7 +377,7 @@
     <main class="article">
       <article>
 
-        <p>If you spend time on LinkedIn or X, you already know the feeling. You open the app to catch up with people you actually follow, and instead you scroll past promoted posts, "people you may know" suggestions, and so much AI-generated content that the real posts get buried underneath all of it. I hit that wall often enough that I decided to fix it for myself.</p>
+        <p>If you spend time on LinkedIn or X, you already know the feeling. You open the app to catch up with people you actually follow, and instead you scroll past promoted posts, "people you may know" suggestions, and so much AI-generated content that the real posts get buried underneath all of it. I hit that wall often enough that I decided to fix it for myself. I also went back later and wrote the whole pile down — <a href="./what-actually-clutters-a-linkedin-feed-in-2026.html">what actually clutters a LinkedIn feed in 2026</a> is that list, and it turned out to be a lot more than ads.</p>
 
         <p>I'm not primarily a Chrome extension developer. What I had was a clear, specific problem and Claude Code sitting in my terminal. So instead of spending a few weekends learning the Manifest V3 APIs from scratch, I described what I wanted, section by section, and let it write the code while I made the decisions — what to hide, how to label it, when to trust it.</p>
 
@@ -399,11 +399,11 @@ chrome.storage.local. Add a popup with on/off toggles per category.</pre>
 
         <p>That's the part that looks like magic. It isn't the whole story.</p>
 
-        <h2>Then LinkedIn changed the floor under me</h2>
+        <h2>What happened when LinkedIn changed how it builds the feed?</h2>
 
-        <p>A few weeks in, LinkedIn quietly rewrote how it renders its feed — moving to a server-driven UI, where the page is assembled from a data schema instead of stable, readable class names. Every selector the extension relied on stopped matching overnight. Posts I used to detect in one line of CSS were now nested inside generic, auto-generated wrapper elements with no useful hooks at all.</p>
+        <p>Every selector the extension relied on stopped matching overnight. A few weeks in, LinkedIn quietly rewrote how it renders its feed, moving to a server-driven UI where the page is assembled from a data schema instead of stable, readable class names. The hooks I had been detecting posts with were simply gone.</p>
 
-        <p>That's not a bug you patch with a deprecation fix. It meant rebuilding the entire LinkedIn detection layer — new selectors, a text-walking fallback for when selectors fail, and a button-based ancestor search as a second line of defense, so the extension wouldn't go blind the next time LinkedIn shipped a redesign.</p>
+        <p>Posts I used to catch with one line of CSS were now nested inside generic, auto-generated wrapper elements with nothing useful to grab onto. That's not a bug you patch with a deprecation fix. The floor had moved, and the entire LinkedIn detection layer had to be rebuilt — new selectors, a text-walking fallback for when selectors fail, and a button-based ancestor search as a second line of defense, so the extension wouldn't go blind the next time LinkedIn shipped a redesign.</p>
 
         <blockquote>The honest version of "AI wrote my app" is that AI wrote a strong first draft. LinkedIn breaking it a few weeks later is the part a one-prompt story usually leaves out.</blockquote>
 
@@ -444,9 +444,11 @@ chrome.storage.local. Add a popup with on/off toggles per category.</pre>
           <figcaption>What collapse actually does: not deleted, just folded into a labeled bar you can undo — on LinkedIn and X. YouTube blurs the match in place instead, so the grid keeps its shape.</figcaption>
         </figure>
 
-        <h2>What actually shipped</h2>
+        <h2>What does Zenfeed actually hide on LinkedIn, X, and YouTube?</h2>
 
-        <p>Zenfeed runs the same shared machinery — scan, classify, collapse, restore — across three sites, but each site gets its own adapter, because LinkedIn, X, and YouTube don't expose their feeds the same way. X has stable <span class="mono">data-testid</span> hooks, so it needs less guesswork. YouTube uses a different collapse style entirely — blurred in place instead of folded into a bar, so the grid keeps its shape. Here's what's actually behind the toggles:</p>
+        <p>It hides promoted and sponsored posts, suggested-content modules like "People you may know," and anything matching your own keyword list, plus a Rest from AI timer that puts AI posts away for a set number of minutes. That's the full set on LinkedIn and X. On YouTube it does less on purpose: Rest from AI, keywords, and an opt-in Shorts toggle.</p>
+
+        <p>Underneath, Zenfeed runs the same shared machinery — scan, classify, collapse, restore — across all three sites, but each site gets its own adapter, because LinkedIn, X, and YouTube don't expose their feeds the same way. X has stable <span class="mono">data-testid</span> hooks, so it needs less guesswork. YouTube uses a different collapse style entirely — blurred in place instead of folded into a bar, so the grid keeps its shape. Here's what's actually behind the toggles:</p>
 
         <div class="feature-grid">
           <div class="feature">
@@ -478,9 +480,11 @@ chrome.storage.local. Add a popup with on/off toggles per category.</pre>
         <h3 class="kicker">Why "off by default" shows up twice</h3>
         <p>Suggested-content and Shorts detection are content-type filters, not unambiguous ad labels. A false positive on day one costs more trust than a miss does, so both ship opt-in. That's a product decision, not a technical limitation — and it's the kind of call that "one prompt" can't make for you.</p>
 
-        <h2>Making it trustworthy, not just working</h2>
+        <h2>How do you know Zenfeed isn't hiding something you wanted to see?</h2>
 
-        <p>A feed extension that's wrong even occasionally is worse than useless — it hides posts you wanted to see. So most of the later work wasn't new features, it was tests: a Playwright suite that drives real page structure per site, plus jsdom unit tests for the parts that don't need a browser. There's a dedicated test for the LinkedIn sidebar ad sweep, one for company-page detection, one for the YouTube Shorts shelf, one just for Rest from AI's countdown logic. Nine separate <span class="mono">npm run test:*</span> commands, because "it looks like it works" and "it's still right after LinkedIn's next redesign" are different bars.</p>
+        <p>The honest answer is testing, and a lot more of it than the features themselves needed. A feed extension that's wrong even occasionally is worse than useless, because the mistake is invisible — you never find out about the post it hid when it shouldn't have. So most of the later work wasn't new features, it was tests.</p>
+
+        <p>A Playwright suite drives real page structure per site, and jsdom unit tests cover the parts that don't need a browser. There's a dedicated test for the LinkedIn sidebar ad sweep, one for company-page detection, one for the YouTube Shorts shelf, and one just for Rest from AI's countdown logic — that one matters because <a href="./why-rest-from-ai-is-a-timer-not-a-permanent-block.html">Rest from AI is a timer, not a permanent block</a>, and a timer that doesn't hand your feed back on schedule is a broken promise. Nine separate <span class="mono">npm run test:*</span> commands, because "it looks like it works" and "it's still right after LinkedIn's next redesign" are different bars.</p>
 
         <div class="callout">
           <span class="label">On privacy — stated plainly, because it has to be true</span>

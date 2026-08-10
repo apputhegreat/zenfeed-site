@@ -43,6 +43,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://zenfeed.org/blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://zenfeed.org/compare/</loc>
     <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>

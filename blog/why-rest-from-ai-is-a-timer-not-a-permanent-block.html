@@ -6,7 +6,7 @@
   <title>Why Rest from AI Is a Timer, Not a Permanent Block — Zenfeed Blog</title>
   <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
   <link rel="canonical" href="https://zenfeed.org/blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html" />
-  <meta name="description" content="Rest from AI could have been a permanent filter instead of a countdown. Here's the reasoning behind building it as a timer — and why that's a better fit for a volume problem than a verdict is." />
+  <meta name="description" content="Rest from AI could have been a permanent filter. Here's why it's a countdown instead, and why that fits a volume problem better than a verdict does." />
   <meta property="og:title" content="Why Rest from AI Is a Timer, Not a Permanent Block" />
   <meta property="og:description" content="Rest from AI could have been a permanent filter instead of a countdown. Here's the reasoning behind building it as a timer." />
   <meta property="og:type" content="article" />
@@ -314,17 +314,23 @@
 
         <p>That's a volume problem, not a quality judgment. And a volume problem doesn't call for a verdict on every post forever — it calls for a break from the pattern long enough for the rest of the feed to become visible again. That distinction is what shaped the whole feature.</p>
 
-        <h2>What a permanent block would actually be promising</h2>
+        <p>AI posts aren't the only thing competing for that space, either. When I went through <a href="./what-actually-clutters-a-linkedin-feed-in-2026.html">what actually clutters a LinkedIn feed in 2026</a>, AI content turned out to be one of four categories stacked on top of each other. It's just the one where a permanent filter is most tempting, and the one where a permanent filter would be least honest.</p>
 
-        <p>If Rest from AI hid AI posts permanently, it would be making a claim it can't back up: that it can tell, with total confidence, which posts are AI-generated and which aren't. It can't. Under the hood it's a keyword and phrase match against the text of a post — and the alt text on any images in it — checked against a list I maintain in <span class="mono">keywords.js</span>. It's a heuristic, not a detector. It reads text; it doesn't look at pixels, and it isn't running any kind of model.</p>
+        <h2>Why isn't Rest from AI a permanent block?</h2>
+
+        <p>Rest from AI isn't permanent because it can't be certain which posts are AI-generated. Under the hood it's a keyword and phrase match against the text of a post — a heuristic, not a detector. Hiding posts forever on that basis would claim a confidence the match doesn't have, so Rest from AI hides them for a set number of minutes instead.</p>
+
+        <p>It's worth being specific about what that match actually is. It checks a list of AI-related words and phrases I maintain in <span class="mono">keywords.js</span> against the text of a post, plus the alt text on any images in it. It reads text; it doesn't look at pixels, and it isn't running any kind of model to make the call.</p>
 
         <p>A heuristic that's wrong occasionally is a fine thing to build a temporary break around. It's a bad thing to build a permanent, silent removal around, because a false positive under a permanent block doesn't just annoy you once — it quietly deletes a real person's post from your feed forever, and you'd never know it happened. A timer keeps the downside of being wrong small and visible instead of permanent and invisible.</p>
 
         <blockquote>The feature isn't answering "is this AI." It's answering "have I had enough of this pattern for now" — and only one of those two questions is honest to ask a text heuristic.</blockquote>
 
-        <h2>How the timer actually works</h2>
+        <h2>How does the Rest from AI timer work?</h2>
 
-        <p>You turn Rest from AI on from the popup and pick a duration — 15 minutes by default, adjustable to whatever you want. From that point, matching posts collapse into a distinct light-yellow card with an "AI" label instead of disappearing outright, so it's obvious what got filtered and why. The toolbar icon swaps to a small meditating-figure icon and shows a gold countdown badge with the minutes left, ticking down once a minute, until the timer expires and everything comes back on its own. You can also stop it early from the popup if you change your mind.</p>
+        <p>You turn Rest from AI on from the popup and pick a duration — 15 minutes by default — and matching posts stay collapsed until that time is up. The toolbar icon swaps to a small meditating figure with a gold countdown badge showing the minutes left, ticking down once a minute, and you can end the break early from the popup whenever you want.</p>
+
+        <p>Matching posts don't vanish while the break is running. On LinkedIn and X they collapse into a distinct light-yellow card with an "AI" label, so it's obvious what got filtered and why. On YouTube, where the extension does less on purpose and only once you turn it on, the video is blurred in place instead, so the grid keeps its shape.</p>
 
         <div class="feature-grid">
           <div class="feature">
@@ -345,7 +351,11 @@
           </div>
         </div>
 
-        <p>That's also why restoring a specific post you clicked to unhide is treated differently from the timer expiring — a post you manually restore stays visible for good, because that's you overriding the heuristic on a specific post you looked at and judged for yourself. The timer expiring is different: it's the heuristic's break ending, not a verdict on any individual post.</p>
+        <h2>What happens when the timer runs out?</h2>
+
+        <p>When the timer runs out, the collapsed posts come back on their own, without you doing anything. No permanent decision gets recorded about any of them, because the break ending isn't a verdict on a single post — it's just the break ending.</p>
+
+        <p>A post you restore by hand is treated differently, on purpose. If you click a collapsed card to bring one back, it stays visible for good, because that's you overriding the heuristic on a specific post you looked at and judged for yourself. That's a decision worth keeping. The timer expiring isn't a decision at all.</p>
 
         <h3 class="kicker">The same logic shows up in the wording</h3>
         <p>It's why the feature is called "Rest from AI" and not "Block AI" or "Hide AI." A rest implies you come back to it. A block implies you've decided the thing shouldn't be there. I only trust the heuristic enough to make the first claim.</p>
@@ -370,6 +380,7 @@
             <span>AI Content</span>
             <span>LinkedIn</span>
             <span>X</span>
+            <span>YouTube</span>
           </div>
         </footer>
 
