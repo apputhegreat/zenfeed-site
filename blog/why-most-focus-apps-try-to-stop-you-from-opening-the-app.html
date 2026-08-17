@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Most Focus Apps Try to Stop You From Opening the App — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/why-most-focus-apps-try-to-stop-you-from-opening-the-app.html" />
+  <meta name="description" content="One Sec adds a pause. Opal and Freedom lock the app shut. Zenfeed skips the door and changes what's inside the feed instead." />
+  <meta property="og:title" content="Why Most Focus Apps Try to Stop You From Opening the App" />
+  <meta property="og:description" content="One Sec adds a breathing pause. Opal and Freedom lock the app shut. Zenfeed skips that fight entirely and goes straight to what's inside the feed once you're there." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/why-most-focus-apps-try-to-stop-you-from-opening-the-app.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why Most Focus Apps Try to Stop You From Opening the App" />
+  <meta name="twitter:description" content="One Sec adds a breathing pause. Opal and Freedom lock the app shut. Zenfeed skips that fight entirely and goes straight to what's inside the feed once you're there." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why most focus apps try to stop you from opening the app, and we don't",
+    "description": "One Sec adds a breathing pause. Opal and Freedom lock the app shut. Zenfeed skips that fight entirely and goes straight to what's inside the feed once you're there.",
+    "datePublished": "2026-08-17",
+    "dateModified": "2026-08-17",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/why-most-focus-apps-try-to-stop-you-from-opening-the-app.html",
+    "image": "https://zenfeed.org/assets/promotional/marquee-promo-tile.png"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --warm: #c4896f;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+
+    /* ---- two-bets comparison grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> PRODUCT NOTES · 6 MIN READ · AUGUST 17, 2026</p>
+      <h1 class="title">Why most focus apps try to stop you from opening the app, and we don't</h1>
+      <p class="dek">One Sec makes you breathe first. Opal and Freedom lock the app shut for a set block of time. That's a real answer to a real problem — it's just not the problem Zenfeed is trying to solve.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>Most of the well-known focus apps right now are built around the same basic move: get between you and the moment you open the app. One Sec intercepts the tap and makes you sit through a breathing exercise (or a few other friction tasks, depending on the version) before the app opens. Opal's deep-focus sessions and Freedom's locked mode go further and just make the app unreachable until a timer runs out. Different intensities, same fight: whether you get in at all.</p>
+
+        <p>That's not a bad idea. A lot of scrolling really is autopilot — you don't decide to open LinkedIn, your thumb just does it, and a few seconds of friction is sometimes enough to break that loop and let you notice you didn't actually want to be there. If that's your problem, an app built around the door is the right tool for it.</p>
+
+        <h2>But what if you actually meant to open it?</h2>
+
+        <p>Then a pause doesn't help, because friction only decides whether you get in, not what's waiting once you do. You land in the same feed either way: promoted posts, "people you may know," and enough AI-generated content that the post you came for is three scrolls down.</p>
+
+        <p>Plenty of visits to LinkedIn, X, or YouTube aren't autopilot at all — you want to check a message, see what a specific person posted, or watch a video from a channel you follow. The pause changes whether you open the app. It doesn't change what's inside it once you do.</p>
+
+        <h2>So what does Zenfeed do instead?</h2>
+
+        <p>Zenfeed skips the door entirely and lets every visit happen — no breathing exercise, no locked timer. What changes is what's waiting for you once you're in: promoted posts collapsed, suggested content filtered, your own keywords blocked, and AI posts rested on a timer you control.</p>
+
+        <p>You open LinkedIn, X, or YouTube the moment you decide to, same as always. There's no lock standing between you and it — "People you may know" gets filtered out if you turn that on, promoted and sponsored posts fold into a small bar, and a <a href="./why-rest-from-ai-is-a-timer-not-a-permanent-block.html">Rest from AI timer that hides AI-flagged posts for a set number of minutes</a> runs with a live countdown, so you know exactly when it hands the feed back.</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>Friction-based apps</div>
+            <p>Bet on the moment before you open the app. Add a pause or a lock, and let that stop the visits you didn't really mean to make.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--sage)"></i>Zenfeed</div>
+            <p>Bets on the moment after you open the app. Let every visit happen, and change what fills the feed once you're there.</p>
+          </div>
+        </div>
+
+        <p>On YouTube specifically, Zenfeed does less than it does on LinkedIn and X — Rest from AI, custom keywords, and an opt-in toggle for the Shorts shelf, on the Home, Subscriptions, and search pages. That's on purpose, not a limitation I'm hiding: the promoted and suggested filters that work on LinkedIn and X don't have a YouTube equivalent yet.</p>
+
+        <blockquote>A pause changes whether you open the feed. Zenfeed changes what's in it once you do.</blockquote>
+
+        <h2>These aren't actually competing with each other</h2>
+
+        <p>I don't think Zenfeed replaces One Sec, Opal, or Freedom for someone who genuinely opens LinkedIn forty times a day out of habit and would rather not. That's a compulsive-opening problem, and friction is the right shaped tool for it — I'd rather say that plainly than pretend Zenfeed does everything. Zenfeed is built for a different moment: the visit you did mean to make, where the thing slowing you down isn't your own habit, it's a feed stuffed with ads, suggestions, and AI posts you never asked to see. Nothing stops you from running both — a pause to catch the autopilot opens, and a cleaner feed for the ones that get through.</p>
+
+        <div class="callout">
+          <span class="label">On privacy — stated plainly, because it has to be true</span>
+          Zenfeed runs entirely locally, in your browser. There's no server, no tracking, and no account. Your settings live in <span class="mono">chrome.storage.local</span>, on your own machine, nowhere else.
+        </div>
+
+        <h2>Why I'm betting on the feed, not the door</h2>
+
+        <p>The honest reason is that I built Zenfeed for my own use, and my problem was never "I open LinkedIn too often." I open it because I use it — for work, for people I actually want to hear from. My problem was that once I was in, I couldn't find those people under everything else. A locked timer wouldn't have fixed that. A quieter feed did.</p>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">Zenfeed is free, built by one person, and currently at version 1.2.1 on the Chrome Web Store. It runs on LinkedIn, X, and YouTube, though it does less on YouTube than on the other two, on purpose. If a friction app is what fixes your problem, use it — I'm not trying to talk anyone out of that. I just built a different tool for a different moment.</p>
+          <p class="followup">If you use a friction-based app alongside a feed filter like Zenfeed and it works well (or doesn't), I'd genuinely like to hear about it. I'm building this out in the open.</p>
+          <div class="tags">
+            <span>Focus Apps</span>
+            <span>Feed Hygiene</span>
+            <span>Productivity</span>
+            <span>Rest from AI</span>
+            <span>Building in Public</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/index.html">Compare</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>

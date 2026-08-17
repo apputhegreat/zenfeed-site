@@ -49,6 +49,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://zenfeed.org/blog/why-most-focus-apps-try-to-stop-you-from-opening-the-app.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://zenfeed.org/compare/</loc>
     <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
