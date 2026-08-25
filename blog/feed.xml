@@ -13,7 +13,7 @@
       <guid isPermaLink="true">https://zenfeed.org/blog/why-most-focus-apps-try-to-stop-you-from-opening-the-app.html</guid>
       <pubDate>Mon, 17 Aug 2026 00:00:00 GMT</pubDate>
       <description>One Sec adds a breathing pause. Opal and Freedom lock the app shut. Zenfeed skips that fight entirely and goes straight to what&apos;s inside the feed once you&apos;re there.</description>
-      <enclosure url="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" length="365709" type="image/png" />
+      <enclosure url="https://zenfeed.org/assets/og/why-most-focus-apps-try-to-stop-you-from-opening-the-app.png" length="45392" type="image/png" />
     </item>
     <item>
       <title>Why Rest from AI is a timer, not a permanent block</title>
@@ -21,7 +21,7 @@
       <guid isPermaLink="true">https://zenfeed.org/blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html</guid>
       <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
       <description>Rest from AI could have been a permanent filter instead of a countdown. Here&apos;s the reasoning behind building it as a timer — and why that&apos;s a better fit for a volume problem than a verdict is.</description>
-      <enclosure url="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" length="365709" type="image/png" />
+      <enclosure url="https://zenfeed.org/assets/og/why-rest-from-ai-is-a-timer-not-a-permanent-block.png" length="39403" type="image/png" />
     </item>
     <item>
       <title>What actually clutters a LinkedIn feed in 2026 — it&apos;s not just ads anymore</title>
@@ -29,7 +29,7 @@
       <guid isPermaLink="true">https://zenfeed.org/blog/what-actually-clutters-a-linkedin-feed-in-2026.html</guid>
       <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
       <description>Ads get blamed for a messy LinkedIn feed, but by 2026 they&apos;re only one piece of it. A plain-language look at what&apos;s actually crowding the feed, and a 2-minute way to check your own.</description>
-      <enclosure url="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" length="365709" type="image/png" />
+      <enclosure url="https://zenfeed.org/assets/og/what-actually-clutters-a-linkedin-feed-in-2026.png" length="40789" type="image/png" />
     </item>
     <item>
       <title>I let Claude Code rebuild my LinkedIn feed. Here&apos;s what actually happened.</title>
@@ -37,7 +37,7 @@
       <guid isPermaLink="true">https://zenfeed.org/blog/i-let-claude-code-rebuild-my-linkedin-feed.html</guid>
       <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
       <description>No VC, no backend, and no single magic prompt. How Zenfeed got built, broke when LinkedIn changed its markup, and got fixed.</description>
-      <enclosure url="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" length="365709" type="image/png" />
+      <enclosure url="https://zenfeed.org/assets/og/i-let-claude-code-rebuild-my-linkedin-feed.png" length="40601" type="image/png" />
     </item>
   </channel>
 </rss>
