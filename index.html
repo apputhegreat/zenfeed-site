@@ -6,9 +6,9 @@
   <title>Zenfeed — Take your LinkedIn, X and YouTube feed back from AI</title>
   <link rel="icon" type="image/svg+xml" href="icon-default.svg" />
   <link rel="canonical" href="https://zenfeed.org/" />
-  <meta name="description" content="Zenfeed filters ads and suggested posts on LinkedIn and X, plus AI content on LinkedIn and X, and on YouTube once you switch it on, so you stop missing the real posts buried underneath it. Rest from AI on a timer, local controls the rest of the time. No accounts, nothing deleted." />
+  <meta name="description" content="Hide ads, suggested posts, and AI-generated content on LinkedIn and X — plus YouTube when you switch it on. Free, runs locally, no account needed." />
   <meta property="og:title" content="Zenfeed — Take your LinkedIn, X and YouTube feed back from AI" />
-  <meta property="og:description" content="Zenfeed filters ads and suggested posts on LinkedIn and X, plus AI content on LinkedIn and X, and on YouTube once you switch it on, so you stop missing the real posts buried underneath it. Rest from AI on a timer, local controls the rest of the time. No accounts, nothing deleted." />
+  <meta property="og:description" content="Zenfeed hides ads, suggested posts, and AI-generated content on LinkedIn and X — plus YouTube once you switch it on. Rest from AI on a timer. Free, local, no account, nothing deleted." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://zenfeed.org/" />
   <meta property="og:image" content="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" />
@@ -16,7 +16,7 @@
   <meta property="og:image:height" content="560" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Zenfeed — Take your LinkedIn, X and YouTube feed back from AI" />
-  <meta name="twitter:description" content="Zenfeed filters ads and suggested posts on LinkedIn and X, plus AI content on LinkedIn and X, and on YouTube once you switch it on, so you stop missing the real posts buried underneath it. Rest from AI on a timer, local controls the rest of the time. No accounts, nothing deleted." />
+  <meta name="twitter:description" content="Zenfeed hides ads, suggested posts, and AI-generated content on LinkedIn and X — plus YouTube once you switch it on. Rest from AI on a timer. Free, local, no account, nothing deleted." />
   <meta name="twitter:image" content="https://zenfeed.org/assets/promotional/marquee-promo-tile.png" />
 
   <!-- SoftwareApplication structured data — every field below is literally
@@ -29,6 +29,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": "https://zenfeed.org/#software",
     "name": "Zenfeed",
     "alternateName": "Zenfeed — LinkedIn, X & YouTube Feed Control",
     "description": "Zenfeed is a Chrome extension that declutters LinkedIn, X, and YouTube feeds. LinkedIn and X are filtered as soon as you install it; YouTube filtering is off by default until you turn it on in the popup. On LinkedIn and X it hides promoted and suggested posts; on all three, once each is enabled, it blocks posts by custom keyword and gives your feed a scheduled break from AI-generated content with the Rest from AI timer. It runs 100% locally, with no backend, no tracking, and no account required.",
@@ -46,7 +47,9 @@
     "installUrl": "https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan",
     "sameAs": [
       "https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan"
-    ]
+    ],
+    "publisher": { "@id": "https://zenfeed.org/#organization" },
+    "isPartOf": { "@id": "https://zenfeed.org/#website" }
   }
   </script>
 
@@ -57,14 +60,33 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://zenfeed.org/#organization",
     "name": "Zenfeed",
     "url": "https://zenfeed.org/",
-    "logo": "https://zenfeed.org/icon-default.svg",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zenfeed.org/icon-default.svg"
+    },
     "sameAs": [
       "https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan",
       "https://www.linkedin.com/in/rvisurana",
       "https://x.com/rvisurana"
     ]
+  }
+  </script>
+
+  <!-- WebSite entity — ties every page on the domain back to one named site,
+       and names the Organization as its publisher so the three blocks on this
+       page resolve to a single connected graph rather than separate islands. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://zenfeed.org/#website",
+    "name": "Zenfeed",
+    "url": "https://zenfeed.org/",
+    "inLanguage": "en",
+    "publisher": { "@id": "https://zenfeed.org/#organization" }
   }
   </script>
 
@@ -227,8 +249,37 @@
 
     .btn-ghost:hover { color: var(--stone); }
 
-    .ph-badge { display: flex; justify-content: center; margin-top: 28px; }
-    .ph-badge img { display: block; width: 250px; height: 54px; }
+    /* Third-party proof row: Chrome Web Store rating and the Product Hunt
+       badge sit as a matched pair, not stacked. Two outside sources side by
+       side read as broader validation than either alone, and pairing them
+       here keeps the proof next to the CTA instead of below the fold.
+       NOTE: this wrapper is `.hero-badges`, not `.ph-badge` — the demo's
+       inline "AI" chip further down already owns `.ph-badge`, and the old
+       hero rule was leaking display:flex and a 28px top margin onto it. */
+    .hero-badges {
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; gap: 12px; margin-top: 28px;
+    }
+    .hero-badges img { display: block; width: 250px; height: 54px; }
+    /* Height-matched to the 54px Product Hunt badge so the pair sits on one
+       optical line. Two internal lines mirror the badge's own
+       "FEATURED ON / Product Hunt" stack. */
+    .hero-rating-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      box-sizing: border-box; height: 54px; padding: 0 16px;
+      background: var(--white); border: 1px solid rgba(46,50,64,0.12);
+      border-radius: 10px; text-decoration: none;
+      font-family: var(--font-sans); transition: border-color 0.2s;
+    }
+    .hero-rating-badge:hover { border-color: rgba(46,50,64,0.28); }
+    .hero-rating-stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+    .hero-rating-score {
+      display: block; font-size: 13px; font-weight: 700; color: var(--stone);
+    }
+    .hero-rating-count {
+      display: block; margin-top: 1px; font-size: 11px;
+      font-weight: 400; color: var(--muted); white-space: nowrap;
+    }
 
     /* Above-the-fold social proof. Deliberately states the real review count
        rather than implying scale — 3 reviews read as honest at this stage,
@@ -261,14 +312,37 @@
       margin: 0; font-family: var(--font-sans); font-size: 15px;
       font-weight: 300; line-height: 1.7; color: var(--stone);
     }
+    /* Name stacked over source, not run together on one line: at three cards
+       the longest name wrapped mid-caption and read like a layout accident.
+       Stacking makes the second line deliberate, gives all three captions the
+       same height, and lets the reviewer's name carry more weight than the
+       store it came from. */
     .hero-proof-quotes figcaption {
-      margin-top: 12px; font-family: var(--font-sans); font-size: 13px;
+      margin-top: 14px; display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-sans); font-size: 13px;
       font-weight: 500; color: var(--muted);
     }
+    .hero-proof-name { display: block; color: var(--stone); font-weight: 600; }
+    .hero-proof-src { display: block; margin-top: 1px; font-size: 12px; font-weight: 300; }
+    /* Monogram avatars, not photographs. These are real Chrome Web Store
+       reviewers and we have no licensed portrait of any of them, so a stock
+       face here would be a fabricated person attached to a real name. The
+       initials chip gives the caption the same human anchor a photo would,
+       using the brand tints so three cards read as one set. */
+    .hero-proof-avatar {
+      flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--stone); background: var(--sage-2);
+      box-shadow: inset 0 0 0 1px rgba(46,50,64,0.06);
+    }
+    .hero-proof-avatar--b { background: var(--slate-2); }
+    .hero-proof-avatar--c { background: var(--warm-2); }
     @media (max-width: 767px) {
       .hero-proof { margin-top: 40px; }
       .hero-proof-quotes { gap: 14px; margin-top: 20px; }
       .hero-proof-quotes figure { flex: 1 1 100%; padding: 20px; }
+      .hero-proof-avatar { width: 28px; height: 28px; font-size: 10px; }
     }
 
     /* ===== HERO DEMO — a live, faithful recreation of the actual product UI
@@ -1058,7 +1132,7 @@
     .persona-card { flex: 0 0 300px; scroll-snap-align: start; background: var(--stone-hover); border: 1px solid rgba(253,250,245,0.1); border-radius: 22px; padding: 32px 28px; }
     .persona-tag { font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-2); margin-bottom: 16px; }
     .persona-tag::before { content: "— "; }
-    .persona-card h4 { font-family: var(--font-serif); font-weight: 500; font-size: 20px; color: var(--white); margin-bottom: 12px; }
+    .persona-card h3 { font-family: var(--font-serif); font-weight: 500; font-size: 20px; color: var(--white); margin-bottom: 12px; }
     .persona-card p { font-size: 14.5px; color: rgba(253,250,245,0.62); font-weight: 300; line-height: 1.65; }
 
     /* FAQ — plain <details>/<summary> accordion, no JS needed. Styled with
@@ -1142,30 +1216,32 @@
         </a>
         <a href="#features" class="btn-ghost">See what it does ↓</a>
       </div>
-      <div class="ph-badge">
+      <div class="hero-badges">
+        <a class="hero-rating-badge" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan/reviews" target="_blank" rel="noopener noreferrer">
+          <span class="hero-rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>
+            <span class="hero-rating-score">5.0 out of 5</span>
+            <span class="hero-rating-count">3 reviews on the Chrome Web Store</span>
+          </span>
+        </a>
         <a href="https://www.producthunt.com/products/zenfeed?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zenfeed" target="_blank" rel="noopener noreferrer"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1204949&theme=light&t=1785323549750" width="250" height="54" alt="Zenfeed - Declutter LinkedIn, X &#38; YouTube feeds — rest from AI | Product Hunt" /></a>
       </div>
       <div class="mobile-hero-shot">
         <img src="assets/screenshots/01-popup-overview.png" width="1280" height="800" alt="Zenfeed popup open over a LinkedIn feed, showing Promoted posts and Suggested posts toggles and a Rest from AI timer" />
       </div>
       <div class="hero-proof">
-        <a class="hero-proof-rating" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan/reviews" target="_blank" rel="noopener noreferrer">
-          <span class="hero-proof-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <span>5.0 out of 5</span>
-          <span class="hero-proof-count">&middot; 3 reviews on the Chrome Web Store</span>
-        </a>
         <div class="hero-proof-quotes">
           <figure>
             <blockquote>&ldquo;Simple, effective, and exactly what I needed for those days when I&rsquo;m tired of AI.&rdquo;</blockquote>
-            <figcaption>Lovish Tater &middot; Chrome Web Store</figcaption>
+            <figcaption><span class="hero-proof-avatar" aria-hidden="true">LT</span><span><span class="hero-proof-name">Lovish Tater</span><span class="hero-proof-src">Chrome Web Store</span></span></figcaption>
           </figure>
           <figure>
             <blockquote>&ldquo;The AI rest timer is the standout, and keyword blocking takes seconds. Nothing gets deleted, just tucked one click away.&rdquo;</blockquote>
-            <figcaption>Rajkumar Surana &middot; Chrome Web Store</figcaption>
+            <figcaption><span class="hero-proof-avatar hero-proof-avatar--b" aria-hidden="true">RS</span><span><span class="hero-proof-name">Rajkumar Surana</span><span class="hero-proof-src">Chrome Web Store</span></span></figcaption>
           </figure>
           <figure>
             <blockquote>&ldquo;Exactly what I needed. It removes the clutter and the keyword filtering works really well. Less noise, more focus.&rdquo;</blockquote>
-            <figcaption>sireesha Dugginapeddi &middot; Chrome Web Store</figcaption>
+            <figcaption><span class="hero-proof-avatar hero-proof-avatar--c" aria-hidden="true">SD</span><span><span class="hero-proof-name">sireesha Dugginapeddi</span><span class="hero-proof-src">Chrome Web Store</span></span></figcaption>
           </figure>
         </div>
       </div>
@@ -1199,7 +1275,14 @@
           </a>
           <a href="#features" class="btn-ghost">See what it does ↓</a>
         </div>
-        <div class="ph-badge">
+        <div class="hero-badges">
+          <a class="hero-rating-badge" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan/reviews" target="_blank" rel="noopener noreferrer">
+          <span class="hero-rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>
+            <span class="hero-rating-score">5.0 out of 5</span>
+            <span class="hero-rating-count">3 reviews on the Chrome Web Store</span>
+          </span>
+        </a>
           <a href="https://www.producthunt.com/products/zenfeed?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zenfeed" target="_blank" rel="noopener noreferrer"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1204949&theme=light&t=1785323549750" width="250" height="54" alt="Zenfeed - Declutter LinkedIn, X &#38; YouTube feeds — rest from AI | Product Hunt" /></a>
         </div>
       </div>
@@ -1311,23 +1394,18 @@
         </div>
       </div>
       <div class="hero-proof">
-        <a class="hero-proof-rating" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan/reviews" target="_blank" rel="noopener noreferrer">
-          <span class="hero-proof-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <span>5.0 out of 5</span>
-          <span class="hero-proof-count">&middot; 3 reviews on the Chrome Web Store</span>
-        </a>
         <div class="hero-proof-quotes">
           <figure>
             <blockquote>&ldquo;Simple, effective, and exactly what I needed for those days when I&rsquo;m tired of AI.&rdquo;</blockquote>
-            <figcaption>Lovish Tater &middot; Chrome Web Store</figcaption>
+            <figcaption><span class="hero-proof-avatar" aria-hidden="true">LT</span><span><span class="hero-proof-name">Lovish Tater</span><span class="hero-proof-src">Chrome Web Store</span></span></figcaption>
           </figure>
           <figure>
             <blockquote>&ldquo;The AI rest timer is the standout, and keyword blocking takes seconds. Nothing gets deleted, just tucked one click away.&rdquo;</blockquote>
-            <figcaption>Rajkumar Surana &middot; Chrome Web Store</figcaption>
+            <figcaption><span class="hero-proof-avatar hero-proof-avatar--b" aria-hidden="true">RS</span><span><span class="hero-proof-name">Rajkumar Surana</span><span class="hero-proof-src">Chrome Web Store</span></span></figcaption>
           </figure>
           <figure>
             <blockquote>&ldquo;Exactly what I needed. It removes the clutter and the keyword filtering works really well. Less noise, more focus.&rdquo;</blockquote>
-            <figcaption>sireesha Dugginapeddi &middot; Chrome Web Store</figcaption>
+            <figcaption><span class="hero-proof-avatar hero-proof-avatar--c" aria-hidden="true">SD</span><span><span class="hero-proof-name">sireesha Dugginapeddi</span><span class="hero-proof-src">Chrome Web Store</span></span></figcaption>
           </figure>
         </div>
       </div>
@@ -1488,11 +1566,11 @@
       </div>
     </div>
     <div class="persona-rail" id="personaRail" style="margin-top: 40px;">
-      <div class="persona-card"><div class="persona-tag">The recruiter</div><h4>Seeing the market, not the carousel</h4><p>You need to scan real signal from your network — not the same five people posting motivational carousels between candidates.</p></div>
-      <div class="persona-card"><div class="persona-tag">The consultant</div><h4>Visible, not drowned</h4><p>Staying visible on LinkedIn matters for pipeline. A feed that drowns you in noise doesn't help you get found.</p></div>
-      <div class="persona-card"><div class="persona-tag">The indie founder</div><h4>Built for the two replies that matter</h4><p>You show up for the handful of people who actually reply — not the promoted post wedged between them.</p></div>
-      <div class="persona-card"><div class="persona-tag">The AI-fatigued</div><h4>Not anti-AI, just done seeing it</h4><p>Not against the technology — just tired of it showing up in every third post. A scheduled rest helps.</p></div>
-      <div class="persona-card"><div class="persona-tag">The quiet networker</div><h4>Your network, not its guess</h4><p>You want the people you actually chose to follow — not LinkedIn's algorithmic guess at who else that might be.</p></div>
+      <div class="persona-card"><div class="persona-tag">The recruiter</div><h3>Seeing the market, not the carousel</h3><p>You need to scan real signal from your network — not the same five people posting motivational carousels between candidates.</p></div>
+      <div class="persona-card"><div class="persona-tag">The consultant</div><h3>Visible, not drowned</h3><p>Staying visible on LinkedIn matters for pipeline. A feed that drowns you in noise doesn't help you get found.</p></div>
+      <div class="persona-card"><div class="persona-tag">The indie founder</div><h3>Built for the two replies that matter</h3><p>You show up for the handful of people who actually reply — not the promoted post wedged between them.</p></div>
+      <div class="persona-card"><div class="persona-tag">The AI-fatigued</div><h3>Not anti-AI, just done seeing it</h3><p>Not against the technology — just tired of it showing up in every third post. A scheduled rest helps.</p></div>
+      <div class="persona-card"><div class="persona-tag">The quiet networker</div><h3>Your network, not its guess</h3><p>You want the people you actually chose to follow — not LinkedIn's algorithmic guess at who else that might be.</p></div>
     </div>
   </section>
 
@@ -1550,6 +1628,9 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": "https://zenfeed.org/#faq",
+    "about": { "@id": "https://zenfeed.org/#software" },
+    "isPartOf": { "@id": "https://zenfeed.org/#website" },
     "mainEntity": [
       {
         "@type": "Question",
@@ -1635,8 +1716,8 @@
       <a href="privacy.html">Privacy</a>
       <a href="support.html">Support</a>
       <a href="roadmap.html">Roadmap</a>
-      <a href="compare/index.html">Compare</a>
-      <a href="blog/index.html">Blog</a>
+      <a href="compare/">Compare</a>
+      <a href="blog/">Blog</a>
     </div>
   </footer>
 
