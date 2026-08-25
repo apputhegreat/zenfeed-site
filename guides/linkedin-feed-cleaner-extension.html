@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Feed Cleaner Extensions: What They Actually Filter</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/guides/linkedin-feed-cleaner-extension.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="What a LinkedIn feed cleaner extension actually hides, the four things crowding your feed, and the one question worth asking before you install any of them." />
+  <meta property="og:title" content="LinkedIn Feed Cleaner Extensions: What They Actually Filter" />
+  <meta property="og:description" content="What a LinkedIn feed cleaner extension actually hides, the four things crowding your feed, and the one question worth asking before you install any of them." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/guides/linkedin-feed-cleaner-extension.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/linkedin-feed-cleaner-extension.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LinkedIn Feed Cleaner Extensions: What They Actually Filter" />
+  <meta name="twitter:description" content="What a LinkedIn feed cleaner extension actually hides, the four things crowding your feed, and the one question worth asking before you install any of them." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/linkedin-feed-cleaner-extension.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zenfeed.org/" },
+      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://zenfeed.org/guides/" },
+      { "@type": "ListItem", "position": 3, "name": "LinkedIn feed cleaner extensions", "item": "https://zenfeed.org/guides/linkedin-feed-cleaner-extension.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://zenfeed.org/guides/linkedin-feed-cleaner-extension.html#faq",
+    "about": { "@id": "https://zenfeed.org/#software" },
+    "isPartOf": { "@id": "https://zenfeed.org/#website" },
+    "mainEntity": [
+      { "@type": "Question", "name": "What does a LinkedIn feed cleaner extension actually do?", "acceptedAnswer": { "@type": "Answer", "text": "It hides categories of posts before you scroll past them. Most of them work by reading the page in your browser, matching posts against rules, and collapsing or removing the ones that match. What separates them is which categories they can recognise, and whether the matching happens on your machine or on someone's server." } },
+      { "@type": "Question", "name": "What should a LinkedIn feed cleaner be able to hide?", "acceptedAnswer": { "@type": "Answer", "text": "Four things crowd a LinkedIn feed: promoted posts, suggested content, AI-generated posts, and company or Showcase Page updates. Only promoted posts carry a label, so a cleaner that handles ads alone leaves three quarters of the problem untouched." } },
+      { "@type": "Question", "name": "Do LinkedIn feed cleaners send your feed to a server?", "acceptedAnswer": { "@type": "Answer", "text": "Some do, and it is worth checking before you install. Any extension that classifies posts with a cloud AI model has to send the text of your feed off your device to do it. Others match keywords and page structure locally, so nothing leaves the browser. Both approaches work; they are just very different trades." } },
+      { "@type": "Question", "name": "Is there a free LinkedIn feed cleaner extension?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Zenfeed is free with no paid tier, no account, and no usage limit, and it also covers X and YouTube. Some alternatives charge monthly or cap how many posts they will classify per day on a free plan, usually because a cloud model is doing the classifying and that costs them money per post." } }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../hub.css">
+  <style>
+    .intro { max-width: 700px; margin: 22px 0 0; color: var(--muted); font-size: 18px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 28px; margin-top: 16px; }
+    h2 { margin: 0 0 12px; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 1.2; }
+    h3 { margin: 18px 0 8px; font-family: var(--font-serif); font-weight: 500; font-size: 18px; line-height: 1.3; }
+    h3:first-of-type { margin-top: 4px; }
+    p { margin: 0 0 14px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { margin: 0 0 14px; padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .info-box { border: 1px solid var(--line); border-radius: 8px; background: #fffdfa; padding: 16px; margin-top: 12px; }
+    .muted { color: var(--muted); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .btn-primary-cta { display: inline-block; background: #1a1e2a; color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 100px; transition: background 0.2s; }
+    .btn-primary-cta:hover { background: #000; }
+    .btn-secondary-cta { display: inline-block; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 100px; transition: background 0.2s; }
+    .btn-secondary-cta:hover { background: #f4efe6; }
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      section { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Guide navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="../">Home</a>
+          <a href="./">Guides</a>
+          <a href="../compare/">Compare</a>
+          <a href="../blog/">Blog</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Guide</p>
+        <h1>LinkedIn feed cleaner extensions: what they actually filter</h1>
+        <p class="intro">
+          There are a lot of these now, and most of the listings describe what they do in roughly the same words.
+          This is a plain explanation of what a feed cleaner is actually filtering, what the differences between
+          them come down to, and the one question worth asking before you install any of them.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section>
+      <h2>What does a LinkedIn feed cleaner extension actually do?</h2>
+      <p>It hides categories of posts before you scroll past them. Most of them work by reading the page in your browser, matching posts against rules, and collapsing or removing the ones that match. What separates them is which categories they can recognise, and whether the matching happens on your machine or on someone's server.</p>
+      <p>That second part sounds like a technical detail. It is actually the biggest practical difference between the tools in this category, and it is covered further down.</p>
+    </section>
+
+    <section>
+      <h2>What should a LinkedIn feed cleaner be able to hide?</h2>
+      <p>Four things crowd a LinkedIn feed: promoted posts, suggested content, AI-generated posts, and company or Showcase Page updates. Only promoted posts carry a label, so a cleaner that handles ads alone leaves three quarters of the problem untouched.</p>
+
+      <h3>Promoted posts</h3>
+      <p>Sponsored content, labelled as such. This is the category almost every tool handles, because the label makes it easy to detect reliably.</p>
+
+      <h3>Suggested content</h3>
+      <p>"People you may know", "Suggested for you", and similar cards from LinkedIn's own recommendation engine rather than from anyone you follow. These look almost exactly like real posts, which is why they are easy to overlook and harder for a tool to catch.</p>
+
+      <h3>AI-generated posts</h3>
+      <p>Posts written or heavily assisted by AI. Nothing about them is inherently worse than a human post. The problem is volume — there are enough of them that the posts from people you actually follow end up buried underneath.</p>
+
+      <h3>Company and Showcase Page posts</h3>
+      <p>Updates from company, school, and Showcase Pages, mixed into the same feed as your connections with no visual signal separating them.</p>
+
+      <p>If you are comparing tools, this list is a more useful checklist than the feature bullets on the store listings. Ask which of the four a tool actually covers.</p>
+    </section>
+
+    <section>
+      <h2>Do LinkedIn feed cleaners send your feed to a server?</h2>
+      <p>Some do, and it is worth checking before you install. Any extension that classifies posts with a cloud AI model has to send the text of your feed off your device to do it. Others match keywords and page structure locally, so nothing leaves the browser. Both approaches work; they are just very different trades.</p>
+
+      <h3>What the cloud approach buys you</h3>
+      <p>A language model reading each post can make finer judgements than a keyword list can. It can tell an engagement-bait post from a sincere one, or spot a humble brag, which rule-based matching genuinely struggles with. That is a real advantage and worth being honest about.</p>
+
+      <h3>What it costs you</h3>
+      <p>The text of your feed — including posts from your connections — is sent to a server, and usually on to a third-party AI provider, to be classified. Reputable tools discard it immediately and say so in their privacy policy. It is still a different thing from never sending it at all, and it is why those tools tend to need an account and to cap or charge for usage: someone is paying per post.</p>
+
+      <div class="info-box">
+        <p class="muted"><strong>Worth checking yourself:</strong> open any candidate extension's privacy policy and search it for the word "server". If post text is sent anywhere, a well-run tool will say so plainly. If the policy does not mention it either way, that is its own answer.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Is there a free LinkedIn feed cleaner extension?</h2>
+      <p>Yes. Zenfeed is free with no paid tier, no account, and no usage limit, and it also covers X and YouTube. Some alternatives charge monthly or cap how many posts they will classify per day on a free plan, usually because a cloud model is doing the classifying and that costs them money per post.</p>
+      <p>Zenfeed matches keywords and page structure in your browser instead. That is why it can be free and unlimited — there is no server bill behind it — and also why it is less clever than a language model at judging tone. Those two facts are the same fact.</p>
+    </section>
+
+    <section>
+      <h2>Where Zenfeed fits, and where it doesn't</h2>
+      <p>Zenfeed hides promoted posts, suggested content, AI posts, and company or Showcase Page posts on LinkedIn, each with its own toggle. It does the same on X, and a narrower set on YouTube once you switch it on. Everything runs locally, there is no account, and nothing is deleted — hidden posts collapse behind a bar you can click to restore.</p>
+      <p>It is not the right pick if you want a tool that judges post <em>quality</em> — sorting the insightful posts from the shallow ones. That takes a language model reading each post, which means sending your feed somewhere. Zenfeed deliberately does not do that, so it filters by category rather than by merit.</p>
+      <p>If you want the fuller picture, the <a href="../compare/">comparison pages</a> put Zenfeed side by side with the other extensions in this space, and there is a longer write-up of <a href="../blog/what-actually-clutters-a-linkedin-feed-in-2026.html">what actually clutters a LinkedIn feed</a> if you want the reasoning behind the four categories.</p>
+      <div class="cta-row">
+        <a class="btn-primary-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">
+          Add Zenfeed to Chrome — free ↗
+        </a>
+        <a class="btn-secondary-cta" href="../compare/">Compare the alternatives</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Guides</a>
+          <a href="../compare/">Compare</a>
+          <a href="../blog/">Blog</a>
+          <a href="../privacy.html">Privacy</a>
+        </div>
+      </div>
+      <p>Last updated: August 26, 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

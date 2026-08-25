@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Block AI-Generated Videos on YouTube</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/guides/block-ai-videos-youtube.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="What YouTube can do about AI-generated videos on its own, what it can't, and how a keyword filter helps — including the cases it will always miss." />
+  <meta property="og:title" content="How to Block AI-Generated Videos on YouTube" />
+  <meta property="og:description" content="What YouTube can do about AI-generated videos on its own, what it can't, and how a keyword filter helps — including the cases it will always miss." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/guides/block-ai-videos-youtube.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/block-ai-videos-youtube.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Block AI-Generated Videos on YouTube" />
+  <meta name="twitter:description" content="What YouTube can do about AI-generated videos on its own, what it can't, and how a keyword filter helps — including the cases it will always miss." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/block-ai-videos-youtube.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zenfeed.org/" },
+      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://zenfeed.org/guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Block AI videos on YouTube", "item": "https://zenfeed.org/guides/block-ai-videos-youtube.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://zenfeed.org/guides/block-ai-videos-youtube.html#faq",
+    "about": { "@id": "https://zenfeed.org/#software" },
+    "isPartOf": { "@id": "https://zenfeed.org/#website" },
+    "mainEntity": [
+      { "@type": "Question", "name": "Can you block AI-generated videos on YouTube?", "acceptedAnswer": { "@type": "Answer", "text": "Partly. There is no setting in YouTube that hides AI-generated videos as a category, and no tool can detect them perfectly. What does work is filtering on the words in a video's title, description, and channel name, which catches the large share of AI content that announces itself in text." } },
+      { "@type": "Question", "name": "What can YouTube do about AI videos on its own?", "acceptedAnswer": { "@type": "Answer", "text": "Not much directly. You can pick Don't recommend channel on a video's menu, which suppresses one channel at a time, and creators are asked to disclose synthetic media, though that label is self-reported and inconsistently applied. Neither gives you a switch for the category as a whole." } },
+      { "@type": "Question", "name": "How does a keyword filter catch AI videos?", "acceptedAnswer": { "@type": "Answer", "text": "It reads the text YouTube already shows next to each video — the title, the channel name, and any description text on the card — and hides the card when that text matches a list of AI-related words and phrases. It runs on the video card, before you watch anything, so nothing has to be analysed or uploaded." } },
+      { "@type": "Question", "name": "What will a keyword filter miss?", "acceptedAnswer": { "@type": "Answer", "text": "Anything that does not say so in text. A fully AI-generated video with an ordinary human-sounding title will pass straight through, because the filter reads words rather than pixels or audio. No consumer tool reliably detects AI generation from the video itself, and anyone claiming otherwise is overstating it." } }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../hub.css">
+  <style>
+    .intro { max-width: 700px; margin: 22px 0 0; color: var(--muted); font-size: 18px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 28px; margin-top: 16px; }
+    h2 { margin: 0 0 12px; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 1.2; }
+    h3 { margin: 18px 0 8px; font-family: var(--font-serif); font-weight: 500; font-size: 18px; line-height: 1.3; }
+    h3:first-of-type { margin-top: 4px; }
+    p { margin: 0 0 14px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { margin: 0 0 14px; padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .info-box { border: 1px solid var(--line); border-radius: 8px; background: #fffdfa; padding: 16px; margin-top: 12px; }
+    .muted { color: var(--muted); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .btn-primary-cta { display: inline-block; background: #1a1e2a; color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 100px; transition: background 0.2s; }
+    .btn-primary-cta:hover { background: #000; }
+    .btn-secondary-cta { display: inline-block; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 100px; transition: background 0.2s; }
+    .btn-secondary-cta:hover { background: #f4efe6; }
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      section { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Guide navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="../">Home</a>
+          <a href="./">Guides</a>
+          <a href="../compare/">Compare</a>
+          <a href="../blog/">Blog</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Guide</p>
+        <h1>How to block AI-generated videos on YouTube</h1>
+        <p class="intro">
+          There is no switch in YouTube for this, and no tool detects AI generation perfectly. Here is what
+          actually works, what it misses, and how to decide whether it is worth installing anything at all.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section>
+      <h2>Can you block AI-generated videos on YouTube?</h2>
+      <p>Partly. There is no setting in YouTube that hides AI-generated videos as a category, and no tool can detect them perfectly. What does work is filtering on the words in a video's title, description, and channel name, which catches the large share of AI content that announces itself in text.</p>
+      <p>That is a real limitation rather than a temporary one, and it is worth understanding before you install anything — including ours.</p>
+    </section>
+
+    <section>
+      <h2>What can YouTube do about AI videos on its own?</h2>
+      <p>Not much directly. You can pick <strong>Don't recommend channel</strong> on a video's menu, which suppresses one channel at a time, and creators are asked to disclose synthetic media, though that label is self-reported and inconsistently applied. Neither gives you a switch for the category as a whole.</p>
+
+      <h3>Don't recommend channel</h3>
+      <p>Open the three-dot menu on any video card and choose it. This works, and it is free, and it is worth using on the worst repeat offenders. The catch is that AI content tends to come from a long tail of channels rather than a few, so you are playing whack-a-mole.</p>
+
+      <h3>The disclosure label</h3>
+      <p>YouTube asks creators to flag realistic synthetic content. When it is applied you will see a note in the description or on the player. Because it depends on the uploader being both aware of the rule and willing to follow it, you cannot treat its absence as evidence that a video is human-made.</p>
+
+      <h3>Not interested</h3>
+      <p>Marking individual videos as <strong>Not interested</strong> nudges recommendations over time. It is slow and indirect, and it only affects suggestions rather than search results.</p>
+    </section>
+
+    <section>
+      <h2>How does a keyword filter catch AI videos?</h2>
+      <p>It reads the text YouTube already shows next to each video — the title, the channel name, and any description text on the card — and hides the card when that text matches a list of AI-related words and phrases. It runs on the video card, before you watch anything, so nothing has to be analysed or uploaded.</p>
+      <p>This works better than it sounds, because a lot of AI-generated content is actively marketed as AI-generated. Titles naming the model used, channels built entirely around generated content, and descriptions listing the tools involved are all plain text a filter can match.</p>
+      <p>It is also fast and private in a way that video analysis could never be. Nothing about your viewing is sent anywhere, because the only thing being examined is text that was already on the page in front of you.</p>
+    </section>
+
+    <section>
+      <h2>What will a keyword filter miss?</h2>
+      <p>Anything that does not say so in text. A fully AI-generated video with an ordinary human-sounding title will pass straight through, because the filter reads words rather than pixels or audio. No consumer tool reliably detects AI generation from the video itself, and anyone claiming otherwise is overstating it.</p>
+      <p>The honest way to think about a keyword filter is that it thins out the obvious cases rather than guaranteeing a clean feed. For most people that is the difference between a Home page that feels overrun and one that feels normal again, which is a worthwhile result even though it is not a complete one.</p>
+
+      <div class="info-box">
+        <p class="muted"><strong>A note on tools that promise more:</strong> some extensions claim to detect AI video directly, and some use a shared community blocklist where users label channels. Crowdsourced lists genuinely help, and they also inherit whatever the crowd got wrong. Neither approach is magic, and it is fair to be sceptical of any product that says otherwise.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>How Zenfeed handles it</h2>
+      <p>Zenfeed's Rest from AI feature matches AI-related keywords and phrases in a video's text and blurs the matching cards on Home, Subscriptions, and search results. On YouTube it works as a timer rather than a permanent switch — you start it for a set number of minutes, and everything comes back automatically when it ends.</p>
+      <p>YouTube support is off until you turn it on, in the Sites section of the popup, because it needs a separate permission. There is also an optional toggle for the Shorts shelf, and custom keyword blocking if you want to hide something specific that has nothing to do with AI.</p>
+      <p>It reads text, not images or audio, so everything in the section above applies to it too. If you want the reasoning behind making it a countdown instead of a permanent block, that is written up in <a href="../blog/why-rest-from-ai-is-a-timer-not-a-permanent-block.html">why Rest from AI is a timer, not a permanent block</a>.</p>
+      <div class="cta-row">
+        <a class="btn-primary-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">
+          Add Zenfeed to Chrome — free ↗
+        </a>
+        <a class="btn-secondary-cta" href="../compare/zenfeed-vs-clarity.html">Compare with Clarity</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Guides</a>
+          <a href="../compare/">Compare</a>
+          <a href="../blog/">Blog</a>
+          <a href="../privacy.html">Privacy</a>
+        </div>
+      </div>
+      <p>Last updated: August 26, 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

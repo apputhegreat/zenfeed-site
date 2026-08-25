@@ -38,7 +38,7 @@
   </url>
   <url>
     <loc>https://zenfeed.org/blog/what-actually-clutters-a-linkedin-feed-in-2026.html</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -86,6 +86,30 @@
   </url>
   <url>
     <loc>https://zenfeed.org/compare/zenfeed-vs-ai-content-shield.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zenfeed.org/compare/zenfeed-vs-cleanedin.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zenfeed.org/guides/</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zenfeed.org/guides/block-ai-videos-youtube.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zenfeed.org/guides/linkedin-feed-cleaner-extension.html</loc>
     <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

@@ -1,6 +1,7 @@
 {
   "blog": "Notes on building Zenfeed.",
   "compare": "Zenfeed vs other feed-cleaning extensions.",
+  "guides": "Guides",
   "roadmap": "What we're fixing, what's next.",
   "support": "Help for Zenfeed users.",
   "privacy": "Zenfeed works locally in your browser.",
@@ -10,7 +11,10 @@
   "why-rest-from-ai-is-a-timer-not-a-permanent-block": "Why Rest from AI is a timer, not a permanent block",
   "zenfeed-vs-ai-content-shield": "Zenfeed vs AI Content Shield",
   "zenfeed-vs-clarity": "Zenfeed vs Clarity",
+  "zenfeed-vs-cleanedin": "Zenfeed vs CleanedIn",
   "zenfeed-vs-control-panel-for-twitter": "Zenfeed vs Control Panel for Twitter",
   "zenfeed-vs-linkoff": "Zenfeed vs LinkOff",
-  "zenfeed-vs-socialfocus": "Zenfeed vs SocialFocus"
+  "zenfeed-vs-socialfocus": "Zenfeed vs SocialFocus",
+  "block-ai-videos-youtube": "How to block AI-generated videos on YouTube",
+  "linkedin-feed-cleaner-extension": "LinkedIn feed cleaner extensions: what they actually filter"
 }

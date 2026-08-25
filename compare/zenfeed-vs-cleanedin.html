@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenfeed vs CleanedIn — Chrome Extension Comparison</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/compare/zenfeed-vs-cleanedin.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="Zenfeed vs CleanedIn: a local keyword filter against a cloud AI classifier for LinkedIn — price, platform coverage, and where your feed text actually goes." />
+  <meta property="og:title" content="Zenfeed vs CleanedIn — Chrome Extension Comparison" />
+  <meta property="og:description" content="Zenfeed vs CleanedIn: a local keyword filter against a cloud AI classifier for LinkedIn — price, platform coverage, and where your feed text actually goes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zenfeed.org/compare/zenfeed-vs-cleanedin.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/zenfeed-vs-cleanedin.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zenfeed vs CleanedIn — Chrome Extension Comparison" />
+  <meta name="twitter:description" content="Zenfeed vs CleanedIn: a local keyword filter against a cloud AI classifier for LinkedIn — price, platform coverage, and where your feed text actually goes." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/zenfeed-vs-cleanedin.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zenfeed.org/" },
+      { "@type": "ListItem", "position": 2, "name": "Comparisons", "item": "https://zenfeed.org/compare/" },
+      { "@type": "ListItem", "position": 3, "name": "Zenfeed vs CleanedIn", "item": "https://zenfeed.org/compare/zenfeed-vs-cleanedin.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://zenfeed.org/compare/zenfeed-vs-cleanedin.html#faq",
+    "about": { "@id": "https://zenfeed.org/#software" },
+    "isPartOf": { "@id": "https://zenfeed.org/#website" },
+    "mainEntity": [
+      { "@type": "Question", "name": "Does CleanedIn send your LinkedIn feed to a server?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, by design. Its privacy policy states that post text is sent over HTTPS to its own edge function, which forwards it to Anthropic's Claude API for classification, then discards it. Zenfeed never sends post text anywhere, because it matches keywords in your browser instead of asking a model." } },
+      { "@type": "Question", "name": "Is there a free alternative to CleanedIn with no daily limit?", "acceptedAnswer": { "@type": "Answer", "text": "Zenfeed is free with no paid tier, no account, and no cap on how many posts it filters. CleanedIn's free plan allows 20 classifications a day before you need a paid plan, which is the normal trade when a cloud model is doing the work and each post costs the provider money." } }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../hub.css">
+  <style>
+    .intro { max-width: 700px; margin: 22px 0 0; color: var(--muted); font-size: 18px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 28px; margin-top: 16px; }
+    h2 { margin: 0 0 12px; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 1.2; }
+    h3 { margin: 18px 0 8px; font-family: var(--font-serif); font-weight: 500; font-size: 18px; line-height: 1.3; }
+    h3:first-of-type { margin-top: 4px; }
+    p { margin: 0 0 14px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { margin: 0 0 14px; padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .table-wrap { overflow-x: auto; margin-top: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    thead th { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    tbody tr:last-child td { border-bottom: none; }
+    .muted { color: var(--muted); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .btn-primary-cta { display: inline-block; background: #1a1e2a; color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 100px; transition: background 0.2s; }
+    .btn-primary-cta:hover { background: #000; }
+    .btn-secondary-cta { display: inline-block; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 100px; transition: background 0.2s; }
+    .btn-secondary-cta:hover { background: #f4efe6; }
+    .other-comparisons { margin: 12px 0 18px; padding-left: 20px; }
+    .other-comparisons li { margin-bottom: 6px; }
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      section { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Comparison page navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="../">Home</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../blog/">Blog</a>
+        </div>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Compare</p>
+        <h1>Zenfeed vs CleanedIn</h1>
+        <p class="intro">
+          These two solve the same annoyance in genuinely different ways. CleanedIn sends each post to a language
+          model in the cloud and asks it what kind of post this is. Zenfeed matches keywords and page structure in
+          your browser and never sends anything anywhere. That one difference explains almost everything else about
+          them, including the price.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section>
+      <h2>Side by side</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>Zenfeed</th>
+              <th>CleanedIn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Price</td>
+              <td>Free, no tiers</td>
+              <td>Free tier, then £9/month or £59/year</td>
+            </tr>
+            <tr>
+              <td>Free tier limit</td>
+              <td>None — unlimited filtering</td>
+              <td>20 classifications per day</td>
+            </tr>
+            <tr>
+              <td>Platforms</td>
+              <td>LinkedIn, X/Twitter, YouTube (opt-in)</td>
+              <td>LinkedIn only</td>
+            </tr>
+            <tr>
+              <td>Account required</td>
+              <td>No</td>
+              <td>Yes — email or Google sign-in</td>
+            </tr>
+            <tr>
+              <td>Where classification happens</td>
+              <td>In your browser. No post text leaves the device.</td>
+              <td>On their server, which forwards post text to Anthropic's Claude API</td>
+            </tr>
+            <tr>
+              <td>How it decides</td>
+              <td>Keyword and phrase matching, plus page structure</td>
+              <td>A language model reading each post</td>
+            </tr>
+            <tr>
+              <td>Filter categories</td>
+              <td>Promoted, suggested, AI content, company pages, custom keywords</td>
+              <td>10 categories, including engagement bait, humble brags and corporate PR</td>
+            </tr>
+            <tr>
+              <td>Highlighting good posts</td>
+              <td>No</td>
+              <td>Yes — "Spotlight", on the paid plan</td>
+            </tr>
+            <tr>
+              <td>AI filtering style</td>
+              <td>Timed — Rest from AI runs for a set period, then restores</td>
+              <td>Always on, as one of the 10 filters</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why someone might choose Zenfeed</h2>
+      <p>Nothing you read gets sent anywhere. That matters more than it sounds, because a LinkedIn feed contains posts written by your connections, and a cloud classifier has to transmit that text to judge it. Zenfeed does the matching in the browser, so the question never arises. It is also free with no cap, needs no account, and covers X and YouTube as well as LinkedIn.</p>
+      <p>The trade is bluntness. Keyword matching cannot tell a thoughtful post from a shallow one, so Zenfeed filters by category rather than by quality.</p>
+    </section>
+
+    <section>
+      <h2>Why someone might still want CleanedIn</h2>
+      <p>A language model reading each post can make judgements a keyword list simply cannot. Recognising engagement bait, a humble brag, or empty inspiration is a question of tone, not vocabulary, and that is exactly what CleanedIn's ten categories are built around. Its Spotlight feature also highlights posts worth reading rather than only hiding the rest, which is something Zenfeed does not attempt at all.</p>
+      <p>If you only use LinkedIn, you want filtering by quality rather than by category, and you are comfortable with post text being classified in the cloud, it is doing something Zenfeed deliberately does not.</p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        CleanedIn facts above — pricing, platform scope, account requirement, filter categories, and where
+        classification happens — are from its own site and privacy policy, checked August 26, 2026. The description
+        of post text being sent over HTTPS to an edge function and forwarded to Anthropic's Claude API, then
+        discarded, is stated in CleanedIn's own privacy policy.
+      </p>
+      <p class="muted">
+        We have deliberately left out star ratings and install counts for CleanedIn. Its Chrome Web Store listing
+        would not load when we checked, and several unrelated extensions share a similar name, so any number we
+        published could easily have been the wrong product's.
+      </p>
+      <p class="muted">
+        Extensions change. If a detail here has gone stale,
+        <a href="../support.html#report">tell us and we'll correct it</a>.
+      </p>
+      <div class="cta-row">
+        <a class="btn-secondary-cta" href="https://getcleanedin.com/" target="_blank" rel="noopener">
+          Visit CleanedIn ↗
+        </a>
+        <a class="btn-primary-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">
+          Add Zenfeed to Chrome — free ↗
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <h3>Does CleanedIn send your LinkedIn feed to a server?</h3>
+      <p>
+        Yes, by design. Its privacy policy states that post text is sent over HTTPS to its own edge function, which
+        forwards it to Anthropic's Claude API for classification, then discards it. Zenfeed never sends post text
+        anywhere, because it matches keywords in your browser instead of asking a model.
+      </p>
+      <h3 style="margin-top: 22px;">Is there a free alternative to CleanedIn with no daily limit?</h3>
+      <p>
+        Zenfeed is free with no paid tier, no account, and no cap on how many posts it filters. CleanedIn's free plan
+        allows 20 classifications a day before you need a paid plan, which is the normal trade when a cloud model is
+        doing the work and each post costs the provider money.
+      </p>
+    </section>
+
+    <section>
+      <h2>Other comparisons</h2>
+      <p>Weighing up more than one option? These cover the rest of the field.</p>
+      <ul class="other-comparisons">
+        <li><a href="zenfeed-vs-linkoff.html">Zenfeed vs LinkOff</a></li>
+        <li><a href="zenfeed-vs-control-panel-for-twitter.html">Zenfeed vs Control Panel for Twitter</a></li>
+        <li><a href="zenfeed-vs-socialfocus.html">Zenfeed vs SocialFocus</a></li>
+        <li><a href="zenfeed-vs-ai-content-shield.html">Zenfeed vs AI Content Shield</a></li>
+        <li><a href="zenfeed-vs-clarity.html">Zenfeed vs Clarity</a></li>
+      </ul>
+      <p><a href="./">See all comparisons →</a></p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../blog/">Blog</a>
+          <a href="./">See all comparisons</a>
+          <a href="../guides/">Guides</a>
+        </div>
+      </div>
+      <p>Last updated: August 26, 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>
