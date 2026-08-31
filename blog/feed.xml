@@ -5,8 +5,16 @@
     <link>https://zenfeed.org/blog/</link>
     <description>Build logs and notes from building Zenfeed, a Chrome extension that declutters LinkedIn, X, and YouTube feeds.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 17 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://zenfeed.org/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why muting is often better than unfollowing, and when it isn&apos;t</title>
+      <link>https://zenfeed.org/blog/why-muting-is-often-better-than-unfollowing.html</link>
+      <guid isPermaLink="true">https://zenfeed.org/blog/why-muting-is-often-better-than-unfollowing.html</guid>
+      <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
+      <description>Muting and unfollowing solve different problems. A plain look at when each one is the right call, and why neither one is built for what a keyword filter does.</description>
+      <enclosure url="https://zenfeed.org/assets/og/why-muting-is-often-better-than-unfollowing.png" length="37669" type="image/png" />
+    </item>
     <item>
       <title>Why most focus apps try to stop you from opening the app, and we don&apos;t</title>
       <link>https://zenfeed.org/blog/why-most-focus-apps-try-to-stop-you-from-opening-the-app.html</link>
