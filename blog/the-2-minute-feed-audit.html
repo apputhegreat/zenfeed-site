@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The 2-Minute Feed Audit — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/the-2-minute-feed-audit.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="A two-minute way to tell if your LinkedIn, X, or YouTube feed is actually serving you, or just serving the algorithm. No app or dashboard required." />
+  <meta property="og:title" content="The 2-Minute Feed Audit" />
+  <meta property="og:description" content="A two-minute way to tell if your LinkedIn, X, or YouTube feed is actually serving you, or just serving the algorithm. No app or dashboard required." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/the-2-minute-feed-audit.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/the-2-minute-feed-audit.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The 2-Minute Feed Audit" />
+  <meta name="twitter:description" content="A two-minute way to tell if your LinkedIn, X, or YouTube feed is actually serving you, or just serving the algorithm. No app or dashboard required." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/the-2-minute-feed-audit.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "The 2-minute feed audit: how to tell if your feed is working for you or against you",
+    "description": "A two-minute way to tell if your LinkedIn, X, or YouTube feed is actually serving you, or just serving the algorithm. No app or dashboard required.",
+    "datePublished": "2026-08-24",
+    "dateModified": "2026-08-24",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://zenfeed.org/#organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/the-2-minute-feed-audit.html",
+    "image": "https://zenfeed.org/assets/og/the-2-minute-feed-audit.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zenfeed.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://zenfeed.org/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "The 2-minute feed audit: how to tell if your feed is working for you or against you",
+        "item": "https://zenfeed.org/blog/the-2-minute-feed-audit.html"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sand-2: #ede6d8;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --slate-2: #c5d8e8;
+      --warm: #c4896f;
+      --warm-2: #f0d9cf;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --stone-dark: #1a1e2a;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    article ol, article ul {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin: 0 0 26px;
+      padding-left: 22px;
+    }
+    article li { margin-bottom: 10px; }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+    .callout ol { margin: 10px 0 0; padding-left: 20px; font-family: var(--font-sans); font-size: 15.5px; }
+    .callout li { margin-bottom: 8px; }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> PRODUCTIVITY · 5 MIN READ · AUGUST 24, 2026</p>
+      <h1 class="title">The 2-minute feed audit: how to tell if your feed is working for you or against you</h1>
+      <p class="dek">You don't need a week of screen-time data to know if your feed has turned against you. Two minutes of honest counting tells you almost as much.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>You open LinkedIn, X, or YouTube meaning to check one thing, and ten minutes later you close it not having found it. That feeling is easy to notice and hard to explain. Was the feed actually bad, or were you just in a mood? The honest way to answer that isn't a screen-time app that tells you how long you scrolled. It's a two-minute count of what you scrolled past.</p>
+
+        <h2>How do you actually run the audit?</h2>
+        <p>Open the feed you use most, scroll for two minutes without liking, clicking, or opening anything, then go back through what you saw and count: out of the first fifteen or twenty posts, how many were from people you actually follow, and how many were ads, suggestions, or something you didn't ask for?</p>
+
+        <p>That's the whole test. No extension, no dashboard, no login required — just a stopwatch and a bit of honesty about what you're actually looking at. The reason it works is that it turns a vague feeling ("this feed feels off lately") into a number you can compare week to week. A feeling is easy to dismiss. A number that says six of your last fifteen posts were things you never asked to see is harder to argue with.</p>
+
+        <h2>What counts as clutter, and what doesn't?</h2>
+        <p>A post from someone you follow doesn't count, even if you don't like what they wrote. Clutter is anything the platform inserted on its own: promoted posts, "people you may know," suggested videos, and content that showed up because an algorithm guessed you'd engage with it, not because you asked for it.</p>
+
+        <p>Ads are the easy part, because platforms are required to label them. The harder part is everything that isn't labeled but still isn't something you chose. I wrote a longer breakdown of this for LinkedIn specifically — <a href="./what-actually-clutters-a-linkedin-feed-in-2026.html">what actually clutters a LinkedIn feed in 2026</a> — and the short version is that the unlabeled stuff usually outnumbers the labeled stuff by a wide margin. When you're counting during the audit, count both. If a post exists because you followed someone, it's not clutter, no matter the topic. If it exists because a recommendation system decided you might like it, it counts, whether it's an obvious ad or not.</p>
+
+        <div class="callout">
+          <span class="label">The 2-minute audit, step by step</span>
+          <ol>
+            <li>Open the feed. Don't refresh it first — you want what it actually shows you, not a curated re-load.</li>
+            <li>Scroll for two minutes, hands off everything except the scroll itself.</li>
+            <li>Scroll back up and count the posts you saw, one by one.</li>
+            <li>For each one, ask: did I choose this, by following the person or channel, or did the platform choose it for me?</li>
+            <li>Divide the second number by the total. That's your clutter ratio for today.</li>
+          </ol>
+        </div>
+
+        <h2>What does the number actually tell you?</h2>
+        <p>One or two unwanted posts out of fifteen is a normal feed — every platform inserts something. Four or more, and the feed has quietly shifted from showing you what you follow to showing you what keeps you scrolling, which are not the same goal. Run it again on a different day before deciding, since one bad scroll can just be a bad scroll.</p>
+
+        <p>The number also tells you where the problem is. If most of what you counted were unlabeled suggestions and "you might like" modules, that's a different fix than if it was mostly labeled ads, and different again if the volume of AI-generated posts is what's crowding out the people you actually follow. That distinction matters, because AI content in a feed isn't a quality problem — plenty of it is fine. It's a volume problem: when there's enough of it, you start scrolling past real posts from real people without noticing them, which is exactly what the audit is built to catch.</p>
+
+        <h2>What do you do once you know the number?</h2>
+        <p>If the audit turns up mostly ads and algorithmic suggestions, a filter that hides those two categories fixes most of it directly. If it's specific topics or accounts, a keyword block handles that. If it's the sheer volume of AI content burying the people you follow, giving the feed a scheduled break from that specific kind of noise brings the rest back into view.</p>
+
+        <p>That's the same audit that shaped how Zenfeed's toggles are split up: hide promoted, hide suggested, block by keyword, and Rest from AI as a timer rather than a permanent switch, so it comes back on its own. On LinkedIn and X all four work today. On YouTube, Zenfeed does less on purpose — Rest from AI, keyword blocking, and an opt-in Shorts-shelf toggle, on the Home, Subscriptions, and search pages, with the promoted and suggested toggles wired but inert there since YouTube's ad and recommendation surfaces don't map cleanly onto the same rules.</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>Mostly ads and suggestions</div>
+            <p>Turn on "Hide promoted" and "Hide suggested." That alone accounts for most bad audit numbers on LinkedIn and X.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>Specific topics or accounts</div>
+            <p>Add them to your custom keyword list. It matches case-insensitively across every post the scan sees.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--gold)"></i>Volume of AI content</div>
+            <p>Turn on Rest from AI for a set number of minutes. It's a break from the noise, not a judgment on any single post.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--sage)"></i>Company or Showcase Pages</div>
+            <p>On LinkedIn, "Hide company pages" filters posts by the byline, not the text, so a company mentioned in a real post stays visible.</p>
+          </div>
+        </div>
+
+        <p>Worth saying plainly: the audit isn't a Zenfeed pitch. It works the same whether you install anything or not, and running it once a month, even with no tool at all, will tell you more about your feed than a week of vague "I've been on this app too much" guilt ever does. What you do with the number is up to you.</p>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">Two minutes and an honest count is a small ask, and that's the point. You don't need to quit LinkedIn, X, or YouTube to notice when they've stopped working for you — you just need a way to check that doesn't depend on how the day is going. Run the audit, see the number, then decide what's worth fixing.</p>
+          <p class="followup">If you run the audit on your own feed and the number surprises you, I'd like to hear it. It's part of how I decide what Zenfeed should filter next.</p>
+          <div class="tags">
+            <span>Productivity</span>
+            <span>Feed Hygiene</span>
+            <span>LinkedIn</span>
+            <span>X</span>
+            <span>YouTube</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/index.html">Compare</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>
