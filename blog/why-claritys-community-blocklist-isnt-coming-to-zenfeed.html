@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Clarity's Community Blocklist Isn't Coming to Zenfeed — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="Clarity's shared blocklist for AI YouTube videos is a smart idea. Here's why it doesn't fit Zenfeed's 100% local, no-backend design." />
+  <meta property="og:title" content="Why Clarity's Community Blocklist Isn't Coming to Zenfeed" />
+  <meta property="og:description" content="Clarity lets users label AI videos together and the list gets smarter over time. It's a good idea — and it needs a server Zenfeed has deliberately never built." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/why-claritys-community-blocklist-isnt-coming-to-zenfeed.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why Clarity's Community Blocklist Isn't Coming to Zenfeed" />
+  <meta name="twitter:description" content="Clarity lets users label AI videos together and the list gets smarter over time. It's a good idea — and it needs a server Zenfeed has deliberately never built." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/why-claritys-community-blocklist-isnt-coming-to-zenfeed.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why Clarity's community blocklist isn't coming to Zenfeed",
+    "description": "Clarity's shared blocklist for AI YouTube videos is a genuinely smart idea. Here's why it doesn't fit Zenfeed's 100% local, no-backend design, and what Zenfeed does instead.",
+    "datePublished": "2026-09-14",
+    "dateModified": "2026-09-14",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://zenfeed.org/#organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html",
+    "image": "https://zenfeed.org/assets/og/why-claritys-community-blocklist-isnt-coming-to-zenfeed.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zenfeed.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://zenfeed.org/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Why Clarity's community blocklist isn't coming to Zenfeed",
+        "item": "https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sand-2: #ede6d8;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --slate-2: #c5d8e8;
+      --warm: #c4896f;
+      --warm-2: #f0d9cf;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --stone-dark: #1a1e2a;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+
+    /* ---- compare grid ---- */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .compare-card { border: 1px solid var(--line); border-radius: 10px; padding: 18px 18px 16px; background: var(--panel); }
+    .compare-card .head {
+      font-family: var(--font-sans); font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--ink);
+    }
+    .compare-card .head i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+    .compare-card ul { margin: 0; padding-left: 18px; }
+    .compare-card li { font-family: var(--font-sans); font-size: 14.5px; color: var(--muted); line-height: 1.55; margin-bottom: 6px; }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> FEATURE WATCH · 6 MIN READ · SEPTEMBER 14, 2026</p>
+      <h1 class="title">Why Clarity's community blocklist isn't coming to Zenfeed</h1>
+      <p class="dek">Clarity lets people label AI videos together, and the shared list gets smarter as more people use it. It's a genuinely good idea. It also needs a server, and that's the one thing Zenfeed promised it would never have.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>Every so often I look at what other small extensions in this space are building, not to copy them, but because someone chasing the same rough problem sometimes lands on an angle I hadn't considered. Clarity, a YouTube-only extension that hides AI-generated videos, has one of the better ideas I've come across: a community blocklist. I'm not building it into Zenfeed, and the reason has less to do with the idea itself and more to do with what Zenfeed promises to be.</p>
+
+        <h2>What does Clarity's community blocklist actually do?</h2>
+
+        <p>Clarity auto-detects videos it suspects are AI-generated on YouTube, and it also lets users label channels they believe are posting AI content; those labels feed a shared list that the extension checks against, so the detection improves as more people contribute to it. It's a free, YouTube-only tool with a small but real install base, and it doesn't require an account to use.</p>
+
+        <p>That's a different design from what most single-platform AI filters do. A lot of them ship with a fixed detection method and leave it there. Clarity's bet is that a crowd, over time, catches things a single static rule wouldn't — a new AI video format, a channel that slips past the automatic detector, a pattern nobody coded for on day one.</p>
+
+        <h2>Why is that worth admiring?</h2>
+
+        <p>Because it solves a real weak spot in any single-user, static approach: one person's fixed list can't learn from what a crowd of people are seeing in their own feeds, but a shared blocklist can.</p>
+
+        <p>Zenfeed's own <a href="./why-rest-from-ai-is-a-timer-not-a-permanent-block.html">Rest from AI is a timer, not a permanent block</a>, and the detection underneath it is a local keyword and phrase sweep — it reads a post's text (and image alt text, not the pixels themselves) and checks it against a fixed list in <span class="mono">keywords.js</span>. That list only grows when I edit it, and it has no way to learn from a new AI pattern until I notice it myself and add it. A crowd genuinely catches things one list-editor misses. Crediting that clearly: Clarity's approach is a smart answer to a real limitation, not a gimmick.</p>
+
+        <h2>So why isn't Zenfeed building something like it?</h2>
+
+        <p>Because a shared blocklist needs a server to collect, store, and redistribute labels across users, and Zenfeed's whole design assumes no such server exists.</p>
+
+        <p><strong>100% local. No backend, no tracking, no account.</strong> That's not marketing copy I'm reluctant to break for a good feature — it's the literal architecture. Zenfeed has no server today, and no code path that sends anything your feed contains anywhere. A community blocklist means a post you looked at has to leave your browser in some form, travel to a server, and come back changed by what other people reported. Even done carefully and anonymized, that's a real backend: something to build, host, and secure, and something that turns "no account needed" into "no account needed, but we do talk to a server on your behalf." That's a fair trade for a tool built around it from the start. For an extension whose whole pitch is that nothing you do in it ever leaves your machine, it would quietly undo the actual promise, not just the brand story around it.</p>
+
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="head"><i style="background:var(--sage)"></i>Clarity's bet</div>
+            <ul>
+              <li>Detection improves over time as more people label channels</li>
+              <li>Catches patterns a fixed rule set wouldn't anticipate</li>
+              <li>Requires a server to collect and redistribute labels</li>
+              <li>YouTube only, for now</li>
+            </ul>
+          </div>
+          <div class="compare-card">
+            <div class="head"><i style="background:var(--warm)"></i>Zenfeed's bet</div>
+            <ul>
+              <li>Nothing about your feed ever leaves your browser</li>
+              <li>No server to build, host, secure, or trust</li>
+              <li>Detection is static until I edit the keyword list myself</li>
+              <li>Works across LinkedIn, X, and YouTube from one install</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>What does Zenfeed do instead?</h2>
+
+        <p>The closest thing Zenfeed has to a blocklist is the one you write yourself: a custom keyword list, matched case-insensitively against a post's text, entirely on your machine.</p>
+
+        <p>It's the single-player version of the same instinct — you decide what counts as noise, instead of a crowd deciding for you — and it stays true to the part of Zenfeed I don't want to trade away, which is that your settings and your feed never touch a server I run.</p>
+
+        <blockquote>A community blocklist and a local keyword list are both honest answers to "how do I decide what to hide." They're just answers built for different promises, and Zenfeed already made its promise.</blockquote>
+
+        <div class="callout">
+          <span class="label">Where this stands today</span>
+          Zenfeed is at version <span class="mono">1.2.1</span> as of this post, live on the Chrome Web Store for LinkedIn, X, and YouTube. Rest from AI still runs entirely as a local keyword and phrase sweep — it's a break from AI content, not a perfect detector, and it isn't going to become one by quietly adding a server.
+        </div>
+
+        <p>None of this is a knock on Clarity. A shared blocklist is a genuinely smart way to make AI detection better than any one person's list could be on its own, and if I were building a single-platform tool from scratch with a different set of promises, I might build the same thing. Zenfeed just isn't that tool. It made "nothing leaves your browser" the whole deal a long time ago, and a good feature that breaks that deal isn't actually a good feature for Zenfeed, whatever it is for someone else.</p>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">I'd rather say plainly why a good idea isn't happening than quietly ignore it and let people wonder. Local-only detection has a real ceiling, and a community blocklist is one honest way past it — it's just a way that costs the one thing Zenfeed isn't willing to spend.</p>
+          <p class="followup">If you use Clarity, LinkOff, or anything else in this space and there's a feature you think Zenfeed is missing, I'd rather hear the actual case for it than guess. Reply through <a href="../support.html">support</a> and tell me what it is.</p>
+          <div class="tags">
+            <span>Feature Watch</span>
+            <span>AI Content</span>
+            <span>Privacy</span>
+            <span>Rest from AI</span>
+            <span>YouTube</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/">Compare</a>
+          <a href="/blog/feed.xml">RSS</a>
+          <a href="../guides/">Guides</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -5,8 +5,16 @@
     <link>https://zenfeed.org/blog/</link>
     <description>Build logs and notes from building Zenfeed, a Chrome extension that declutters LinkedIn, X, and YouTube feeds.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 31 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://zenfeed.org/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Clarity&apos;s community blocklist isn&apos;t coming to Zenfeed</title>
+      <link>https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html</link>
+      <guid isPermaLink="true">https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html</guid>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+      <description>Clarity&apos;s shared blocklist for AI YouTube videos is a genuinely smart idea. Here&apos;s why it doesn&apos;t fit Zenfeed&apos;s 100% local, no-backend design, and what Zenfeed does instead.</description>
+      <enclosure url="https://zenfeed.org/assets/og/why-claritys-community-blocklist-isnt-coming-to-zenfeed.png" length="37157" type="image/png" />
+    </item>
     <item>
       <title>Why muting is often better than unfollowing, and when it isn&apos;t</title>
       <link>https://zenfeed.org/blog/why-muting-is-often-better-than-unfollowing.html</link>
