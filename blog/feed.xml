@@ -5,8 +5,16 @@
     <link>https://zenfeed.org/blog/</link>
     <description>Build logs and notes from building Zenfeed, a Chrome extension that declutters LinkedIn, X, and YouTube feeds.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 14 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://zenfeed.org/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What AI Content Shield gets right about AI detection, and the trade-off that comes with it</title>
+      <link>https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html</link>
+      <guid isPermaLink="true">https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html</guid>
+      <pubDate>Mon, 21 Sep 2026 00:00:00 GMT</pubDate>
+      <description>AI Content Shield hides AI content with an algorithm it doesn&apos;t explain, and gates custom filtering behind a paywall. What that trade-off actually is, and why Zenfeed made a different one.</description>
+      <enclosure url="https://zenfeed.org/assets/og/the-tradeoff-every-ai-content-filter-has-to-make.png" length="40542" type="image/png" />
+    </item>
     <item>
       <title>Why Clarity&apos;s community blocklist isn&apos;t coming to Zenfeed</title>
       <link>https://zenfeed.org/blog/why-claritys-community-blocklist-isnt-coming-to-zenfeed.html</link>

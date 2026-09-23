@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What AI Content Shield Gets Right About AI Detection — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="AI Content Shield hides AI content with an algorithm it doesn't explain. What that trade-off actually costs you, and why Zenfeed made a different one." />
+  <meta property="og:title" content="What AI Content Shield Gets Right About AI Detection, and the Trade-off That Comes With It" />
+  <meta property="og:description" content="An opaque 'advanced algorithm' catches more than a plain keyword list. It also can't tell you why it hid something. A look at that trade-off, and the one Zenfeed chose instead." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/the-tradeoff-every-ai-content-filter-has-to-make.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What AI Content Shield Gets Right About AI Detection, and the Trade-off That Comes With It" />
+  <meta name="twitter:description" content="An opaque 'advanced algorithm' catches more than a plain keyword list. It also can't tell you why it hid something. A look at that trade-off, and the one Zenfeed chose instead." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/the-tradeoff-every-ai-content-filter-has-to-make.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "What AI Content Shield gets right about AI detection, and the trade-off that comes with it",
+    "description": "AI Content Shield hides AI content with an algorithm it doesn't explain, and gates custom filtering behind a paywall. What that trade-off actually is, and why Zenfeed made a different one.",
+    "datePublished": "2026-09-21",
+    "dateModified": "2026-09-21",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://zenfeed.org/#organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html",
+    "image": "https://zenfeed.org/assets/og/the-tradeoff-every-ai-content-filter-has-to-make.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zenfeed.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://zenfeed.org/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "What AI Content Shield gets right about AI detection, and the trade-off that comes with it",
+        "item": "https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sand-2: #ede6d8;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --slate-2: #c5d8e8;
+      --warm: #c4896f;
+      --warm-2: #f0d9cf;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --stone-dark: #1a1e2a;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+
+    /* ---- compare table ---- */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .compare-card { border: 1px solid var(--line); border-radius: 10px; padding: 18px 18px 16px; background: var(--panel); }
+    .compare-card .head {
+      font-family: var(--font-sans); font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--ink);
+    }
+    .compare-card .head i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+    .compare-card ul { margin: 0; padding-left: 18px; }
+    .compare-card li { font-family: var(--font-sans); font-size: 14.5px; color: var(--muted); line-height: 1.55; margin-bottom: 6px; }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> COMPETITOR WATCH · 6 MIN READ · SEPTEMBER 21, 2026</p>
+      <h1 class="title">What AI Content Shield gets right about AI detection, and the trade-off that comes with it</h1>
+      <p class="dek">It blocks AI content on more sites than Zenfeed even touches, running an algorithm it doesn't explain. That's not a knock on it — it's the actual choice every AI filter has to make, including the one Zenfeed made.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>I keep an eye on the other extensions in this space, partly out of curiosity and partly because it's useful to see what a different set of choices looks like in practice. AI Content Shield is one of the bigger ones: a Chrome extension that blocks AI-generated content across a much wider range of places than Zenfeed does — Google's AI Overviews and AI Mode, YouTube, TikTok, X, Instagram, Facebook, Reddit, LinkedIn, Gmail, and general web pages, among others. Zenfeed only works on LinkedIn, X, and YouTube. So this isn't a "which one is better" post. It's a look at one specific design choice it made, because that choice is the same one Zenfeed had to make, and we didn't make it the same way.</p>
+
+        <h2>How does AI Content Shield actually detect AI content?</h2>
+
+        <p>By its own description, it runs "advanced detection algorithms" locally on your device, similar to how an ad blocker works, and doesn't publish what those algorithms actually look for.</p>
+
+        <p>That last part is worth sitting with. There's no published list of the markers, phrases, or patterns it treats as signs of AI writing — just a general claim that the detection is "advanced." Its own FAQ is honest about the consequence: sometimes it will hide something that isn't AI-written, and sometimes it will miss something that is, and the team says they're working to reduce both. That's a reasonable thing to admit. It's also the part that made me want to write this down, because it names a trade-off most AI filters don't say out loud.</p>
+
+        <h2>What does that trade-off actually cost you?</h2>
+
+        <p>Visibility. A detector that's "smarter" than a keyword list will catch more, but it can't tell you why it made a specific call, and neither can you check its work.</p>
+
+        <p>With a plain keyword or phrase list, a post gets hidden because a specific word or phrase in it matched a specific entry, and you can go look at that entry yourself. With a proprietary algorithm, a post gets hidden because the algorithm said so — and if it's wrong about your post, there's no rule to go read, just a black box to trust a little less next time. Neither approach is dishonest. They're just optimizing for different things: catching more of what's actually AI-written, versus letting you see and adjust exactly what got caught and why.</p>
+
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="head"><i style="background:var(--warm)"></i>An opaque, wider net</div>
+            <ul>
+              <li>Catches more, because it isn't limited to matching a fixed list of words</li>
+              <li>You can't see why a specific post got hidden, only that it did</li>
+              <li>Fixing a miss or a false positive means waiting on the next update, not editing a list yourself</li>
+            </ul>
+          </div>
+          <div class="compare-card">
+            <div class="head"><i style="background:var(--sage)"></i>A plain, narrower net</div>
+            <ul>
+              <li>Misses AI writing that doesn't happen to match a keyword or heuristic</li>
+              <li>Every hidden post has a reason you can actually read</li>
+              <li>You can add, remove, or adjust what gets caught yourself, immediately</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Why did Zenfeed choose the second one?</h2>
+
+        <p>Because Rest from AI was built to be checkable, not just accurate. It matches AI-related keywords and phrases against a card's text, and every one of those keywords lives in a plain source file, not a trained model whose reasoning nobody, including us, can fully explain.</p>
+
+        <p>That's a real limitation, and it's worth saying plainly: Rest from AI reads text, not pixels, so it won't catch an AI-written caption baked into an image with no alt text, and it won't catch AI writing that manages to avoid every phrase on the list. It's also not judging whether a post is well written or badly written — the whole feature exists because there's so much AI content that it buries real posts from real people, not because AI posts are somehow worse. See <a href="./why-rest-from-ai-is-a-timer-not-a-permanent-block.html">why Rest from AI is a timer and not a permanent block</a> for more on that reasoning. The trade we made was accepting a narrower net in exchange for one you can actually see into, since a miss is annoying but a mistake you can't explain is worse.</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--gold)"></i>Rest from AI</div>
+            <p>A keyword and phrase sweep against each post's text, active only while the timer runs — the list lives in <span class="mono">keywords.js</span>, not a hidden model.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>Custom keywords</div>
+            <p>Your own block list, matched case-insensitively, free for everyone — not a feature held back for a paid tier.</p>
+          </div>
+        </div>
+
+        <p>That second point is the other half of this trade-off, and it's the more practical one. AI Content Shield's core blocking is free, but custom filters — the part that lets you fix what its algorithm gets wrong for you specifically — sit behind a paid Pro tier, priced at $6 a month or $4.95 a month billed annually on its own site as of this writing. Zenfeed doesn't have a paid tier at all. Every toggle and every custom keyword is available to everyone who installs it, because the whole thing runs locally with no subscription to sell.</p>
+
+        <blockquote>An algorithm you can't inspect and can't edit for free isn't a worse choice. It's a different bet — on catching more, instead of on you being able to see and adjust what got caught.</blockquote>
+
+        <div class="callout">
+          <span class="label">Where this lives today</span>
+          Zenfeed is at version <span class="mono">1.2.1</span> as of this post, live on the Chrome Web Store for LinkedIn, X, and YouTube. It runs 100% locally — no backend, no tracking, no account — and every keyword, category toggle, and the Rest from AI timer itself are free, with no Pro tier gating any of it.
+        </div>
+
+        <h2>Where AI Content Shield still wins</h2>
+
+        <p>Honestly, on reach. If you want AI content blocked on Reddit, Gmail, Google's AI Overviews, or half a dozen other places, Zenfeed simply isn't built for that — it only works on LinkedIn, X, and YouTube, and does less on YouTube than the other two on purpose. A wider net across more of the internet is a real advantage if that's the problem you have. Ours is narrower by design, not by accident, because staying local and staying checkable mattered more to us than covering every site AI content shows up on.</p>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">Neither approach is the "right" one in general. An opaque algorithm that runs across a dozen sites solves a broader problem than a keyword list ever will, and it's honest about missing sometimes. A visible, editable list solves a narrower problem, but it never asks you to trust a verdict you can't see the reasoning behind. Which trade-off you want depends on whether you'd rather have more caught, or more explained.</p>
+          <p class="followup">If you've used AI Content Shield or a similar filter and have a take on how well its detection actually holds up day to day, I'd like to hear it — I only get to see the design decisions from the outside.</p>
+          <div class="tags">
+            <span>Competitor Watch</span>
+            <span>AI Detection</span>
+            <span>Rest from AI</span>
+            <span>Privacy</span>
+            <span>Custom Keywords</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/">Compare</a>
+          <a href="/blog/feed.xml">RSS</a>
+          <a href="../guides/">Guides</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>
