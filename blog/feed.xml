@@ -5,8 +5,16 @@
     <link>https://zenfeed.org/blog/</link>
     <description>Build logs and notes from building Zenfeed, a Chrome extension that declutters LinkedIn, X, and YouTube feeds.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 21 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://zenfeed.org/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to tell if a LinkedIn post was written by AI, before a tool does it for you</title>
+      <link>https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html</link>
+      <guid isPermaLink="true">https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html</guid>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
+      <description>The tells that give away an AI-written LinkedIn post, and why spotting them matters more for volume than for quality.</description>
+      <enclosure url="https://zenfeed.org/assets/og/how-to-tell-if-a-linkedin-post-was-written-by-ai.png" length="36517" type="image/png" />
+    </item>
     <item>
       <title>What AI Content Shield gets right about AI detection, and the trade-off that comes with it</title>
       <link>https://zenfeed.org/blog/the-tradeoff-every-ai-content-filter-has-to-make.html</link>

@@ -79,6 +79,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://zenfeed.org/compare/</loc>
     <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Tell if a LinkedIn Post Was Written by AI — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="The tells that give away an AI-written LinkedIn post, and why spotting them matters more for volume than for quality." />
+  <meta property="og:title" content="How to Tell if a LinkedIn Post Was Written by AI" />
+  <meta property="og:description" content="The tells that give away an AI-written LinkedIn post, and why spotting them matters more for volume than for quality." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/how-to-tell-if-a-linkedin-post-was-written-by-ai.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Tell if a LinkedIn Post Was Written by AI" />
+  <meta name="twitter:description" content="The tells that give away an AI-written LinkedIn post, and why spotting them matters more for volume than for quality." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/how-to-tell-if-a-linkedin-post-was-written-by-ai.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to tell if a LinkedIn post was written by AI, before a tool does it for you",
+    "description": "The tells that give away an AI-written LinkedIn post, and why spotting them matters more for volume than for quality.",
+    "datePublished": "2026-10-05",
+    "dateModified": "2026-10-05",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://zenfeed.org/#organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html",
+    "image": "https://zenfeed.org/assets/og/how-to-tell-if-a-linkedin-post-was-written-by-ai.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zenfeed.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://zenfeed.org/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "How to tell if a LinkedIn post was written by AI, before a tool does it for you",
+        "item": "https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --paper: #fdfaf5;
+      --panel: #ffffff;
+      --ink: #2e3240;
+      --muted: #6b7280;
+      --line: #e6dfd4;
+      --sand: #f4efe6;
+      --sand-2: #ede6d8;
+      --sage: #8faf98;
+      --sage-2: #c8ddd1;
+      --slate: #7a9bb5;
+      --slate-2: #c5d8e8;
+      --warm: #c4896f;
+      --warm-2: #f0d9cf;
+      --gold: #ffce3a;
+      --gold-2: #fde9ae;
+      --gold-900: #4a3700;
+      --blue: #0a66c2;
+      --stone-dark: #1a1e2a;
+      --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    /* Site nav band only. Scoped to the direct child of <body> on purpose: a
+     * bare `header` selector also hits <header class="masthead">, which put a
+     * sand block behind every article title. Keep the `body >` combinator. */
+    body > header {
+      border-bottom: 1px solid var(--line);
+      background: var(--sand);
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .article-wrap {
+      width: min(700px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img { width: 28px; height: 28px; }
+
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ---- article masthead ---- */
+    .masthead { padding: 56px 0 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 22px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .dek {
+      max-width: 620px;
+      margin: 20px 0 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .byline {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--muted);
+      padding: 24px 0 0; margin-top: 28px; border-top: 1px solid var(--line);
+    }
+    .byline .avatar { width: 28px; height: 28px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+    .byline .sep { opacity: 0.5; }
+
+    /* ---- article body ---- */
+    main.article { padding: 0 0 80px; }
+    article p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.75;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin: 52px 0 18px;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 40px 0 12px;
+    }
+    article strong { color: var(--ink); }
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 4px 0 4px 22px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 30px 0;
+      padding: 20px 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .callout .label {
+      display: block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--sage); margin-bottom: 8px;
+    }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 30px; }
+    .feature { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--panel); }
+    .feature .k {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--ink);
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { font-family: var(--font-sans); font-size: 14.5px; margin: 0; color: var(--muted); line-height: 1.5; }
+
+    hr.sep { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer.end .signoff {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+    footer.end p.followup { font-family: var(--font-sans); font-size: 16px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; }
+    .tags span {
+      font-family: var(--font-sans); font-size: 12.5px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--sand);
+      padding: 24px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      article p, article li { font-size: 17.5px; }
+      h1.title { font-size: 30px; }
+      .dek { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      blockquote { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav" aria-label="Blog post navigation">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="nav-links">
+          <a href="./">Blog</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../support.html">Support</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> FEED HYGIENE · 6 MIN READ · OCTOBER 5, 2026</p>
+      <h1 class="title">How to tell if a LinkedIn post was written by AI, before a tool does it for you</h1>
+      <p class="dek">A plain list of the tells I actually look for while scrolling, and why spotting them is less about catching a "bad" post and more about knowing where your attention just went.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>You've probably had this moment: you're halfway through a LinkedIn post, nodding along, and somewhere around the third tidy paragraph a small voice says "wait, did a person actually write this?" You can't always prove it. But you can usually tell, once you know what to look for. I spend a lot of time reading these things, because detecting them is literally what <a href="./what-actually-clutters-a-linkedin-feed-in-2026.html">clutters a LinkedIn feed</a> in the first place, so I've ended up with a mental checklist. Here it is, in plain language, no tool required.</p>
+
+        <h2>What are the clearest tells in an AI-written LinkedIn post?</h2>
+        <p>Four things show up together more often than chance would explain: a hook built on a reversal ("I used to think X. Then Y happened."), a structure that reads like a listicle even without bullet points, a sentence rhythm that never breaks stride, and a closing question aimed at nobody in particular. Any one alone proves nothing. Three or four together is a strong signal.</p>
+
+        <h3 class="kicker">The reversal hook</h3>
+        <p>"I used to believe hard work was the only thing that mattered. Then I watched a junior hire outperform me in a week, and everything changed." It's a clean little story shape, which is exactly the problem — real anecdotes are usually messier than that. A specific Tuesday, a named project that fell apart for a boring reason, a detail that doesn't serve the lesson. The reversal hook is the lesson wearing a story costume.</p>
+
+        <h3 class="kicker">The invisible bullet points</h3>
+        <p>Three short paragraphs, each starting with a bolded phrase, each exactly two sentences, building to a one-line takeaway. Nobody drafts that rhythm by accident. People write in bursts — a long thought, then a short one, then they trail off and come back to it. A post with no uneven paragraphs is a post that was assembled, not drafted.</p>
+
+        <h3 class="kicker">The sentence that never stumbles</h3>
+        <p>Every sentence lands the same length, the same confident cadence, no fragments, no "anyway," no parenthetical aside. Actual writing wobbles. It has a sentence that's too long because the person was still figuring out what they meant while they typed it. Smoothness at that level is the tell, not the sentences themselves.</p>
+
+        <h3 class="kicker">The question nobody asked</h3>
+        <p>"What's been your experience with this? Let me know in the comments 👇" tacked onto the end of a post that already made its point. It's an engagement prompt, not a real question — the post isn't actually curious about your answer. A real person asking usually asks something narrower, like "has anyone else dealt with this exact thing," not a generic invite to the whole feed.</p>
+
+        <h2>Does spotting these tells mean the post is bad?</h2>
+        <p>No. None of this is a quality judgment — the actual problem is volume. When enough posts share these patterns, they start to look alike, and a feed full of lookalikes buries the one post from someone you actually follow who had something real to say. The tells matter because they show where your attention is going, not because the writing underneath is worthless.</p>
+
+        <div class="callout">
+          <span class="label">Why this isn't about "AI slop"</span>
+          Calling AI posts low-quality misses the actual complaint. The issue is that there's so much of this kind of post that it crowds out everything else — not that any single one is bad. That framing is the whole reason Zenfeed's AI feature is called "Rest from AI" and not "block AI."
+        </div>
+
+        <h2>What do you do once you've spotted a pattern like this a few times in a row?</h2>
+        <p>Noticing is already useful on its own — you scroll past faster, and you stop mistaking volume for relevance. If you want it automatic, Zenfeed's Rest from AI does the same kind of pattern-matching on a timer, so the rest of your feed gets a chance to surface while it's running. It's not a verdict on any one post, which is also <a href="./why-rest-from-ai-is-a-timer-not-a-permanent-block.html">why it's a timer and not a permanent block</a>.</p>
+
+        <p>It works by scanning each post's text (and image alt text, so nothing hiding in a graphic slips through) against a list of AI-related phrases and words, not by reading the prose style. So it won't catch every post you'd personally flag by eye using the tells above, and it isn't trying to — it's a volume valve, not a style critic. Here's what's actually behind it on LinkedIn and X:</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--gold)"></i>Rest from AI</div>
+            <p>A timer that hides AI-flagged posts for a set number of minutes, with a live countdown badge on the toolbar icon.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>Custom keywords</div>
+            <p>Block posts by your own word list if there's a specific phrase or account pattern you keep noticing yourself.</p>
+          </div>
+        </div>
+
+        <p>None of this requires reading every post with a magnifying glass. Most days, the manual checklist and the automatic timer end up doing the same job at different speeds — one in your head, one in the background.</p>
+
+        <div class="callout">
+          <span class="label">On privacy — stated plainly, because it has to be true</span>
+          Everything runs locally, in the browser. There's no server, no tracking, and no account. The phrase list Rest from AI checks against lives in the extension itself, not on a server somewhere reading your feed.
+        </div>
+
+        <hr class="sep">
+
+        <footer class="end">
+          <p class="signoff">None of these tells are proof. People write cleanly sometimes, and AI tools get better at sounding uneven on purpose, so this checklist will get less reliable over time, not more. What won't change is the actual problem: too much of a feed starting to sound the same, however it gets written. That's worth noticing on its own, tool or no tool.</p>
+          <p class="followup">If you've got a tell I didn't list here, I'd genuinely like to hear it — reply wherever you found this, or send me a message. I read everything.</p>
+          <div class="tags">
+            <span>LinkedIn</span>
+            <span>AI Content</span>
+            <span>Feed Hygiene</span>
+            <span>Rest from AI</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" />
+          Zenfeed
+        </a>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="./">Blog</a>
+          <a href="../support.html">Support</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../roadmap.html">Roadmap</a>
+          <a href="../compare/">Compare</a>
+          <a href="/blog/feed.xml">RSS</a>
+          <a href="../guides/">Guides</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+    </div>
+  </footer>
+</body>
+</html>
