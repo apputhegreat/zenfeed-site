@@ -55,88 +55,94 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../hub.css">
   <style>
-    .intro { max-width: 700px; margin: 22px 0 0; color: var(--muted); font-size: 18px; }
-    .guide-card {
-      display: block; background: var(--panel); border: 1px solid var(--line);
-      border-radius: 8px; padding: 26px; margin-top: 16px;
-      text-decoration: none; color: inherit; transition: border-color 0.2s;
-    }
-    .guide-card:hover { border-color: #cbbfa9; }
-    .guide-card h2 {
-      margin: 0 0 10px; font-family: var(--font-serif); font-weight: 500;
-      font-size: 23px; line-height: 1.25; color: var(--ink);
-    }
-    .guide-card p { margin: 0; color: var(--muted); }
-    .guide-card .more { display: inline-block; margin-top: 12px; color: var(--blue, #0a66c2); font-weight: 600; font-size: 15px; }
-    @media (max-width: 760px) {
-      .nav { align-items: flex-start; flex-direction: column; }
-      .guide-card { padding: 22px; }
-    }
+    /* Page-specific rules only — the template lives in ../hub.css. */
   </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <nav class="nav" aria-label="Guide navigation">
-        <a class="brand" href="../">
-          <img src="../icon-default.svg" alt="" />
-          Zenfeed
-        </a>
-        <div class="nav-links">
-          <a href="../">Home</a>
-          <a href="../compare/">Compare</a>
-          <a href="../blog/">Blog</a>
-          <a href="../support.html">Support</a>
-          <a href="../privacy.html">Privacy</a>
-        </div>
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <img src="../icon-default.svg" alt="" width="24" height="24" />
+        Zenfeed
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 10h14M7 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="Site">
+        <a href="../compare/">Compare</a>
+        <a href="../guides/" aria-current="page">Guides</a>
+        <a href="../blog/">Blog</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../support.html">Support</a>
+        <a class="nav-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">Add to Chrome</a>
       </nav>
-      <div class="hero">
-        <p class="eyebrow">Guides</p>
-        <h1>Guides</h1>
-        <p class="intro">
-          Plain explanations of how feed filtering actually works — what the tools in this space do, what they
-          genuinely cannot do, and how to judge one before you install it. Written by the person who builds Zenfeed,
-          which means there is a product behind these, and also that the limits are described honestly.
-        </p>
-      </div>
     </div>
+    <script>
+      (function () {
+        var btn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+        if (!btn || !nav) return;
+        document.documentElement.classList.add("has-menu");
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") !== "true";
+          btn.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
+      })();
+    </script>
   </header>
 
-  <main class="wrap">
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Guides</p>
+      <h1>Guides</h1>
+      <p class="intro">
+        Plain explanations of how feed filtering actually works — what the tools in this space do, what they
+        genuinely cannot do, and how to judge one before you install it. Written by the person who builds Zenfeed,
+        which means there is a product behind these, and also that the limits are described honestly.
+      </p>
+    </div>
+  </div>
 
-    <a class="guide-card" href="linkedin-feed-cleaner-extension.html">
+  <main class="page-body">
+    <div class="wrap">
+      <div class="col index-list">
+
+    <a class="index-item" href="linkedin-feed-cleaner-extension.html">
       <h2>LinkedIn feed cleaner extensions: what they actually filter</h2>
       <p>Four things crowd a LinkedIn feed and only one of them is labelled. What a cleaner should be able to hide, and the one question — does it send your feed to a server? — that separates the tools in this category.</p>
       <span class="more">Read the guide →</span>
     </a>
 
-    <a class="guide-card" href="block-ai-videos-youtube.html">
+    <a class="index-item" href="block-ai-videos-youtube.html">
       <h2>How to block AI-generated videos on YouTube</h2>
       <p>YouTube has no switch for this. What its built-in options can and can't do, how a keyword filter helps, and the cases it will always miss — because it reads text, not pixels.</p>
       <span class="more">Read the guide →</span>
     </a>
-
+      </div>
+    </div>
   </main>
 
   <footer>
-    <div class="wrap">
-      <div class="footer-row">
+    <div class="wrap footer-row">
+      <div class="footer-id">
         <a class="brand" href="../">
-          <img src="../icon-default.svg" alt="" />
+          <img src="../icon-default.svg" alt="" width="20" height="20" />
           Zenfeed
         </a>
-        <div class="footer-links">
-          <a href="../">Home</a>
-          <a href="../compare/">Compare</a>
-          <a href="../blog/">Blog</a>
-          <a href="../roadmap.html">Roadmap</a>
-          <a href="../privacy.html">Privacy</a>
-        </div>
+        <p class="footer-copy">&copy; 2026 Zenfeed. Made for calmer feeds.</p>
       </div>
-      <p>&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="../privacy.html">Privacy</a>
+        <a href="../support.html">Support</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../compare/">Compare</a>
+        <a href="../blog/">Blog</a>
+        <a href="../guides/">Guides</a>
+      </nav>
     </div>
   </footer>
 </body>

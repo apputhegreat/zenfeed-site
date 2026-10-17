@@ -81,102 +81,61 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="hub.css">
-<style>
-.intro {
-      max-width: 700px;
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-section {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 28px;
-      margin-top: 16px;
-    }
-
-h2 {
-      margin: 0 0 12px;
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 1.2;
-    }
-
-p { margin: 0 0 14px; }
-
-ul, ol {
-      margin: 0;
-      padding-left: 22px;
-    }
-
-li + li { margin-top: 8px; }
-
-code {
-      background: #f4efe6;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 1px 5px;
-    }
-
-.info-box {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fffdfa;
-      padding: 16px;
-      margin-top: 12px;
-    }
-
-    /* "Common questions" headings. These were <p><strong> until an AEO pass
-     * made them real headings, so an answer engine can pair each question with
-     * the paragraph directly under it. Styled to render exactly as the bold
-     * paragraph did — same family, size, weight and margins — so the page
-     * looks unchanged. */
-    .info-box h3 {
-      margin: 16px 0;
-      font: inherit;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-.btn-report { margin-top: 14px; }
-
-@media (max-width: 760px) {
-      .nav { align-items: flex-start; flex-direction: column; }
-      section { padding: 22px; }
-    }
-</style>
+  <style>
+    /* Page-specific rules only — the template lives in hub.css. */
+  </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <nav class="nav" aria-label="Support page navigation">
-        <a class="brand" href="/">
-          <img src="icon-default.svg" alt="" />
-          Zenfeed
-        </a>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="#report">Report an issue</a>
-        </div>
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <img src="icon-default.svg" alt="" width="24" height="24" />
+        Zenfeed
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 10h14M7 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="Site">
+        <a href="compare/">Compare</a>
+        <a href="guides/">Guides</a>
+        <a href="blog/">Blog</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="support.html" aria-current="page">Support</a>
+        <a class="nav-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">Add to Chrome</a>
       </nav>
-      <div class="hero">
-        <p class="eyebrow">Support</p>
-        <h1>Help for Zenfeed users.</h1>
-        <p class="intro">
-          Zenfeed is a local Chrome extension for LinkedIn feed pages and X/twitter.com home timelines, active right after install, plus YouTube's Home, Subscriptions, and Search pages once you turn YouTube filtering on in the popup.
-          This page explains the supported surfaces, common fixes, and what to include when reporting a problem.
-        </p>
-      </div>
     </div>
+    <script>
+      (function () {
+        var btn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+        if (!btn || !nav) return;
+        document.documentElement.classList.add("has-menu");
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") !== "true";
+          btn.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
+      })();
+    </script>
   </header>
 
-  <main class="wrap">
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Support</p>
+      <h1>Help for Zenfeed users.</h1>
+      <p class="intro">
+        Zenfeed is a local Chrome extension for LinkedIn feed pages and X/twitter.com home timelines, active right after install, plus YouTube's Home, Subscriptions, and Search pages once you turn YouTube filtering on in the popup.
+        This page explains the supported surfaces, common fixes, and what to include when reporting a problem.
+      </p>
+      <p class="updated">Last updated July 30, 2026</p>
+    </div>
+  </div>
+
+  <main class="page-body">
+    <div class="wrap">
+      <div class="col prose">
     <section>
       <h2>Supported surfaces</h2>
       <ul>
@@ -208,17 +167,19 @@ code {
 
     <section>
       <h2>Common questions</h2>
-      <div class="info-box">
+      <div class="faq">
+      <div class="faq-item">
         <h3>Does Zenfeed send my feed to a server?</h3>
         <p class="muted">No. Filtering runs locally in Chrome. Zenfeed has no backend, analytics, tracking pixel, cloud AI, or feed export.</p>
       </div>
-      <div class="info-box">
+      <div class="faq-item">
         <h3>Why did Zenfeed miss a promoted or suggested post?</h3>
         <p class="muted">LinkedIn and X change labels and page markup over time. Reports are most useful when they include the supported site, the filter that should have matched, and whether the missed item was on the feed/home surface.</p>
       </div>
-      <div class="info-box">
+      <div class="faq-item">
         <h3>Can I undo a hidden item?</h3>
         <p class="muted">In collapse mode, use the <strong>show</strong> button on the restore bar. You can also turn off a filter in the popup to restore matching items.</p>
+      </div>
       </div>
     </section>
 
@@ -240,25 +201,27 @@ code {
         <li>A privacy-safe description of the issue. Do not include account credentials or private feed screenshots.</li>
       </ul>
     </section>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <div class="wrap">
-      <div class="footer-row">
+    <div class="wrap footer-row">
+      <div class="footer-id">
         <a class="brand" href="/">
-          <img src="icon-default.svg" alt="" />
+          <img src="icon-default.svg" alt="" width="20" height="20" />
           Zenfeed
         </a>
-        <div class="footer-links">
-          <a href="/">Home</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="roadmap.html">Roadmap</a>
-          <a href="compare/">Compare</a>
-          <a href="blog/">Blog</a>
-          <a href="guides/">Guides</a>
-        </div>
+        <p class="footer-copy">&copy; 2026 Zenfeed. Made for calmer feeds.</p>
       </div>
-      <p>Last updated: July 30, 2026.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="privacy.html">Privacy</a>
+        <a href="support.html">Support</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="compare/">Compare</a>
+        <a href="blog/">Blog</a>
+        <a href="guides/">Guides</a>
+      </nav>
     </div>
   </footer>
 </body>

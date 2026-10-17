@@ -62,118 +62,94 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="hub.css">
-<style>
-.intro {
-      max-width: 680px;
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-.summary {
+  <style>
+    /* Page-specific rules only — the template lives in hub.css. */
+    .summary {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-
-.summary-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 18px;
-    }
-
-.summary-card strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 15px;
-    }
-
-.summary-card span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-section {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 28px;
-      margin-top: 16px;
-    }
-
-h2 {
-      margin: 0 0 12px;
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 1.2;
-    }
-
-p { margin: 0 0 14px; }
-
-ul {
-      margin: 0;
-      padding-left: 22px;
-    }
-
-li + li { margin-top: 8px; }
-
-.permissions {
-      display: grid;
       gap: 12px;
-      margin-top: 14px;
+      margin-bottom: -24px;
     }
+    .summary-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+    .summary-card strong { font-size: 15px; line-height: 18px; font-weight: 700; }
+    .summary-card span { color: var(--muted); font-size: 15px; line-height: 23px; }
 
-.permission-row {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      background: #fffdfa;
+    .permissions { border-top: 1px solid var(--line); }
+    .permission-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
     }
+    .permission-row strong { font-size: 16px; line-height: 24px; }
+    .prose .permission-row p { font-size: 16px; line-height: 27px; }
 
-.permission-row strong {
-      display: block;
-      margin-bottom: 4px;
+    @media (max-width: 760px) {
+      .summary { grid-template-columns: 1fr; gap: 10px; margin-bottom: -16px; }
+      .summary-card { padding: 16px 18px; border-radius: 14px; }
     }
-
-@media (max-width: 760px) {
-      .nav { align-items: flex-start; flex-direction: column; }
-      .summary { grid-template-columns: 1fr; }
-      section { padding: 22px; }
-    }
-</style>
+  </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <nav class="nav" aria-label="Privacy page navigation">
-        <a class="brand" href="/">
-          <img src="icon-default.svg" alt="" />
-          Zenfeed
-        </a>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="#permissions">Permissions</a>
-          <a href="support.html">Support</a>
-        </div>
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <img src="icon-default.svg" alt="" width="24" height="24" />
+        Zenfeed
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 10h14M7 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="Site">
+        <a href="compare/">Compare</a>
+        <a href="guides/">Guides</a>
+        <a href="blog/">Blog</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="support.html">Support</a>
+        <a class="nav-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">Add to Chrome</a>
       </nav>
-      <div class="hero">
-        <p class="eyebrow">Privacy and permissions</p>
-        <h1>Zenfeed works locally in your browser.</h1>
-        <p class="intro">
-          Zenfeed is a Chrome extension for reducing feed noise on LinkedIn, X (twitter.com), and YouTube.
-          This page explains what the extension can see, what it stores, and what it does not do.
-          For help, bug reports, or false-positive reports, visit the <a href="support.html">support page</a>.
-        </p>
-      </div>
     </div>
+    <script>
+      (function () {
+        var btn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+        if (!btn || !nav) return;
+        document.documentElement.classList.add("has-menu");
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") !== "true";
+          btn.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
+      })();
+    </script>
   </header>
 
-  <main class="wrap">
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Privacy and permissions</p>
+      <h1>Zenfeed works locally in your browser.</h1>
+      <p class="intro">
+        Zenfeed is a Chrome extension for reducing feed noise on LinkedIn, X (twitter.com), and YouTube.
+        This page explains what the extension can see, what it stores, and what it does not do.
+        For help, bug reports, or false-positive reports, visit the <a href="support.html">support page</a>.
+      </p>
+      <p class="updated">Last updated July 30, 2026</p>
+    </div>
+  </div>
+
+  <main class="page-body">
+    <div class="wrap">
+      <div class="col prose">
     <div class="summary" aria-label="Privacy summary">
       <div class="summary-card">
         <strong>No account required</strong>
@@ -297,25 +273,27 @@ li + li { margin-top: 8px; }
         and what to include in privacy-safe bug reports.
       </p>
     </section>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <div class="wrap">
-      <div class="footer-row">
+    <div class="wrap footer-row">
+      <div class="footer-id">
         <a class="brand" href="/">
-          <img src="icon-default.svg" alt="" />
+          <img src="icon-default.svg" alt="" width="20" height="20" />
           Zenfeed
         </a>
-        <div class="footer-links">
-          <a href="/">Home</a>
-          <a href="support.html">Support</a>
-          <a href="roadmap.html">Roadmap</a>
-          <a href="compare/">Compare</a>
-          <a href="blog/">Blog</a>
-          <a href="guides/">Guides</a>
-        </div>
+        <p class="footer-copy">&copy; 2026 Zenfeed. Made for calmer feeds.</p>
       </div>
-      <p>Last updated: July 30, 2026.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="privacy.html">Privacy</a>
+        <a href="support.html">Support</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="compare/">Compare</a>
+        <a href="blog/">Blog</a>
+        <a href="guides/">Guides</a>
+      </nav>
     </div>
   </footer>
 </body>

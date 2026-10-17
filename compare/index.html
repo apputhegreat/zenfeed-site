@@ -103,145 +103,118 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../hub.css">
-<style>
-.intro {
-      max-width: 700px;
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-.compare-card {
-      display: block;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 28px;
-      margin-top: 16px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-
-.compare-card:hover {
-      border-color: var(--sage);
-      transform: translateY(-1px);
-    }
-
-.compare-card h2 {
-      margin: 0 0 10px;
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 1.2;
-      color: var(--ink);
-    }
-
-.compare-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-.compare-card .read-more {
-      display: inline-block;
-      margin-top: 12px;
-      color: var(--blue);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-@media (max-width: 760px) {
-      .nav { align-items: flex-start; flex-direction: column; }
-      .compare-card { padding: 22px; }
-    }
-</style>
+  <style>
+    /* Page-specific rules only — the template lives in ../hub.css. */
+  </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <nav class="nav" aria-label="Comparison hub navigation">
-        <a class="brand" href="../">
-          <img src="../icon-default.svg" alt="" />
-          Zenfeed
-        </a>
-        <div class="nav-links">
-          <a href="../">Home</a>
-          <a href="../support.html">Support</a>
-          <a href="../privacy.html">Privacy</a>
-          <a href="../roadmap.html">Roadmap</a>
-          <a href="../blog/">Blog</a>
-        </div>
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <img src="../icon-default.svg" alt="" width="24" height="24" />
+        Zenfeed
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 10h14M7 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="Site">
+        <a href="../compare/" aria-current="page">Compare</a>
+        <a href="../guides/">Guides</a>
+        <a href="../blog/">Blog</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../support.html">Support</a>
+        <a class="nav-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">Add to Chrome</a>
       </nav>
-      <div class="hero">
-        <p class="eyebrow">Compare</p>
-        <h1>Zenfeed vs other feed-cleaning extensions.</h1>
-        <p class="intro">
-          Honest, source-linked comparisons — pricing, platforms, and features, side by side. Every fact below is
-          checked against the competitor's live Chrome Web Store listing, and we link straight to it so you can
-          verify it yourself.
-        </p>
-      </div>
     </div>
+    <script>
+      (function () {
+        var btn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+        if (!btn || !nav) return;
+        document.documentElement.classList.add("has-menu");
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") !== "true";
+          btn.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
+      })();
+    </script>
   </header>
 
-  <main class="wrap">
-    <a class="compare-card" href="zenfeed-vs-linkoff.html">
+  <div class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Compare</p>
+      <h1>Zenfeed vs other feed-cleaning extensions.</h1>
+      <p class="intro">
+        Honest, source-linked comparisons — pricing, platforms, and features, side by side. Every fact below is
+        checked against the competitor's live Chrome Web Store listing, and we link straight to it so you can
+        verify it yourself.
+      </p>
+      <p class="updated">Last updated July 26, 2026</p>
+    </div>
+  </div>
+
+  <main class="page-body">
+    <div class="wrap">
+      <div class="col index-list">
+    <a class="index-item" href="zenfeed-vs-linkoff.html">
       <h2>Zenfeed vs LinkOff</h2>
       <p>LinkOff is a free, LinkedIn-only feed customizer with deep content-type filtering; Zenfeed also covers X and YouTube, and adds a timed Rest from AI window LinkOff doesn't have.</p>
-      <span class="read-more">Read the comparison →</span>
+      <span class="more">Read the comparison →</span>
     </a>
 
-    <a class="compare-card" href="zenfeed-vs-control-panel-for-twitter.html">
+    <a class="index-item" href="zenfeed-vs-control-panel-for-twitter.html">
       <h2>Zenfeed vs Control Panel for Twitter</h2>
       <p>Control Panel for Twitter has 300,000 users and a huge X-only feature set, but doesn't detect AI content or cover LinkedIn/YouTube like Zenfeed does.</p>
-      <span class="read-more">Read the comparison →</span>
+      <span class="more">Read the comparison →</span>
     </a>
 
-    <a class="compare-card" href="zenfeed-vs-socialfocus.html">
+    <a class="index-item" href="zenfeed-vs-socialfocus.html">
       <h2>Zenfeed vs SocialFocus</h2>
       <p>SocialFocus is the closest match to Zenfeed's one-extension, multi-platform approach, covering five sites, but it skips LinkedIn and has no AI detection or keyword blocking.</p>
-      <span class="read-more">Read the comparison →</span>
+      <span class="more">Read the comparison →</span>
     </a>
 
-    <a class="compare-card" href="zenfeed-vs-ai-content-shield.html">
+    <a class="index-item" href="zenfeed-vs-ai-content-shield.html">
       <h2>Zenfeed vs AI Content Shield</h2>
       <p>AI Content Shield blocks AI content across far more sites — Reddit, Facebook, Gmail, and more — while Zenfeed stays free, adds promoted/suggested filtering, and uses a timed auto-restore instead of always-on blocking.</p>
-      <span class="read-more">Read the comparison →</span>
+      <span class="more">Read the comparison →</span>
     </a>
 
-    <a class="compare-card" href="zenfeed-vs-clarity.html">
+    <a class="index-item" href="zenfeed-vs-clarity.html">
       <h2>Zenfeed vs Clarity</h2>
       <p>Clarity's community blocklist improves AI detection on YouTube over time through crowdsourcing, but it only covers YouTube and has a small install base compared to Zenfeed's broader platform reach.</p>
-      <span class="read-more">Read the comparison →</span>
+      <span class="more">Read the comparison →</span>
     </a>
 
-    <a class="compare-card" href="zenfeed-vs-cleanedin.html">
+    <a class="index-item" href="zenfeed-vs-cleanedin.html">
       <h2>Zenfeed vs CleanedIn</h2>
       <p>CleanedIn sends each post to a language model in the cloud to judge it, which catches tone that keyword matching misses. Zenfeed does the matching in your browser, so nothing you read leaves the device — and it stays free and uncapped.</p>
-      <span class="read-more">Read the comparison →</span>
+      <span class="more">Read the comparison →</span>
     </a>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <div class="wrap">
-      <div class="footer-row">
+    <div class="wrap footer-row">
+      <div class="footer-id">
         <a class="brand" href="../">
-          <img src="../icon-default.svg" alt="" />
+          <img src="../icon-default.svg" alt="" width="20" height="20" />
           Zenfeed
         </a>
-        <div class="footer-links">
-          <a href="../">Home</a>
-          <a href="../support.html">Support</a>
-          <a href="../privacy.html">Privacy</a>
-          <a href="../roadmap.html">Roadmap</a>
-          <a href="../blog/">Blog</a>
-          <a href="../guides/">Guides</a>
-        </div>
+        <p class="footer-copy">&copy; 2026 Zenfeed. Made for calmer feeds.</p>
       </div>
-      <p>Last updated: July 26, 2026.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="../privacy.html">Privacy</a>
+        <a href="../support.html">Support</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../compare/">Compare</a>
+        <a href="../blog/">Blog</a>
+        <a href="../guides/">Guides</a>
+      </nav>
     </div>
   </footer>
 </body>
