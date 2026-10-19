@@ -5,8 +5,16 @@
     <link>https://zenfeed.org/blog/</link>
     <description>Build logs and notes from building Zenfeed, a Chrome extension that declutters LinkedIn, X, and YouTube feeds.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://zenfeed.org/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How much of a feed is actually AI-written? An honest, non-scientific estimate</title>
+      <link>https://zenfeed.org/blog/how-much-of-a-feed-is-actually-ai-written.html</link>
+      <guid isPermaLink="true">https://zenfeed.org/blog/how-much-of-a-feed-is-actually-ai-written.html</guid>
+      <pubDate>Mon, 19 Oct 2026 00:00:00 GMT</pubDate>
+      <description>I counted my own LinkedIn feed by hand for a week to estimate how much of it was AI-written. An honest, non-scientific number, and why it matters less than you&apos;d think.</description>
+      <enclosure url="https://zenfeed.org/assets/og/how-much-of-a-feed-is-actually-ai-written.png" length="40273" type="image/png" />
+    </item>
     <item>
       <title>How to tell if a LinkedIn post was written by AI, before a tool does it for you</title>
       <link>https://zenfeed.org/blog/how-to-tell-if-a-linkedin-post-was-written-by-ai.html</link>
