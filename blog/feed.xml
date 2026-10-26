@@ -5,8 +5,16 @@
     <link>https://zenfeed.org/blog/</link>
     <description>Build logs and notes from building Zenfeed, a Chrome extension that declutters LinkedIn, X, and YouTube feeds.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 19 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://zenfeed.org/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What RescueTime gets right about awareness, and where a report runs out</title>
+      <link>https://zenfeed.org/blog/what-rescuetime-gets-right-about-awareness.html</link>
+      <guid isPermaLink="true">https://zenfeed.org/blog/what-rescuetime-gets-right-about-awareness.html</guid>
+      <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+      <description>RescueTime measures where your time went on LinkedIn, X, and YouTube, after the fact. Zenfeed changes what&apos;s in the feed while you&apos;re still looking at it.</description>
+      <enclosure url="https://zenfeed.org/assets/og/what-rescuetime-gets-right-about-awareness.png" length="47361" type="image/png" />
+    </item>
     <item>
       <title>How much of a feed is actually AI-written? An honest, non-scientific estimate</title>
       <link>https://zenfeed.org/blog/how-much-of-a-feed-is-actually-ai-written.html</link>
