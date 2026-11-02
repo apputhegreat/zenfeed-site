@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Closing The App Doesn't Fix Your Feed — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/why-closing-the-app-doesnt-fix-your-feed.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="Closing the app is popular advice for feed overwhelm, but it does not fix it. Why that is, and what actually helps instead." />
+  <meta property="og:title" content="Why Closing The App Doesn't Fix Your Feed" />
+  <meta property="og:description" content="Closing the app is popular advice for feed overwhelm, but it does not fix it. Why that is, and what actually helps instead." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/why-closing-the-app-doesnt-fix-your-feed.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/why-closing-the-app-doesnt-fix-your-feed.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why Closing The App Doesn't Fix Your Feed" />
+  <meta name="twitter:description" content="Closing the app is popular advice for feed overwhelm, but it does not fix it. Why that is, and what actually helps instead." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/why-closing-the-app-doesnt-fix-your-feed.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why closing the app doesn't fix your feed, and what actually does",
+    "description": "Closing the app is popular advice for feed overwhelm, but it does not fix it. Why that is, and what actually helps instead.",
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://zenfeed.org/#organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/why-closing-the-app-doesnt-fix-your-feed.html",
+    "image": "https://zenfeed.org/assets/og/why-closing-the-app-doesnt-fix-your-feed.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zenfeed.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://zenfeed.org/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Why closing the app doesn't fix your feed, and what actually does",
+        "item": "https://zenfeed.org/blog/why-closing-the-app-doesnt-fix-your-feed.html"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* v2 "Paper" tokens. Inline copy of hub.css :root — change one, change the other. */
+    :root {
+      --paper: #fdfaf5;
+      --sand: #f4efe6;
+      --line: #e6dfd4;
+      --ink: #2e3240;
+      --muted: #5e6878;          /* 5.4:1 on paper, 4.9:1 on sand */
+      --panel: #ffffff;
+      --accent: #136cc4;         /* primary buttons only */
+      --link-rule: #b0a594;      /* body-link underline (non-text) */
+      --link-visited: #80869a;   /* visited underline (non-text) */
+      --rose: #b0667b;           /* Rest from AI marker — dots, rules, pill borders; never text */
+      --sage: #8faf98;           /* swatch dots — non-text only */
+      --slate: #7a9bb5;
+      --warm: #c4896f;
+      --gutter: 20px;
+      --font-sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+      --font-mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    @media (min-width: 640px) { :root { --gutter: 32px; } }
+    @media (min-width: 1024px) { :root { --gutter: 40px; } }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-wrap: break-word;
+    }
+
+    img, svg { max-width: 100%; }
+
+    /* Body links: ink, semibold, warm underline. Colour is never the only cue. */
+    a {
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: var(--link-rule);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+    a:visited { text-decoration-color: var(--link-visited); }
+    a:hover { text-decoration-color: var(--ink); }
+    a:focus-visible, button:focus-visible, pre:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .wrap {
+      width: min(1200px, calc(100% - 2 * var(--gutter)));
+      margin: 0 auto;
+    }
+
+    /* ---- nav band ----
+     * Scoped to the direct child of <body> on purpose: a bare header selector
+     * also hits <header class="masthead">, which put a sand block behind every
+     * article title. Keep the body > combinator. */
+    body > header {
+      position: relative;
+      background: var(--sand);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 28px;
+      letter-spacing: -0.01em;
+    }
+    .brand img { width: 24px; height: 24px; flex: none; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 32px;
+    }
+    .nav-links a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .nav-links a:hover,
+    .nav-links a[aria-current] {
+      text-decoration: underline;
+      text-decoration-color: var(--ink);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+    }
+    .nav-links a[aria-current] { font-weight: 700; }
+
+    .nav-links a.nav-cta {
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 18px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 18px;
+    }
+    .nav-links a.nav-cta:hover { background: var(--ink); color: #fff; text-decoration: none; }
+
+    .menu-btn {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 4px 0 14px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--ink);
+      font: 600 15px/18px var(--font-sans);
+      cursor: pointer;
+    }
+    .menu-btn svg { width: 28px; height: 28px; flex: none; }
+
+    @media (max-width: 899px) {
+      .nav { min-height: 60px; }
+      .brand { font-size: 22px; gap: 8px; }
+      .brand img { width: 22px; height: 22px; }
+      .nav-links { gap: 4px 20px; padding-bottom: 12px; }
+
+      /* With JS the links fold behind a Menu button; without it they wrap. */
+      .has-menu .nav { flex-wrap: nowrap; }
+      .has-menu .menu-btn { display: inline-flex; }
+      .has-menu .nav-links { display: none; }
+      .has-menu .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        padding: 4px var(--gutter) 20px;
+        background: var(--sand);
+        border-bottom: 1px solid var(--line);
+      }
+      .has-menu .nav-links.open a:not(.nav-cta) {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        border-bottom: 1px solid var(--line);
+        font-size: 16px;
+      }
+      .has-menu .nav-links.open a.nav-cta {
+        justify-content: center;
+        height: 48px;
+        margin-top: 16px;
+        font-size: 15px;
+      }
+    }
+
+    /* ---- article column ---- */
+    .article-wrap {
+      width: min(720px, calc(100% - 2 * var(--gutter)));
+      margin: 0 auto;
+      padding: 96px 0 120px;
+    }
+
+    /* ---- masthead: sits on --paper. No background, no border. ---- */
+    .masthead {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding-bottom: 36px;
+    }
+    .masthead > * { margin: 0; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 60px;
+      line-height: 64px;
+      letter-spacing: -0.025em;
+    }
+
+    .dek {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 23px;
+      line-height: 33px;
+    }
+
+    .byline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      padding-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 18px;
+    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 22px; height: 22px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+
+    /* ---- article body ---- */
+    main.article { display: block; padding-top: 8px; }
+    article { display: flex; flex-direction: column; gap: 24px; }
+    article > * { margin: 0; max-width: 100%; }
+    article p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 31px;
+      color: var(--ink);
+    }
+    article h2 {
+      margin-top: 24px;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 34px;
+      line-height: 40px;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    article strong { color: var(--ink); font-weight: 700; }
+    article > ol, article > ul { padding-left: 24px; font-size: 18px; line-height: 31px; }
+    article > ol > li + li, article > ul > li + li { margin-top: 8px; }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.84em;
+      background: var(--sand);
+      border-radius: 6px;
+      padding: 1px 7px;
+      overflow-wrap: anywhere;
+    }
+
+    blockquote {
+      padding: 6px 0 6px 28px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 26px;
+      line-height: 37px;
+      color: var(--ink);
+    }
+
+    /* Note block — sand, no border. */
+    .callout {
+      padding: 22px 24px;
+      background: var(--sand);
+      border-radius: 16px;
+      font-size: 16px;
+      line-height: 27px;
+      color: var(--ink);
+    }
+    .callout .label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .feature {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+    .feature .k {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 18px;
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { margin: 0; color: var(--muted); font-size: 15px; line-height: 23px; }
+
+    /* ---- end of article ---- */
+    footer.end { display: flex; flex-direction: column; gap: 24px; }
+    footer.end > * { margin: 0; }
+    footer.end p.followup { color: var(--muted); font-size: 16px; line-height: 27px; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .tags span {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 1px var(--line);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 16px;
+    }
+
+    @media (max-width: 639px) {
+      .article-wrap { padding: 40px 0 64px; }
+      .masthead { gap: 16px; padding-bottom: 34px; }
+      .eyebrow { gap: 8px; font-size: 11px; line-height: 14px; letter-spacing: 0.12em; }
+      h1.title { font-size: 38px; line-height: 42px; letter-spacing: -0.02em; }
+      .dek { font-size: 20px; line-height: 29px; }
+      .byline { gap: 4px 8px; padding-top: 0; font-size: 13px; line-height: 16px; }
+      .byline .avatar { width: 20px; height: 20px; }
+      article { gap: 22px; }
+      article p, article > ol, article > ul { font-size: 17px; line-height: 29px; }
+      article h2 { margin-top: 12px; font-size: 28px; line-height: 33px; letter-spacing: -0.01em; }
+      blockquote { padding: 4px 0 4px 18px; font-size: 22px; line-height: 31px; }
+      .callout { padding: 18px; border-radius: 14px; font-size: 15px; line-height: 25px; }
+      .callout .label { margin-bottom: 6px; font-size: 11px; line-height: 14px; }
+      .feature-grid { grid-template-columns: 1fr; gap: 10px; }
+      .feature { gap: 4px; padding: 16px 18px; border-radius: 14px; }
+      footer.end { gap: 22px; }
+      footer.end p.followup { font-size: 15px; line-height: 25px; }
+      .tags { padding-top: 20px; }
+      .tags span { min-height: 36px; }
+    }
+
+    /* ---- site footer ----
+     * Scoped to body > footer: posts also contain <footer class="end"> inside
+     * the article, which must not pick up the sand band. */
+    body > footer {
+      background: var(--sand);
+      border-top: 1px solid var(--line);
+      padding: 36px 0;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+    }
+    .footer-id { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; }
+    .footer-id .brand { font-size: 20px; line-height: 24px; gap: 8px; }
+    .footer-id .brand img { width: 20px; height: 20px; }
+    .footer-copy { margin: 0; color: var(--muted); font-size: 14px; line-height: 20px; }
+
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+    .footer-links a {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; text-decoration-color: var(--ink); }
+
+    @media (max-width: 639px) {
+      body > footer { padding: 32px 0 40px; }
+      .footer-row { flex-direction: column; align-items: stretch; gap: 20px; }
+      .footer-id { display: contents; }
+      .footer-id .brand { order: 1; }
+      .footer-links { order: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 0; }
+      .footer-links a { display: flex; align-items: center; min-height: 44px; font-size: 15px; }
+      .footer-copy { order: 3; font-size: 13px; line-height: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <img src="../icon-default.svg" alt="" width="24" height="24" />
+        Zenfeed
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 10h14M7 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="Site">
+        <a href="../compare/">Compare</a>
+        <a href="../guides/">Guides</a>
+        <a href="../blog/" aria-current="page">Blog</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../support.html">Support</a>
+        <a class="nav-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">Add to Chrome</a>
+      </nav>
+    </div>
+    <script>
+      (function () {
+        var btn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+        if (!btn || !nav) return;
+        document.documentElement.classList.add("has-menu");
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") !== "true";
+          btn.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
+      })();
+    </script>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> PRODUCTIVITY · 5 MIN READ · NOVEMBER 2, 2026</p>
+      <h1 class="title">Why closing the app doesn't fix your feed, and what actually does</h1>
+      <p class="dek">Closing the app is the most common advice for feed overwhelm. It also doesn't touch the actual problem, because the problem was never how often you opened it.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>I built Zenfeed because I got tired of my own LinkedIn, X, and YouTube feeds being mostly noise. But before I built anything, I tried the normal advice first — the stuff everyone recommends when a feed starts to feel like too much. Close the app. Delete it for the weekend. Leave your phone in another room. I did all three, more than once. None of it held for more than a few days, and for a while I figured that was a discipline problem on my end. It wasn't.</p>
+
+        <h2>Why doesn't closing the app actually fix the clutter problem?</h2>
+
+        <p>Closing the app doesn't remove anything from your feed. The promoted posts, the suggested-content modules, and the AI-generated posts are all still sitting there the next time you open it, so nothing actually got solved — the mess just waited for you.</p>
+
+        <p>That's the part the advice quietly skips over. "Just close the app" treats the problem as a frequency problem: open it less, and you're fixed. But frequency was never the actual complaint. The complaint is that when you do open it — and you will, because you follow real people there — most of what loads first isn't them. It's an ad, a few "People you may know" cards, and a post that reads like it was generated rather than written. Closing the tab doesn't touch any of that. It just postpones the moment you scroll past it again.</p>
+
+        <blockquote>Closing the app fights how often you check. It does nothing about what's waiting for you when you do.</blockquote>
+
+        <h2>What's actually different about fixing the feed instead of avoiding it?</h2>
+
+        <p>The difference is this: avoiding the app leaves the feed untouched and asks you to find more willpower around it, while fixing the feed removes what was crowding it out in the first place.</p>
+
+        <p>I've written before about <a href="./why-most-focus-apps-try-to-stop-you-from-opening-the-app.html">why most focus apps try to stop you from opening the app, and why Zenfeed doesn't</a> — the short version is that friction at the door is a real tool, but it solves a different problem than the one that actually bothers most people. A breathing pause before you open LinkedIn doesn't change what's inside once you're there.</p>
+
+        <h3 class="kicker">Four things that actually move the needle</h3>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>Hide the noise, don't just avoid it</div>
+            <p>Collapsing ads, suggested content, and AI posts before you scroll leaves a feed that's mostly the people you actually followed.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--rose)"></i>Set a timer, not a ban</div>
+            <p>An indefinite block is easy to break and easy to feel bad about breaking. A countdown you can watch end is easier to actually keep.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>Block by keyword, not by account</div>
+            <p>Muting a whole person over one kind of post they share is blunt. A keyword list filters the specific thing, not the relationship.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--sage)"></i>Keep the people you follow visible</div>
+            <p>The goal isn't a quieter feed for its own sake — it's one where posts from actual people aren't buried under everything else.</p>
+          </div>
+        </div>
+
+        <h2>What actually helps instead of closing the app?</h2>
+
+        <p>Change what is in the feed itself, not just how often you let yourself see it. Once the ads, the suggested-content cards, and most of the AI posts are filtered out before you start scrolling, there is a lot less noise left to feed the urge to check compulsively.</p>
+
+        <p>That's most of what Zenfeed actually does: it hides promoted posts, suggested-content modules, and posts matching your own keyword list on LinkedIn and X, and it runs a Rest from AI timer that puts AI-flagged posts away for a set number of minutes across all three sites. It's not a willpower tool and it doesn't lock anything shut. It just leaves less behind once you open the feed, which turns out to matter more than how often you were tempted to.</p>
+
+        <div class="callout">
+          <span class="label">To be clear about what this does and doesn't claim</span>
+          Rest from AI isn't a perfect detector — it reads text against a keyword list, not pixels, so it will miss some AI posts and occasionally catch one that isn't. It's a break from the volume, not a verdict on any single post.
+        </div>
+
+        <footer class="end">
+          <p class="signoff">"Just close the app" isn't wrong, exactly. It's aimed at the wrong half of the problem. How often you open a feed was never really the issue — what was waiting for you inside it was. Fix that, and the checking habit tends to take care of itself.</p>
+          <p class="followup">If you've tried the discipline route and it didn't stick either, I'd guess it's for the same reason it didn't stick for me. I'd rather hear what's still cluttering your feed than assume this covers it.</p>
+          <div class="tags">
+            <span>Productivity</span>
+            <span>Feed Hygiene</span>
+            <span>Habits</span>
+            <span>Rest from AI</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-id">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" width="20" height="20" />
+          Zenfeed
+        </a>
+        <p class="footer-copy">&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="../privacy.html">Privacy</a>
+        <a href="../support.html">Support</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../compare/">Compare</a>
+        <a href="../blog/">Blog</a>
+        <a href="../guides/">Guides</a>
+        <a href="/blog/feed.xml">RSS</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
