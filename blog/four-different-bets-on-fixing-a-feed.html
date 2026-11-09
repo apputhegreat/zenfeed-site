@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Four Different Bets on Fixing a Feed — Zenfeed Blog</title>
+  <link rel="icon" type="image/svg+xml" href="../icon-default.svg" />
+  <link rel="canonical" href="https://zenfeed.org/blog/four-different-bets-on-fixing-a-feed.html" />
+  <link rel="alternate" type="application/rss+xml" title="Zenfeed Blog" href="/blog/feed.xml" />
+  <meta name="description" content="SocialFocus, LinkOff, Clarity, and Control Panel for Twitter each bet on something different. What each bet is, and the one combination none of them make." />
+  <meta property="og:title" content="Four Different Bets on Fixing a Feed" />
+  <meta property="og:description" content="SocialFocus, LinkOff, Clarity, and Control Panel for Twitter each bet on something different. What each bet is, and the one combination none of them make." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zenfeed.org/blog/four-different-bets-on-fixing-a-feed.html" />
+  <meta property="og:image" content="https://zenfeed.org/assets/og/four-different-bets-on-fixing-a-feed.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Four Different Bets on Fixing a Feed" />
+  <meta name="twitter:description" content="SocialFocus, LinkOff, Clarity, and Control Panel for Twitter each bet on something different. What each bet is, and the one combination none of them make." />
+  <meta name="twitter:image" content="https://zenfeed.org/assets/og/four-different-bets-on-fixing-a-feed.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Four different bets on fixing a feed, and the one none of them make",
+    "description": "SocialFocus, LinkOff, Clarity, and Control Panel for Twitter each bet on something different. What each bet is, and the one combination none of them make.",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "author": { "@type": "Person", "name": "Zenfeed" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://zenfeed.org/#organization",
+      "name": "Zenfeed",
+      "logo": { "@type": "ImageObject", "url": "https://zenfeed.org/icon-default.svg" }
+    },
+    "mainEntityOfPage": "https://zenfeed.org/blog/four-different-bets-on-fixing-a-feed.html",
+    "image": "https://zenfeed.org/assets/og/four-different-bets-on-fixing-a-feed.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://zenfeed.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://zenfeed.org/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Four different bets on fixing a feed, and the one none of them make",
+        "item": "https://zenfeed.org/blog/four-different-bets-on-fixing-a-feed.html"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* v2 "Paper" tokens. Inline copy of hub.css :root — change one, change the other. */
+    :root {
+      --paper: #fdfaf5;
+      --sand: #f4efe6;
+      --line: #e6dfd4;
+      --ink: #2e3240;
+      --muted: #5e6878;          /* 5.4:1 on paper, 4.9:1 on sand */
+      --panel: #ffffff;
+      --accent: #136cc4;         /* primary buttons only */
+      --link-rule: #b0a594;      /* body-link underline (non-text) */
+      --link-visited: #80869a;   /* visited underline (non-text) */
+      --rose: #b0667b;           /* Rest from AI marker — dots, rules, pill borders; never text */
+      --sage: #8faf98;           /* swatch dots — non-text only */
+      --slate: #7a9bb5;
+      --warm: #c4896f;
+      --gutter: 20px;
+      --font-sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+      --font-mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    @media (min-width: 640px) { :root { --gutter: 32px; } }
+    @media (min-width: 1024px) { :root { --gutter: 40px; } }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-wrap: break-word;
+    }
+
+    img, svg { max-width: 100%; }
+
+    /* Body links: ink, semibold, warm underline. Colour is never the only cue. */
+    a {
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: var(--link-rule);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+    a:visited { text-decoration-color: var(--link-visited); }
+    a:hover { text-decoration-color: var(--ink); }
+    a:focus-visible, button:focus-visible, pre:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .wrap {
+      width: min(1200px, calc(100% - 2 * var(--gutter)));
+      margin: 0 auto;
+    }
+
+    /* ---- nav band ----
+     * Scoped to the direct child of <body> on purpose: a bare header selector
+     * also hits <header class="masthead">, which put a sand block behind every
+     * article title. Keep the body > combinator. */
+    body > header {
+      position: relative;
+      background: var(--sand);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 28px;
+      letter-spacing: -0.01em;
+    }
+    .brand img { width: 24px; height: 24px; flex: none; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 32px;
+    }
+    .nav-links a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .nav-links a:hover,
+    .nav-links a[aria-current] {
+      text-decoration: underline;
+      text-decoration-color: var(--ink);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+    }
+    .nav-links a[aria-current] { font-weight: 700; }
+
+    .nav-links a.nav-cta {
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 18px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 18px;
+    }
+    .nav-links a.nav-cta:hover { background: var(--ink); color: #fff; text-decoration: none; }
+
+    .menu-btn {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 4px 0 14px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--ink);
+      font: 600 15px/18px var(--font-sans);
+      cursor: pointer;
+    }
+    .menu-btn svg { width: 28px; height: 28px; flex: none; }
+
+    @media (max-width: 899px) {
+      .nav { min-height: 60px; }
+      .brand { font-size: 22px; gap: 8px; }
+      .brand img { width: 22px; height: 22px; }
+      .nav-links { gap: 4px 20px; padding-bottom: 12px; }
+
+      /* With JS the links fold behind a Menu button; without it they wrap. */
+      .has-menu .nav { flex-wrap: nowrap; }
+      .has-menu .menu-btn { display: inline-flex; }
+      .has-menu .nav-links { display: none; }
+      .has-menu .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        padding: 4px var(--gutter) 20px;
+        background: var(--sand);
+        border-bottom: 1px solid var(--line);
+      }
+      .has-menu .nav-links.open a:not(.nav-cta) {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        border-bottom: 1px solid var(--line);
+        font-size: 16px;
+      }
+      .has-menu .nav-links.open a.nav-cta {
+        justify-content: center;
+        height: 48px;
+        margin-top: 16px;
+        font-size: 15px;
+      }
+    }
+
+    /* ---- article column ---- */
+    .article-wrap {
+      width: min(720px, calc(100% - 2 * var(--gutter)));
+      margin: 0 auto;
+      padding: 96px 0 120px;
+    }
+
+    /* ---- masthead: sits on --paper. No background, no border. ---- */
+    .masthead {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding-bottom: 36px;
+    }
+    .masthead > * { margin: 0; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warm); flex: none; }
+
+    h1.title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 60px;
+      line-height: 64px;
+      letter-spacing: -0.025em;
+    }
+
+    .dek {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 23px;
+      line-height: 33px;
+    }
+
+    .byline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      padding-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 18px;
+    }
+    /* The Zenfeed mark itself, same treatment as the nav brand. It is a
+     * transparent, non-circular figure — no background fill, no radius. */
+    .byline .avatar { width: 22px; height: 22px; flex: none; }
+    .byline b { color: var(--ink); font-weight: 700; }
+
+    /* ---- article body ---- */
+    main.article { display: block; padding-top: 8px; }
+    article { display: flex; flex-direction: column; gap: 24px; }
+    article > * { margin: 0; max-width: 100%; }
+    article p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 31px;
+      color: var(--ink);
+    }
+    article h2 {
+      margin-top: 24px;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 34px;
+      line-height: 40px;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    article h3.kicker {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    article strong { color: var(--ink); font-weight: 700; }
+    article > ol, article > ul { padding-left: 24px; font-size: 18px; line-height: 31px; }
+    article > ol > li + li, article > ul > li + li { margin-top: 8px; }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.84em;
+      background: var(--sand);
+      border-radius: 6px;
+      padding: 1px 7px;
+      overflow-wrap: anywhere;
+    }
+
+    blockquote {
+      padding: 6px 0 6px 28px;
+      border-left: 3px solid var(--warm);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 26px;
+      line-height: 37px;
+      color: var(--ink);
+    }
+
+    /* Note block — sand, no border. */
+    .callout {
+      padding: 22px 24px;
+      background: var(--sand);
+      border-radius: 16px;
+      font-size: 16px;
+      line-height: 27px;
+      color: var(--ink);
+    }
+    .callout .label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* ---- feature grid ---- */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .feature {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+    .feature .k {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 18px;
+    }
+    .feature .k i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+    .feature p { margin: 0; color: var(--muted); font-size: 15px; line-height: 23px; }
+
+    /* ---- end of article ---- */
+    footer.end { display: flex; flex-direction: column; gap: 24px; }
+    footer.end > * { margin: 0; }
+    footer.end p.followup { color: var(--muted); font-size: 16px; line-height: 27px; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .tags span {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 1px var(--line);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 16px;
+    }
+
+    @media (max-width: 639px) {
+      .article-wrap { padding: 40px 0 64px; }
+      .masthead { gap: 16px; padding-bottom: 34px; }
+      .eyebrow { gap: 8px; font-size: 11px; line-height: 14px; letter-spacing: 0.12em; }
+      h1.title { font-size: 38px; line-height: 42px; letter-spacing: -0.02em; }
+      .dek { font-size: 20px; line-height: 29px; }
+      .byline { gap: 4px 8px; padding-top: 0; font-size: 13px; line-height: 16px; }
+      .byline .avatar { width: 20px; height: 20px; }
+      article { gap: 22px; }
+      article p, article > ol, article > ul { font-size: 17px; line-height: 29px; }
+      article h2 { margin-top: 12px; font-size: 28px; line-height: 33px; letter-spacing: -0.01em; }
+      blockquote { padding: 4px 0 4px 18px; font-size: 22px; line-height: 31px; }
+      .callout { padding: 18px; border-radius: 14px; font-size: 15px; line-height: 25px; }
+      .callout .label { margin-bottom: 6px; font-size: 11px; line-height: 14px; }
+      .feature-grid { grid-template-columns: 1fr; gap: 10px; }
+      .feature { gap: 4px; padding: 16px 18px; border-radius: 14px; }
+      footer.end { gap: 22px; }
+      footer.end p.followup { font-size: 15px; line-height: 25px; }
+      .tags { padding-top: 20px; }
+      .tags span { min-height: 36px; }
+    }
+
+    /* ---- site footer ----
+     * Scoped to body > footer: posts also contain <footer class="end"> inside
+     * the article, which must not pick up the sand band. */
+    body > footer {
+      background: var(--sand);
+      border-top: 1px solid var(--line);
+      padding: 36px 0;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+    }
+    .footer-id { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; }
+    .footer-id .brand { font-size: 20px; line-height: 24px; gap: 8px; }
+    .footer-id .brand img { width: 20px; height: 20px; }
+    .footer-copy { margin: 0; color: var(--muted); font-size: 14px; line-height: 20px; }
+
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+    .footer-links a {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; text-decoration-color: var(--ink); }
+
+    @media (max-width: 639px) {
+      body > footer { padding: 32px 0 40px; }
+      .footer-row { flex-direction: column; align-items: stretch; gap: 20px; }
+      .footer-id { display: contents; }
+      .footer-id .brand { order: 1; }
+      .footer-links { order: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 0; }
+      .footer-links a { display: flex; align-items: center; min-height: 44px; font-size: 15px; }
+      .footer-copy { order: 3; font-size: 13px; line-height: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <img src="../icon-default.svg" alt="" width="24" height="24" />
+        Zenfeed
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M7 10h14M7 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="Site">
+        <a href="../compare/">Compare</a>
+        <a href="../guides/">Guides</a>
+        <a href="../blog/" aria-current="page">Blog</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../support.html">Support</a>
+        <a class="nav-cta" href="https://chromewebstore.google.com/detail/zenfeed-%E2%80%94-linkedin-x-feed/bampjhekncompippfdbeglaohbhkopan" target="_blank" rel="noopener">Add to Chrome</a>
+      </nav>
+    </div>
+    <script>
+      (function () {
+        var btn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+        if (!btn || !nav) return;
+        document.documentElement.classList.add("has-menu");
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") !== "true";
+          btn.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
+      })();
+    </script>
+  </header>
+
+  <div class="article-wrap">
+    <header class="masthead">
+      <p class="eyebrow"><span class="dot"></span> COMPETITOR WATCH · 6 MIN READ · NOVEMBER 9, 2026</p>
+      <h1 class="title">Four different bets on fixing a feed, and the one none of them make</h1>
+      <p class="dek">SocialFocus, LinkOff, Clarity, and Control Panel for Twitter each go deep on a different axis — breadth, granularity, crowdsourcing, or interface control. None of them bet on the same combination Zenfeed does.</p>
+      <div class="byline">
+        <img class="avatar" src="../icon-default.svg" alt="" />
+        <span><b>Zenfeed</b> — built by one person</span>
+        <span class="sep">·</span>
+        <span>Live on the Chrome Web Store</span>
+      </div>
+    </header>
+
+    <main class="article">
+      <article>
+
+        <p>Zenfeed isn't the only Chrome extension trying to fix a cluttered feed, and pretending otherwise would be dishonest. SocialFocus, LinkOff, Clarity, and Control Panel for Twitter all exist for roughly the reason Zenfeed does — someone got tired of what their feed had become and built something about it. I went and looked at what each one actually ships, not just what it claims to do, because the four of them turn out to bet on four genuinely different things. Laid side by side, the gap between them is more interesting than any single feature comparison.</p>
+
+        <h2>What does SocialFocus bet on?</h2>
+
+        <p>SocialFocus bets on breadth. One extension covers YouTube, Facebook, Instagram, X, and Reddit, with its own set of granular toggles per platform for recommended videos, Shorts, comments, sidebars, and stories. It has no content-level AI detection and no LinkedIn coverage at all, so the trade is reach across platforms over depth on any single one of them.</p>
+
+        <p>That's a real and useful bet for someone who's logged into all five of those sites and wants one settings panel instead of five. It's also a bet against going deep anywhere — SocialFocus ships daily usage limits per site, not a filter that reasons about what's actually in a post.</p>
+
+        <h2>What does LinkOff bet on?</h2>
+
+        <p>LinkOff bets the opposite way: depth over breadth. It works on LinkedIn only, but goes further there than Zenfeed does — filtering by content type, blocking specific companies or people by name, and removing old posts. It has no AI detection and no timer, so once hidden, a post stays hidden, with no built-in way to bring it back.</p>
+
+        <p>If LinkedIn is the only feed you're trying to fix, that specificity is a genuine advantage over anything Zenfeed offers there. It's just a bet made at the cost of ever touching X or YouTube.</p>
+
+        <h2>What does Clarity bet on?</h2>
+
+        <p>Clarity bets on crowdsourcing. It auto-detects suspected AI-generated videos on YouTube, and lets people label channels into a shared blocklist meant to get smarter as more people use it. That bet requires sending data to a server to build the shared list, which is the one thing Zenfeed's local-only design rules out.</p>
+
+        <p>I wrote about this trade-off in more detail in <a href="./why-claritys-community-blocklist-isnt-coming-to-zenfeed.html">why Clarity's community blocklist isn't coming to Zenfeed</a> — it's a genuinely good idea, and Zenfeed's answer isn't that crowdsourcing is wrong, just that it needs a backend Zenfeed has never had.</p>
+
+        <h2>Does Control Panel for Twitter detect AI content at all?</h2>
+
+        <p>No — its Grok toggle only hides the AI chatbot button in X's interface, not posts written by AI. Its actual bet is interface control: defaulting to the chronological timeline instead of "For You," hiding that tab entirely, hiding engagement counts, and offering deep customization of layout, font, and density.</p>
+
+        <p>That's a different problem than filtering what shows up in the feed, and it's one Control Panel for Twitter solves better than Zenfeed does for X specifically. Its install base is also much larger than any other tool in this comparison, which is its own kind of evidence that plenty of people just want their timeline put back the way it used to work.</p>
+
+        <h3 class="kicker">Four bets, side by side</h3>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="k"><i style="background:var(--slate)"></i>SocialFocus — breadth</div>
+            <p>Five platforms, granular per-site toggles, daily usage limits. No AI detection, no LinkedIn.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--warm)"></i>LinkOff — granularity</div>
+            <p>One platform, filtered deeply by content type and account. No AI detection, no timer.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--rose)"></i>Clarity — crowdsourcing</div>
+            <p>A community blocklist that improves over time. Needs a server to work at all.</p>
+          </div>
+          <div class="feature">
+            <div class="k"><i style="background:var(--sage)"></i>Control Panel — interface</div>
+            <p>Timeline and UI control on X. Doesn't look at what a post actually says.</p>
+          </div>
+        </div>
+
+        <h2>What combination does none of them make?</h2>
+
+        <p>None of the four combine working across more than one platform, a timer that hands everything back automatically, and running entirely in the browser with nothing sent to a server. Each bets hard on one axis — SocialFocus's breadth, LinkOff's granularity, Clarity's crowdsourcing, Control Panel's interface depth — and each trade-off costs something real.</p>
+
+        <p>Zenfeed's bet is that reversible, local, and more-than-one-platform matter more together than winning any single axis outright. It works on LinkedIn, X, and YouTube, though it does less on YouTube than on the other two — Rest from AI, custom keywords, and an opt-in Shorts toggle there, versus the fuller promoted and suggested filtering on LinkedIn and X. Posts aren't deleted, they're collapsed with a reason attached, and anything hidden by a timer comes back on its own once that timer ends.</p>
+
+        <div class="callout">
+          <span class="label">Where Zenfeed is actually behind</span>
+          LinkOff's LinkedIn-specific filters go further than Zenfeed's. Control Panel for Twitter's timeline and UI controls go further on X. Clarity's community blocklist improves with scale in a way a local keyword list never will. None of that changes with this post — it's just the honest shape of what each tool is actually betting on.
+        </div>
+
+        <p>None of this is a claim that detecting AI content is a quality judgment any of these tools, including Zenfeed's own Rest from AI, gets right every time. It's a volume problem — there's enough AI-written and AI-generated content now that it crowds out the posts from people you actually follow, and a keyword sweep that reads text, not pixels, will always miss some and occasionally flag one that isn't. That's true of Zenfeed's own detection as much as anyone else's.</p>
+
+        <footer class="end">
+          <p class="signoff">Four extensions, four different bets, and none of them wrong for the person they're built for. Zenfeed, now on version 1.3.0, is betting that you'd rather have fewer axes done well together than one axis done better alone. If that trade doesn't fit what you need, one of the other three probably will — and that's a fine outcome too.</p>
+          <p class="followup">If you use one of these four and think I got something about it wrong, tell me. I'd rather correct it than leave a stale comparison up.</p>
+          <div class="tags">
+            <span>Competitor Watch</span>
+            <span>Chrome Extensions</span>
+            <span>Feed Hygiene</span>
+            <span>Rest from AI</span>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-id">
+        <a class="brand" href="../">
+          <img src="../icon-default.svg" alt="" width="20" height="20" />
+          Zenfeed
+        </a>
+        <p class="footer-copy">&copy; 2026 Zenfeed. Made for calmer feeds.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="../privacy.html">Privacy</a>
+        <a href="../support.html">Support</a>
+        <a href="../roadmap.html">Roadmap</a>
+        <a href="../compare/">Compare</a>
+        <a href="../blog/">Blog</a>
+        <a href="../guides/">Guides</a>
+        <a href="/blog/feed.xml">RSS</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
